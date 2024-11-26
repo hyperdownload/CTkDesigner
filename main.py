@@ -1,9 +1,19 @@
+import logging
 import customtkinter as ctk
 import tkinter as tk
 from objects.virtualWindow import VirtualWindow
 from tkinter import filedialog
 from data.variable import *
 import tkinter.ttk as ttk
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.StreamHandler(), 
+        logging.FileHandler("app.log")
+    ]
+)
 
 class LeftSidebar(ctk.CTkScrollableFrame):
     def __init__(self, parent):
@@ -26,6 +36,7 @@ class LeftSidebar(ctk.CTkScrollableFrame):
         widget_properties = global_properties
 
         widget_type = widget.__class__.__name__
+        logging.info(f"Mostrando configuración para widget: {widget_type}")
         ctk.CTkLabel(self.config_space, text=f"Tipo: {widget_type}").pack(pady=5)
 
         def create_property_entry(prop):
@@ -38,11 +49,13 @@ class LeftSidebar(ctk.CTkScrollableFrame):
             def update_property(event):
                 try:
                     widget.configure(**{prop: entry.get()})
+                    logging.info(f"Propiedad '{prop}' actualizada a: {entry.get()}")
                 except:
                     try:
                         widget.configure(**{prop: int(entry.get())})
+                        logging.info(f"Propiedad '{prop}' actualizada a: {int(entry.get())}")
                     except ValueError:
-                        print(f"Error: el valor para '{prop}' no es válido.")
+                        logging.error(f"Error: el valor para '{prop}' no es válido.")
             
             entry.bind("<KeyRelease>", update_property)
 
@@ -196,6 +209,9 @@ class Toolbar(ctk.CTkFrame):
 
         import_button = ctk.CTkButton(self, text="Importar desde .py", command=self.import_from_file, **button_style)
         import_button.pack(pady=5, padx=5, side="right")
+        
+        info_label = ctk.CTkLabel(self, text="Ok")
+        info_label.pack(pady=5, padx=5, side="left")
 
     def export_to_file(self):
         file_path = filedialog.asksaveasfilename(

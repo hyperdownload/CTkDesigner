@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from data.variable import *
+import tkinter as tk
 import ast
 class VirtualWindow(ctk.CTkFrame):
     def __init__(self, parent, left_sidebar):
@@ -7,8 +8,13 @@ class VirtualWindow(ctk.CTkFrame):
         self.left_sidebar = left_sidebar
         self.widgets = []
         
+        self.guide_canvas = tk.Canvas(self, width=800, height=500, highlightthickness=0)
+        self.guide_canvas.place(relx=0, rely=0, relwidth=1, relheight=1)
+        
         self.pack_propagate(False)
         self.make_widget_selectable(self)
+        self.make_widget_selectable(self.guide_canvas)
+        
     def add_widget(self, widget_type):
         """Agrega un widget al VirtualWindow."""
         widget = self.create_widget(widget_type)
@@ -80,28 +86,79 @@ class VirtualWindow(ctk.CTkFrame):
             file.write("\n".join(lines))
 
     def make_widget_movable(self, widget):
-        """Hace que un widget sea movible dentro del VirtualWindow."""
+        """Hace que un widget sea movible dentro del VirtualWindow con líneas guía."""
         def start_move(event):
             widget._drag_start_x = event.x
             widget._drag_start_y = event.y
+            self.clear_guides()
 
         def do_move(event):
             new_x = widget.winfo_x() + event.x - widget._drag_start_x
             new_y = widget.winfo_y() + event.y - widget._drag_start_y
             widget.place(x=new_x, y=new_y)
+
+            self.clear_guides()
+            self.draw_guides(widget, new_x, new_y)
+
             if hasattr(self.left_sidebar, 'update_positions'):
                 self.left_sidebar.update_positions(new_x, new_y)
-            else:
-                print("update_positions no está definido.")
+
+        def stop_move(event):
+            self.clear_guides()
 
         widget.bind("<Button-1>", start_move)
         widget.bind("<B1-Motion>", do_move)
+        widget.bind("<ButtonRelease-1>", stop_move)
+
+    def draw_guides(self, widget, new_x, new_y):
+        """Dibuja líneas guía en el canvas para ayudar con la alineación."""
+        widget_width = widget.winfo_width()
+        widget_height = widget.winfo_height()
+
+        widget_center_x = new_x + widget_width // 2
+        widget_center_y = new_y + widget_height // 2
+
+        for child in self.widgets:
+            if child == widget:
+                continue
+
+            child_x = child.winfo_x()
+            child_y = child.winfo_y()
+            child_width = child.winfo_width()
+            child_height = child.winfo_height()
+            child_center_x = child_x + child_width // 2
+            child_center_y = child_y + child_height // 2
+
+            if abs(widget_center_x - child_center_x) <= 5:
+                self.create_guide_line(child_center_x, 0, child_center_x, self.winfo_height())
+            if abs(widget_center_y - child_center_y) <= 5:
+                self.create_guide_line(0, child_center_y, self.winfo_width(), child_center_y)
+
+            if abs(new_x - child_x) <= 5:
+                self.create_guide_line(child_x, 0, child_x, self.winfo_height())
+            if abs(new_x + widget_width - (child_x + child_width)) <= 5:
+                self.create_guide_line(child_x + child_width, 0, child_x + child_width, self.winfo_height())
+            if abs(new_y - child_y) <= 5:
+                self.create_guide_line(0, child_y, self.winfo_width(), child_y)
+            if abs(new_y + widget_height - (child_y + child_height)) <= 5:
+                self.create_guide_line(0, child_y + child_height, self.winfo_width(), child_y + child_height)
+
+    def create_guide_line(self, x1, y1, x2, y2):
+        """Crea una línea guía en el canvas."""
+        self.guide_canvas.create_line(x1, y1, x2, y2, fill="red", dash=(4, 2), width=1)
+
+    def clear_guides(self):
+        """Elimina las líneas guía del canvas."""
+        self.guide_canvas.delete("all")
 
     def make_widget_selectable(self, widget):
         """Hace que un widget sea seleccionable con clic derecho."""
         def select_widget(event):
-            self.left_sidebar.show_widget_config(widget)
-
+            if widget.__class__.__name__=="Canvas":
+                widget.bind("<Button-3>", lambda:select_widget(self))
+                self.left_sidebar.show_widget_config(self)
+            else:
+                self.left_sidebar.show_widget_config(widget)
         widget.bind("<Button-3>", select_widget)
         widget.bind("<Control-Delete>", select_widget)
 
