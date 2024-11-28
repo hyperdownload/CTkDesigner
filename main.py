@@ -50,13 +50,13 @@ class LeftSidebar(ctk.CTkScrollableFrame):
                 try:
                     widget.configure(**{prop: entry.get()})
                     logging.info(f"Propiedad '{prop}' actualizada a: {entry.get()}")
-                except:
+                except Exception:
                     try:
                         widget.configure(**{prop: int(entry.get())})
                         logging.info(f"Propiedad '{prop}' actualizada a: {int(entry.get())}")
                     except ValueError:
                         logging.error(f"Error: el valor para '{prop}' no es válido.")
-            
+
             entry.bind("<KeyRelease>", update_property)
 
         for prop in widget_properties.get(widget_type, []):
@@ -74,14 +74,13 @@ class LeftSidebar(ctk.CTkScrollableFrame):
         y_entry.insert(0, widget.winfo_y())
         y_entry.pack(side="left", padx=2)
 
-        # Actualizar posición dinámicamente
         def update_position(event):
             try:
                 new_x = int(x_entry.get())
                 new_y = int(y_entry.get())
                 widget.place(x=new_x, y=new_y)
             except ValueError:
-                print("Las coordenadas no son válidas.")
+                logging.warning("Posicion invalida")
 
         def update_positions(new_x, new_y):
             x_entry.delete(0, "end")
@@ -103,7 +102,7 @@ class LeftSidebar(ctk.CTkScrollableFrame):
                 child.destroy()
             app.cross_update_treeview()
         else:
-            print("No se puede borrar la virtual window")
+            logging.error("No se puede borrar la virtual window")
 
 class RightSidebar(ctk.CTkScrollableFrame):
     def __init__(self, parent, virtual_window):
@@ -135,21 +134,6 @@ class RightSidebar(ctk.CTkScrollableFrame):
 
         self.widget_tree = {}
 
-    def get_unique_name(self, widget_type):
-        """
-        Genera un nombre único para un widget basado en su tipo.
-        """
-        # Inicializa el contador si no existe
-        if widget_type not in self.widget_counters:
-            self.widget_counters[widget_type] = 0
-
-        # Incrementa el contador y genera el nombre
-        count = self.widget_counters[widget_type]
-        unique_name = f"{widget_type}{count}" if count > 0 else widget_type
-        self.widget_counters[widget_type] += 1
-
-        return unique_name
-
     def add_widget(self, widget):
         """
         Añade un widget a la ventana virtual y actualiza el esquema del TreeView.
@@ -166,7 +150,7 @@ class RightSidebar(ctk.CTkScrollableFrame):
         :return: Lista [(widget, parent_widget), ...] con la jerarquía detectada.
         """
         hierarchy = []
-        container = parent_widget if parent_widget else self.virtual_window 
+        container = parent_widget or self.virtual_window
 
         for child in container.winfo_children():
             hierarchy.append((child, parent_widget))
@@ -214,20 +198,17 @@ class Toolbar(ctk.CTkFrame):
         info_label.pack(pady=5, padx=5, side="left")
 
     def export_to_file(self):
-        file_path = filedialog.asksaveasfilename(
+        if file_path := filedialog.asksaveasfilename(
             defaultextension=".py",
             filetypes=[("Python Files", "*.py")],
-            title="Guardar como"
-        )
-        if file_path:
+            title="Guardar como",
+        ):
             self.virtual_window.export_to_file(file_path)
 
     def import_from_file(self):
-        file_path = filedialog.askopenfilename(
-            filetypes=[("Python Files", "*.py")],
-            title="Abrir archivo"
-        )
-        if file_path:
+        if file_path := filedialog.askopenfilename(
+            filetypes=[("Python Files", "*.py")], title="Abrir archivo"
+        ):
             self.virtual_window.import_from_file(file_path)
             self.right_bar.update_treeview()
 
