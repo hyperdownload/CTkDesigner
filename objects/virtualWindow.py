@@ -195,14 +195,19 @@ class VirtualWindow(ctk.CTkFrame):
 
     def make_widget_selectable(self, widget):
         """Hace que un widget sea seleccionable con clic derecho."""
-        def select_widget(event):
-            if widget.__class__.__name__=="Canvas":
-                widget.bind("<Button-3>", lambda:select_widget(self))
-                self.left_sidebar.show_widget_config(self)
-            else:
-                self.left_sidebar.show_widget_config(widget)
-        widget.bind("<Button-3>", select_widget)
-        widget.bind("<Control-Delete>", select_widget)
+        try:
+            def select_widget(event):
+                if widget.__class__.__name__ == "Canvas":
+                    widget.bind("<Button-3>", lambda event: select_widget(event))
+                    self.left_sidebar.show_widget_config(self)
+                else:
+                    self.left_sidebar.show_widget_config(widget)
+
+            # Asignar manejadores de eventos
+            widget.bind("<Button-3>", select_widget)  # Clic derecho
+            widget.bind("<Control-Delete>", select_widget)  # Ctrl + Delete
+        except Exception as e:
+            logging.error(f"Error en la selección de widget: {e}")
 
     def delete_widget(self, widget):
         """Borra un widget del VirtualWindow."""

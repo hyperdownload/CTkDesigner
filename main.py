@@ -48,20 +48,32 @@ class LeftSidebar(ctk.CTkScrollableFrame):
 
             def update_property(event):
                 try:
-                    widget.configure(**{prop: entry.get()})
-                    logging.info(f"Propiedad '{prop}' actualizada a: {entry.get()}")
-                except Exception:
+                    if prop == "font":
+                        font_value = entry.get()
+                        font_parts = font_value.rsplit(" ", 1)  
+                        if len(font_parts) == 2 and font_parts[1].isdigit():
+                            font_name = font_parts[0]
+                            font_size = int(font_parts[1])
+                            widget.configure(**{prop: (font_name, font_size)})
+                            logging.info(f"Propiedad '{prop}' actualizada a: ({font_name}, {font_size})")
+                        else:
+                            raise ValueError(f"El valor '{font_value}' no es válido para 'font'. Formato esperado: 'Arial 20'")
+                    else:
+                        widget.configure(**{prop: entry.get()})
+                        logging.info(f"Propiedad '{prop}' actualizada a: {entry.get()}")
+                except Exception as e1:
                     try:
                         widget.configure(**{prop: int(entry.get())})
                         logging.info(f"Propiedad '{prop}' actualizada a: {int(entry.get())}")
-                    except ValueError:
-                        logging.error(f"Error: el valor para '{prop}' no es válido.")
+                    except ValueError as e2:
+                        logging.error(f"Error al actualizar '{prop}': {e2}. Valor ingresado: {entry.get()}")
 
             entry.bind("<KeyRelease>", update_property)
 
         for prop in widget_properties.get(widget_type, []):
             create_property_entry(prop)
 
+        # Manejo de posición (x, y)
         ctk.CTkLabel(self.config_space, text="Posición (x, y):").pack(pady=5)
         position_frame = ctk.CTkFrame(self.config_space)
         position_frame.pack(pady=5)
@@ -79,8 +91,9 @@ class LeftSidebar(ctk.CTkScrollableFrame):
                 new_x = int(x_entry.get())
                 new_y = int(y_entry.get())
                 widget.place(x=new_x, y=new_y)
+                logging.info(f"Posición actualizada a: ({new_x}, {new_y})")
             except ValueError:
-                logging.warning("Posicion invalida")
+                logging.warning("Posición inválida. Por favor, ingresa valores numéricos.")
 
         def update_positions(new_x, new_y):
             x_entry.delete(0, "end")
@@ -93,7 +106,13 @@ class LeftSidebar(ctk.CTkScrollableFrame):
         x_entry.bind("<KeyRelease>", update_position)
         y_entry.bind("<KeyRelease>", update_position)
 
-        ctk.CTkButton(self.config_space, text="Borrar widget", command=lambda: self.delete_widget(widget), **button_style).pack(pady=15)
+        ctk.CTkButton(
+            self.config_space,
+            text="Borrar widget",
+            command=lambda: self.delete_widget(widget),
+            **button_style
+        ).pack(pady=15)
+
 
     def delete_widget(self, widget):
         if widget.__class__.__name__ != 'VirtualWindow':
