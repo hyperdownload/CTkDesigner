@@ -32,7 +32,7 @@ class LeftSidebar(ctk.CTkScrollableFrame):
         """Mostrar las configuraciones del widget seleccionado."""
         for child in self.config_space.winfo_children():
             child.destroy()
-
+        widget.focus_set()
         widget_properties = global_properties
 
         widget_type = widget.__class__.__name__
@@ -113,7 +113,6 @@ class LeftSidebar(ctk.CTkScrollableFrame):
             **button_style
         ).pack(pady=15)
 
-
     def delete_widget(self, widget):
         if widget.__class__.__name__ != 'VirtualWindow':
             app.virtual_window.delete_widget(widget)
@@ -126,6 +125,11 @@ class LeftSidebar(ctk.CTkScrollableFrame):
 class RightSidebar(ctk.CTkScrollableFrame):
     def __init__(self, parent, virtual_window):
         super().__init__(parent, width=200)
+        style = ttk.Style()
+        style.theme_use("default")
+        style.configure("Treeview.Heading", background= "#131313", foreground= "#fafafa", font=("Arial", 12, "bold"), relief = "flat")
+        style.configure("Treeview", background=  "#131313", foreground= "#fafafa", fieldbackground="#131313", borderwidth=0, relief = "flat")
+        style.map("Treeview.Heading", background=[("selected",  "#252525"), ("active",  "#252525")])
         self.grid_columnconfigure(0, weight=1)
         self.virtual_window = virtual_window
 
@@ -201,7 +205,7 @@ class RightSidebar(ctk.CTkScrollableFrame):
 
 class Toolbar(ctk.CTkFrame):
     def __init__(self, parent, virtual_window, rightbar):
-        super().__init__(parent, height=40, fg_color="gray")
+        super().__init__(parent, height=40, fg_color="#333333")
         self.virtual_window = virtual_window
         self.right_bar = rightbar
         self.pack_propagate(False)
@@ -213,8 +217,29 @@ class Toolbar(ctk.CTkFrame):
         import_button = ctk.CTkButton(self, text="Importar desde .py", command=self.import_from_file, **button_style)
         import_button.pack(pady=5, padx=5, side="right")
         
-        info_label = ctk.CTkLabel(self, text="Ok")
-        info_label.pack(pady=5, padx=5, side="left")
+        self.info_label = ctk.CTkLabel(self, text="Ok")
+        self.info_label.pack(pady=5, padx=5, side="left")
+        
+        self.progress = ctk.CTkProgressBar(self)
+        self.progress.pack(pady=5, padx=5, side="left")
+        self.progress.set(0)
+        self.progress.pack_forget()
+
+        log_handler = TkinterLogHandler(self.info_label)
+        log_handler.setFormatter(logging.Formatter("%(message)s"))
+        logging.getLogger().addHandler(log_handler)
+        
+    def progress_set_value(self, value):
+        self.progress.set(value)
+        
+        if value < 1.0:
+            self.progress.pack(pady=5, padx=5, side="left")
+        else:
+            self.after(3000, self.hide_progress_bar)
+
+    def hide_progress_bar(self):
+        if self.progress.get() == 1.0: 
+            self.progress.pack_forget()  
 
     def export_to_file(self):
         if file_path := filedialog.asksaveasfilename(
@@ -230,6 +255,18 @@ class Toolbar(ctk.CTkFrame):
         ):
             self.virtual_window.import_from_file(file_path)
             self.right_bar.update_treeview()
+
+class TkinterLogHandler(logging.Handler):
+    def __init__(self, label):
+        super().__init__()
+        self.label = label
+        self.setLevel(logging.WARNING)
+
+    def emit(self, record):
+        if record.levelno >= self.level:
+            log_entry = self.format(record)
+            self.label.configure(text=log_entry)
+            self.label.after(3000, lambda: self.label.configure(text="Ok"))
 
 class App(ctk.CTk):
     def __init__(self):
@@ -247,7 +284,7 @@ class App(ctk.CTk):
         self.central_canvas = ctk.CTkCanvas(self, bg="black")
         self.central_canvas.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
 
-        self.virtual_window = VirtualWindow(self.central_canvas, self.left_sidebar)
+        self.virtual_window = VirtualWindow(self.central_canvas, self.left_sidebar, self)
         self.central_canvas.create_window((50, 50), anchor="nw", window=self.virtual_window)
 
         self.right_sidebar = RightSidebar(self, self.virtual_window)
@@ -259,6 +296,13 @@ class App(ctk.CTk):
     def cross_update_treeview(self):
         self.right_sidebar.update_treeview()
 
+    def cross_update_progressbar(self, val:float):
+        self.toolbar.progress_set_value(val)
+        
+    def cross_update_text_info(self, val:str):
+        self.toolbar.info_label.configure(text=val)
+        self.after(3000, lambda:self.toolbar.info_label.configure(text='Ok.'))
+        
 if __name__ == "__main__":
     app = App()
     app.mainloop()

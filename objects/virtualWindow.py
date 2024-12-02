@@ -3,6 +3,7 @@ from data.variable import *
 import tkinter as tk
 import logging
 import ast
+import re
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -14,9 +15,10 @@ logging.basicConfig(
 )
 
 class VirtualWindow(ctk.CTkFrame):
-    def __init__(self, parent, left_sidebar):
+    def __init__(self, parent, left_sidebar, app):
         super().__init__(parent, width=800, height=500, bg_color="lightgrey", fg_color="white")
         self.left_sidebar = left_sidebar
+        self.app = app
         self.widgets = []
         
         self.guide_canvas = tk.Canvas(self, width=800, height=500, highlightthickness=0)
@@ -45,9 +47,15 @@ class VirtualWindow(ctk.CTkFrame):
             return widget
         logging.error(f"'{widget_type}' no es un tipo de widget válido.")
         return None
-    
+
+    import re
+
     def export_to_file(self, file_path):
         logging.debug(f"Intentando exportar archivo a {file_path}.")
+        
+        self.app.cross_update_progressbar(0.0)
+        self.update_idletasks()
+        
         window_params = {
             "fg_color": self.cget("fg_color"),
             "bg_color": self.cget("bg_color"),
@@ -57,9 +65,12 @@ class VirtualWindow(ctk.CTkFrame):
         logging.debug("Cargando parametros de la ventana...")
         window_params_string = ", ".join(f"{k}={repr(v)}" for k, v in window_params.items())
 
-        logging.debug("Procediendo a crear las lineas...")
+        self.app.cross_update_progressbar(0.2)
+        self.update_idletasks()
+
+        logging.debug("Procediendo a crear las líneas...")
         lines = [
-            "#Codigo generado automaticamente desde una VirtualWindow",
+            "# Codigo generado automaticamente desde una VirtualWindow",
             "import customtkinter as ctk",
             "",
             "class App(ctk.CTk):",
@@ -71,12 +82,15 @@ class VirtualWindow(ctk.CTkFrame):
             f"        self.virtual_window = ctk.CTkFrame(self, {window_params_string})",
             "        self.virtual_window.pack(expand=True, fill='both')",
             "        self.generic_widget_creator()",
-            ""
+            "",
             "    def generic_widget_creator(self):",
-
         ]
 
-        for widget in self.widgets:
+        font_pattern = re.compile(r"<customtkinter\.windows\.widgets\.font\.ctk_font\.CTkFont object 'font\d{1,3}'>")
+        font_pattern_ = re.compile(r'font\d{1,3}')
+
+        total_widgets = len(self.widgets)
+        for i, widget in enumerate(self.widgets):
             widget_type = widget.__class__.__name__
             widget_params = global_properties.get(widget.__class__.__name__)
 
@@ -86,13 +100,21 @@ class VirtualWindow(ctk.CTkFrame):
             params = []
             if widget_params is not None:
                 for value in widget_params:
-                    if value not in (None, "", "default"):  
-                        params.append(f"{value}={repr(widget.cget(value))}")
-                        logging.info(f"{widget.cget(value)}")
+                    if value not in (None, "", "default"):
+                        param_value = widget.cget(value)
+                        # Verificar si el valor del parámetro 'font' coincide con el patrón
+                        if value.lower() == "font" and font_pattern.match(str(param_value)) or font_pattern_.match(str(param_value)):
+                            logging.warning(f"El parámetro 'font' con valor {param_value} no se exportará.")
+                            continue
+                        params.append(f"{value}={repr(param_value)}")
+                        logging.info(f"Exportando: {value}={param_value}")
             else:
                 logging.warning(f"Error: Los parámetros del widget son 'None' para {widget}")
             params_string = ", ".join(params)
             lines.append(f"        ctk.{widget_type}(self.virtual_window, {params_string}).place(x={x}, y={y})")
+
+            self.app.cross_update_progressbar(0.2 + (0.6 * (i + 1) / total_widgets))
+            self.update_idletasks()
 
         lines.extend(
             (
@@ -102,10 +124,16 @@ class VirtualWindow(ctk.CTkFrame):
                 "    app.mainloop()",
             )
         )
+
         logging.info("Lineas creadas exitosamente.\n Escribiendo archivo...")
         with open(file_path, "w", encoding="utf-8") as file:
             logging.info("\n".join(lines))
             file.write("\n".join(lines))
+
+        self.app.cross_update_progressbar(1.0)
+        self.update_idletasks()
+        self.app.cross_update_text_info(f"Exportacion completa, Directorio: {file_path}")
+        logging.info("Exportación completada.")
 
     def make_widget_movable(self, widget):
         """Hace que un widget sea movible dentro del VirtualWindow con líneas guía."""
@@ -205,7 +233,7 @@ class VirtualWindow(ctk.CTkFrame):
 
             # Asignar manejadores de eventos
             widget.bind("<Button-3>", select_widget)  # Clic derecho
-            widget.bind("<Control-Delete>", select_widget)  # Ctrl + Delete
+            widget.bind("<Delete>", lambda event: self.left_sidebar.delete_widget(widget))  # Ctrl + Delete
         except Exception as e:
             logging.error(f"Error en la selección de widget: {e}")
 
@@ -213,6 +241,7 @@ class VirtualWindow(ctk.CTkFrame):
         """Borra un widget del VirtualWindow."""
         widget.destroy()
         self.widgets.remove(widget)
+        logging.debug(f"Deleted widget:{widget}")
         
     def import_from_file(self, file_path):
         """Importa widgets desde un archivo Python exportado, incluidos sus parámetros."""
@@ -222,10 +251,15 @@ class VirtualWindow(ctk.CTkFrame):
             code = self.read_file(file_path)
             if code is None:
                 logging.error("No se pudo leer el archivo, abortando la importación.")
+                self.app.cross_update_text_info("No se pudo leer el archivo, abortando.")
                 return
 
             tree = ast.parse(code)
+            self.app.cross_update_progressbar(0.2)
+            
             app_class = self.find_app_class(tree)
+            self.app.cross_update_progressbar(0.4) 
+            
             if not app_class:
                 logging.error("No se encontró la clase 'App', abortando la importación.")
                 return
@@ -233,11 +267,16 @@ class VirtualWindow(ctk.CTkFrame):
             if generic_widget_creator := self.find_generic_widget_creator(app_class):
                 logging.info("Se encontró la función 'generic_widget_creator', procesando llamadas de widgets.")
                 self.process_widget_calls(generic_widget_creator)
+                self.app.cross_update_progressbar(0.8) 
             else:
                 logging.error("No se encontró la función 'generic_widget_creator', abortando la importación.")
+            
             logging.info("Importación completada exitosamente.")
+            self.app.cross_update_text_info("Importación completada exitosamente.")
+            self.app.cross_update_progressbar(1.0) 
         except Exception as e:
             logging.error(f"Error durante la importación: {e}")
+            self.app.cross_update_progressbar(0.0) 
 
     def clean_virtual_window(self):
         """Limpia el contenido del VirtualWindow."""
