@@ -278,13 +278,69 @@ class App(ctk.CTk):
         self.grid_columnconfigure(1, weight=1)
         self.grid_rowconfigure(0, weight=1)
 
+        self.virtual_window = ctk.CTkFrame(self, fg_color='white', bg_color='lightgrey', width=800, height=500)
+        self.virtual_window.place(x=50, y=50)
+
+        entry_params = {
+            'fg_color': ['#F9F9FA', '#343638'],
+            'border_width': 2,
+            'border_color': ['#979DA2', '#565B5E'],
+            'text_color': ['gray10', '#DCE4EE'],
+            'width': 140,
+            'height': 28
+        }
+
+        self.h = ctk.CTkEntry(self.virtual_window, placeholder_text="500", **entry_params)
+        self.h.place(x=100, y=129)
+
+        self.w = ctk.CTkEntry(self.virtual_window, placeholder_text="800", **entry_params)
+        self.w.place(x=100, y=166)
+
+        label_params = {
+            'textvariable': '',
+            'fg_color': 'transparent',
+            'corner_radius': 0,
+            'text_color': 'black',
+            'width': 0,
+            'height': 28,
+            'anchor': 'center',
+            'compound': 'center',
+            'justify': 'center'
+        }
+
+        ctk.CTkLabel(self.virtual_window, text='Altura:', **label_params).place(x=35, y=129)
+        ctk.CTkLabel(self.virtual_window, text='Anchura:', **label_params).place(x=37, y=166)
+        ctk.CTkLabel(self.virtual_window, text='Nuevo proyecto', font=('Arial', 35), **label_params).place(x=35, y=32)
+        ctk.CTkLabel(self.virtual_window, text='Configuracion de ventana:', font=('Arial', 18), **label_params).place(x=35, y=89)
+
+        self.is_resizable=ctk.CTkCheckBox(self.virtual_window, text='Resizable', textvariable=None, onvalue=1, 
+                         offvalue=0, fg_color='#2E2E2E', text_color='#2E2E2E', width=100, 
+                         height=24, hover_color='#3A3A3A', border_width=3, 
+                         border_color='#5A5A5A', checkmark_color=['#DCE4EE', 'gray90'])
+        self.is_resizable.place(x=35, y=216)
+
+        ctk.CTkButton(self.virtual_window, text='Aceptar', 
+                      command=lambda: self.clear_virtual_window(self.h.get(), self.w.get(), {"is_resizable":self.is_resizable.get()}), 
+                      fg_color='#2E2E2E', width=140, height=28, border_width=2, 
+                      border_color='#5A5A5A', hover_color='#3A3A3A', 
+                      text_color=['#DCE4EE', '#DCE4EE'], border_spacing=2, 
+                      corner_radius=8).place(x=645, y=459)
+
+    def clear_virtual_window(self, h, w, bools):
+        """Elimina todos los widgets dentro de self.virtual_window."""
+        for widget in self.virtual_window.winfo_children():
+            widget.destroy()
+        self.virtual_window.destroy()
+        self.create_ui(int(h), int(w), bools)
+        
+    def create_ui(self, vw_height, vw_width, bools):
         self.left_sidebar = LeftSidebar(self)
         self.left_sidebar.grid(row=0, column=0, sticky="nsew")
 
         self.central_canvas = ctk.CTkCanvas(self, bg="black")
         self.central_canvas.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
 
-        self.virtual_window = VirtualWindow(self.central_canvas, self.left_sidebar, self)
+        self.virtual_window = VirtualWindow(self.central_canvas, self.left_sidebar, self, bools, width=vw_width, height=vw_height)
         self.central_canvas.create_window((50, 50), anchor="nw", window=self.virtual_window)
 
         self.right_sidebar = RightSidebar(self, self.virtual_window)

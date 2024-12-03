@@ -15,13 +15,14 @@ logging.basicConfig(
 )
 
 class VirtualWindow(ctk.CTkFrame):
-    def __init__(self, parent, left_sidebar, app):
-        super().__init__(parent, width=800, height=500, bg_color="lightgrey", fg_color="white")
+    def __init__(self, parent, left_sidebar, app, parameters_dict:dict,width=800, height=500):
+        super().__init__(parent, width=width, height=height, bg_color="lightgrey", fg_color="white")
         self.left_sidebar = left_sidebar
         self.app = app
         self.widgets = []
+        self.parameters_dict = parameters_dict
         
-        self.guide_canvas = tk.Canvas(self, width=800, height=500, highlightthickness=0)
+        self.guide_canvas = tk.Canvas(self, width=width, height=height, highlightthickness=0)
         self.guide_canvas.place(relx=0, rely=0, relwidth=1, relheight=1)
         
         self.pack_propagate(False)
@@ -47,9 +48,7 @@ class VirtualWindow(ctk.CTkFrame):
             return widget
         logging.error(f"'{widget_type}' no es un tipo de widget válido.")
         return None
-
-    import re
-
+    
     def export_to_file(self, file_path):
         logging.debug(f"Intentando exportar archivo a {file_path}.")
         
@@ -79,6 +78,7 @@ class VirtualWindow(ctk.CTkFrame):
             f"        self.geometry('{self.winfo_width()}x{self.winfo_height()}')",
             "        self.title('Exported Virtual Window')",
             "",
+            f"        self.resizable({bool(self.parameters_dict.get("is_resizable"))},{bool(self.parameters_dict.get("is_resizable"))})",
             f"        self.virtual_window = ctk.CTkFrame(self, {window_params_string})",
             "        self.virtual_window.pack(expand=True, fill='both')",
             "        self.generic_widget_creator()",

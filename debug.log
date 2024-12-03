@@ -623,3 +623,121 @@ if __name__ == '__main__':
 2024-12-02 17:21:21,453 - INFO - Propiedad 'fg_color' actualizada a: black
 2024-12-02 17:21:21,520 - INFO - Propiedad 'fg_color' actualizada a: black
 2024-12-02 17:46:09,814 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2024-12-02 21:54:53,768 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2024-12-02 22:25:58,459 - INFO - Escena 'Error' añadida correctamente.
+2024-12-02 22:25:58,461 - INFO - SceneManager inicializado correctamente.
+2024-12-02 22:25:58,461 - INFO - Escena 'Config' añadida correctamente.
+2024-12-02 22:25:58,462 - WARNING - Escena 'Scene1' no encontrada.
+2024-12-02 22:25:58,462 - ERROR - Error al cambiar a la escena 'Error': Error.__init__() missing 1 required positional argument: 'dict'
+2024-12-02 22:25:58,463 - ERROR - Mostrando escena de error.
+2024-12-02 22:26:24,967 - INFO - Escena 'Error' añadida correctamente.
+2024-12-02 22:26:24,967 - INFO - SceneManager inicializado correctamente.
+2024-12-02 22:26:24,968 - INFO - Escena 'Config' añadida correctamente.
+2024-12-02 22:26:24,968 - ERROR - Error al cambiar a la escena 'Config': Config.__init__() takes 1 positional argument but 3 were given
+2024-12-02 22:28:41,974 - INFO - Escena 'Error' añadida correctamente.
+2024-12-02 22:28:41,974 - INFO - SceneManager inicializado correctamente.
+2024-12-02 22:28:41,975 - INFO - Escena 'Config' añadida correctamente.
+2024-12-02 22:28:41,975 - ERROR - Error al cambiar a la escena 'Config': Config.__init__() takes 1 positional argument but 3 were given
+2024-12-02 22:51:25,305 - INFO - VirtualWindow inicializada con dimensiones 500x800 y canvas configurado.
+2024-12-02 22:51:51,921 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2024-12-02 22:58:35,851 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2024-12-02 23:16:08,477 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2024-12-02 23:19:46,631 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2024-12-02 23:19:48,271 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2024-12-02 23:19:48,271 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2024-12-02 23:19:48,275 - INFO - Widget 'CTkButton' creado con éxito.
+2024-12-02 23:19:48,275 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial (100, 100).
+2024-12-02 23:19:56,326 - DEBUG - Intentando exportar archivo a C:/Users/Thiago/Documents/CTkDesigner/a.py.
+2024-12-02 23:19:56,330 - DEBUG - Cargando parametros de la ventana...
+2024-12-02 23:19:56,332 - DEBUG - Procediendo a crear las líneas...
+2024-12-02 23:20:22,981 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2024-12-02 23:20:24,744 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2024-12-02 23:20:24,744 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2024-12-02 23:20:24,747 - INFO - Widget 'CTkButton' creado con éxito.
+2024-12-02 23:20:24,747 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial (100, 100).
+2024-12-02 23:20:31,810 - DEBUG - Intentando exportar archivo a C:/Users/Thiago/Documents/CTkDesigner/a.py.
+2024-12-02 23:20:31,814 - DEBUG - Cargando parametros de la ventana...
+2024-12-02 23:20:31,816 - DEBUG - Procediendo a crear las líneas...
+2024-12-02 23:20:49,464 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2024-12-02 23:20:50,752 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2024-12-02 23:20:50,753 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2024-12-02 23:20:50,759 - INFO - Widget 'CTkButton' creado con éxito.
+2024-12-02 23:20:50,761 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial (100, 100).
+2024-12-02 23:20:54,107 - DEBUG - Intentando exportar archivo a C:/Users/Thiago/Documents/CTkDesigner/a.py.
+2024-12-02 23:20:54,111 - DEBUG - Cargando parametros de la ventana...
+2024-12-02 23:20:54,113 - DEBUG - Procediendo a crear las líneas...
+2024-12-02 23:20:54,113 - INFO - Exportando: text=CTkButton
+2024-12-02 23:20:54,114 - INFO - Exportando: command=None
+2024-12-02 23:20:54,114 - INFO - Exportando: fg_color=['#3B8ED0', '#1F6AA5']
+2024-12-02 23:20:54,114 - INFO - Exportando: width=140
+2024-12-02 23:20:54,114 - INFO - Exportando: height=28
+2024-12-02 23:20:54,115 - INFO - Exportando: border_width=0
+2024-12-02 23:20:54,115 - INFO - Exportando: border_color=['#3E454A', '#949A9F']
+2024-12-02 23:20:54,115 - INFO - Exportando: hover_color=['#36719F', '#144870']
+2024-12-02 23:20:54,115 - INFO - Exportando: text_color=['#DCE4EE', '#DCE4EE']
+2024-12-02 23:20:54,116 - INFO - Exportando: border_spacing=2
+2024-12-02 23:20:54,116 - INFO - Exportando: corner_radius=6
+2024-12-02 23:20:54,118 - INFO - Lineas creadas exitosamente.
+ Escribiendo archivo...
+2024-12-02 23:20:54,119 - INFO - # Codigo generado automaticamente desde una VirtualWindow
+import customtkinter as ctk
+
+class App(ctk.CTk):
+    def __init__(self):
+        super().__init__()
+        self.geometry('800x500')
+        self.title('Exported Virtual Window')
+
+        self.resizable(0,0)        self.virtual_window = ctk.CTkFrame(self, fg_color='white', bg_color='lightgrey', width=800, height=500)
+        self.virtual_window.pack(expand=True, fill='both')
+        self.generic_widget_creator()
+
+    def generic_widget_creator(self):
+        ctk.CTkButton(self.virtual_window, text='CTkButton', command=None, fg_color=['#3B8ED0', '#1F6AA5'], width=140, height=28, border_width=0, border_color=['#3E454A', '#949A9F'], hover_color=['#36719F', '#144870'], text_color=['#DCE4EE', '#DCE4EE'], border_spacing=2, corner_radius=6).place(x=100, y=100)
+
+if __name__ == '__main__':
+    app = App()
+    app.mainloop()
+2024-12-02 23:20:54,123 - INFO - Exportación completada.
+2024-12-02 23:22:08,531 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2024-12-02 23:22:10,048 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2024-12-02 23:22:10,048 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2024-12-02 23:22:10,057 - INFO - Widget 'CTkButton' creado con éxito.
+2024-12-02 23:22:10,057 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial (100, 100).
+2024-12-02 23:22:14,420 - DEBUG - Intentando exportar archivo a C:/Users/Thiago/Documents/CTkDesigner/a.py.
+2024-12-02 23:22:14,423 - DEBUG - Cargando parametros de la ventana...
+2024-12-02 23:22:14,425 - DEBUG - Procediendo a crear las líneas...
+2024-12-02 23:22:14,425 - INFO - Exportando: text=CTkButton
+2024-12-02 23:22:14,426 - INFO - Exportando: command=None
+2024-12-02 23:22:14,426 - INFO - Exportando: fg_color=['#3B8ED0', '#1F6AA5']
+2024-12-02 23:22:14,426 - INFO - Exportando: width=140
+2024-12-02 23:22:14,427 - INFO - Exportando: height=28
+2024-12-02 23:22:14,427 - INFO - Exportando: border_width=0
+2024-12-02 23:22:14,427 - INFO - Exportando: border_color=['#3E454A', '#949A9F']
+2024-12-02 23:22:14,427 - INFO - Exportando: hover_color=['#36719F', '#144870']
+2024-12-02 23:22:14,428 - INFO - Exportando: text_color=['#DCE4EE', '#DCE4EE']
+2024-12-02 23:22:14,428 - INFO - Exportando: border_spacing=2
+2024-12-02 23:22:14,428 - INFO - Exportando: corner_radius=6
+2024-12-02 23:22:14,430 - INFO - Lineas creadas exitosamente.
+ Escribiendo archivo...
+2024-12-02 23:22:14,439 - INFO - # Codigo generado automaticamente desde una VirtualWindow
+import customtkinter as ctk
+
+class App(ctk.CTk):
+    def __init__(self):
+        super().__init__()
+        self.geometry('800x500')
+        self.title('Exported Virtual Window')
+
+        self.resizable(False,False)
+        self.virtual_window = ctk.CTkFrame(self, fg_color='white', bg_color='lightgrey', width=800, height=500)
+        self.virtual_window.pack(expand=True, fill='both')
+        self.generic_widget_creator()
+
+    def generic_widget_creator(self):
+        ctk.CTkButton(self.virtual_window, text='CTkButton', command=None, fg_color=['#3B8ED0', '#1F6AA5'], width=140, height=28, border_width=0, border_color=['#3E454A', '#949A9F'], hover_color=['#36719F', '#144870'], text_color=['#DCE4EE', '#DCE4EE'], border_spacing=2, corner_radius=6).place(x=100, y=100)
+
+if __name__ == '__main__':
+    app = App()
+    app.mainloop()
+2024-12-02 23:22:14,444 - INFO - Exportación completada.
