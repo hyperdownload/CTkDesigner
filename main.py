@@ -20,13 +20,39 @@ class LeftSidebar(ctk.CTkScrollableFrame):
         super().__init__(parent, width=200)
         self.grid_columnconfigure(0, weight=1)
 
-        self.widget_config = ctk.CTkFrame(self)
-        self.widget_config.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
-        self.widget_config_label = ctk.CTkLabel(self.widget_config, text="Configuración de widget")
-        self.widget_config_label.pack(pady=5)
+        if app.use_scene_manager:
+            self.widget_config_scrollable = ctk.CTkScrollableFrame(self, width=200, height=350)
+        else:
+            self.widget_config_scrollable = ctk.CTkFrame(self)
+        self.widget_config_scrollable.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
+        self.widget_config_scrollable.grid_columnconfigure(0, weight=1)
 
-        self.config_space = ctk.CTkFrame(self.widget_config)
-        self.config_space.pack(fill="both", expand=True, padx=5, pady=5)
+        self.widget_config_label = ctk.CTkLabel(self.widget_config_scrollable, text="Configuración de widget")
+        self.widget_config_label.grid(row=0, column=0, padx=5, pady=5)
+
+        self.config_space = ctk.CTkFrame(self.widget_config_scrollable, fg_color='#292929')
+        self.config_space.grid(row=1, column=0, sticky="nsew", padx=5, pady=5)
+        self.config_space.grid_columnconfigure(0, weight=1)
+
+        if app.use_scene_manager:
+            self.scene_manager_frame = ctk.CTkScrollableFrame(self)
+            self.scene_manager_frame.grid(row=1, column=0, sticky="nsew", padx=5, pady=5)
+            self.scene_manager_frame.grid_columnconfigure(0, weight=1)
+
+    def add_scene_manager(self):
+        """Crear widgets en el scene manager con scrollbar."""
+        logging.debug("Agregando scene manager")
+
+        for i in range(20):
+            example_label = ctk.CTkLabel(self.scene_manager_frame, text="Funciona")
+            example_label.grid(row=i, column=0, padx=5, pady=2)
+
+        logging.info("Scene Manager agregado")
+
+
+    def add_widget_to_grid(self, widget, row, column, **grid_options):
+        """Agregar un widget al frame de grid."""
+        widget.grid(in_=self.grid_frame, row=row, column=column, **grid_options)
 
     def show_widget_config(self, widget):
         """Mostrar las configuraciones del widget seleccionado."""
@@ -61,7 +87,7 @@ class LeftSidebar(ctk.CTkScrollableFrame):
                     else:
                         widget.configure(**{prop: entry.get()})
                         logging.info(f"Propiedad '{prop}' actualizada a: {entry.get()}")
-                except Exception as e1:
+                except Exception:
                     try:
                         widget.configure(**{prop: int(entry.get())})
                         logging.info(f"Propiedad '{prop}' actualizada a: {int(entry.get())}")
@@ -73,7 +99,6 @@ class LeftSidebar(ctk.CTkScrollableFrame):
         for prop in widget_properties.get(widget_type, []):
             create_property_entry(prop)
 
-        # Manejo de posición (x, y)
         ctk.CTkLabel(self.config_space, text="Posición (x, y):").pack(pady=5)
         position_frame = ctk.CTkFrame(self.config_space)
         position_frame.pack(pady=5)
@@ -108,6 +133,19 @@ class LeftSidebar(ctk.CTkScrollableFrame):
 
         ctk.CTkButton(
             self.config_space,
+            text="Subir capa",
+            command=lambda: widget.lift(),
+            **button_style
+        ).pack(pady=15)
+        
+        ctk.CTkButton(
+            self.config_space,
+            text="Bajar capa",
+            command=lambda: widget.lower(),
+            **button_style).pack(pady=15)
+
+        ctk.CTkButton(
+            self.config_space,
             text="Borrar widget",
             command=lambda: self.delete_widget(widget),
             **button_style
@@ -133,7 +171,6 @@ class RightSidebar(ctk.CTkScrollableFrame):
         self.grid_columnconfigure(0, weight=1)
         self.virtual_window = virtual_window
 
-        # Diccionario para contar widgets por tipo
         self.widget_counters = {}
 
         ctk.CTkLabel(self, text="Widgets disponibles").grid(row=0, column=0, padx=5, pady=5, sticky="w")
@@ -204,7 +241,7 @@ class RightSidebar(ctk.CTkScrollableFrame):
             self.widget_tree[widget_id] = tree_id
 
 class Toolbar(ctk.CTkFrame):
-    def __init__(self, parent, virtual_window, rightbar):
+    def __init__(self, parent, virtual_window, rightbar, inicialize_on_import=False):
         super().__init__(parent, height=40, fg_color="#333333")
         self.virtual_window = virtual_window
         self.right_bar = rightbar
@@ -224,6 +261,7 @@ class Toolbar(ctk.CTkFrame):
         self.progress.pack(pady=5, padx=5, side="left")
         self.progress.set(0)
         self.progress.pack_forget()
+        self.inicialize_on_import = inicialize_on_import
 
         log_handler = TkinterLogHandler(self.info_label)
         log_handler.setFormatter(logging.Formatter("%(message)s"))
@@ -271,71 +309,110 @@ class TkinterLogHandler(logging.Handler):
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.title("CTk Interface")
+        self.title("Creador de Proyectos - Modo Oscuro")
         self.geometry("1000x600")
-        self._set_appearance_mode("dark")  
+        self.resizable(False, False)
+        ctk.set_appearance_mode("dark")
+        ctk.set_default_color_theme("dark-blue")
+        self.import_proyect=False
+        self.use_scene_manager=False
 
         self.grid_columnconfigure(1, weight=1)
         self.grid_rowconfigure(0, weight=1)
 
-        self.virtual_window = ctk.CTkFrame(self, fg_color='white', bg_color='lightgrey', width=800, height=500)
-        self.virtual_window.place(x=50, y=50)
+        self.virtual_window = ctk.CTkFrame(self, corner_radius=15, fg_color="transparent")
+        self.virtual_window.grid(row=0, column=0, sticky="nsew", padx=40, pady=40)
 
-        entry_params = {
-            'fg_color': ['#F9F9FA', '#343638'],
-            'border_width': 2,
-            'border_color': ['#979DA2', '#565B5E'],
-            'text_color': ['gray10', '#DCE4EE'],
-            'width': 140,
-            'height': 28
-        }
+        self.virtual_window.grid_columnconfigure((0, 1), weight=1)
+        self.virtual_window.grid_rowconfigure((0, 1, 2, 3, 4, 5, 6), weight=1)
 
-        self.h = ctk.CTkEntry(self.virtual_window, placeholder_text="500", **entry_params)
-        self.h.place(x=100, y=129)
-
-        self.w = ctk.CTkEntry(self.virtual_window, placeholder_text="800", **entry_params)
-        self.w.place(x=100, y=166)
-
-        label_params = {
-            'textvariable': '',
+        title_font = ctk.CTkFont(family="Helvetica", size=36, weight="bold")
+        subtitle_font = ctk.CTkFont(family="Helvetica", size=18)
+        label_font = ctk.CTkFont(family="Helvetica", size=14)
+        
+        entry_style = {
             'fg_color': 'transparent',
-            'corner_radius': 0,
-            'text_color': 'black',
-            'width': 0,
-            'height': 28,
-            'anchor': 'center',
-            'compound': 'center',
-            'justify': 'center'
+            'border_width': 2,
+            'border_color': '#1F6AA5',
+            'text_color': ('gray10', 'gray90'),
+            'width': 140,
+            'height': 35,
+            'corner_radius': 8,
+            'font': label_font
         }
 
-        ctk.CTkLabel(self.virtual_window, text='Altura:', **label_params).place(x=35, y=129)
-        ctk.CTkLabel(self.virtual_window, text='Anchura:', **label_params).place(x=37, y=166)
-        ctk.CTkLabel(self.virtual_window, text='Nuevo proyecto', font=('Arial', 35), **label_params).place(x=35, y=32)
-        ctk.CTkLabel(self.virtual_window, text='Configuracion de ventana:', font=('Arial', 18), **label_params).place(x=35, y=89)
+        checkbox_style = {
+            'fg_color': '#1F6AA5',
+            'text_color': ('gray10', 'gray90'),
+            'hover_color': '#2980B9',
+            'border_width': 2,
+            'border_color': '#1F6AA5',
+            'checkmark_color': ('gray90', 'gray10'),
+            'corner_radius': 5,
+            'font': label_font
+        }
 
-        self.is_resizable=ctk.CTkCheckBox(self.virtual_window, text='Resizable', textvariable=None, onvalue=1, 
-                         offvalue=0, fg_color='#2E2E2E', text_color='#2E2E2E', width=100, 
-                         height=24, hover_color='#3A3A3A', border_width=3, 
-                         border_color='#5A5A5A', checkmark_color=['#DCE4EE', 'gray90'])
-        self.is_resizable.place(x=35, y=216)
+        ctk.CTkLabel(self.virtual_window, text='Nuevo Proyecto', font=title_font, text_color=('gray10', 'gray90')).grid(row=0, column=0, columnspan=2, sticky="w", padx=30, pady=(30, 10))
 
-        ctk.CTkButton(self.virtual_window, text='Aceptar', 
-                      command=lambda: self.clear_virtual_window(self.h.get(), self.w.get(), {"is_resizable":self.is_resizable.get()}), 
-                      fg_color='#2E2E2E', width=140, height=28, border_width=2, 
-                      border_color='#5A5A5A', hover_color='#3A3A3A', 
-                      text_color=['#DCE4EE', '#DCE4EE'], border_spacing=2, 
-                      corner_radius=8).place(x=645, y=459)
+        ctk.CTkLabel(self.virtual_window, text='Configuración de ventana', font=subtitle_font, text_color=('gray20', 'gray80')).grid(row=1, column=0, columnspan=2, sticky="w", padx=30, pady=(10, 20))
+
+        ctk.CTkLabel(self.virtual_window, text='Altura:', font=label_font, text_color=('gray10', 'gray90')).grid(row=2, column=0, sticky="e", padx=(20, 10), pady=10)
+        self.h = ctk.CTkEntry(self.virtual_window, placeholder_text="500", **entry_style)
+        self.h.grid(row=2, column=1, sticky="w", padx=(10, 30), pady=10)
+        self.h.insert(tk.END, "500")
+
+        ctk.CTkLabel(self.virtual_window, text='Anchura:', font=label_font, text_color=('gray10', 'gray90')).grid(row=3, column=0, sticky="e", padx=(20, 10), pady=10)
+        self.w = ctk.CTkEntry(self.virtual_window, placeholder_text="800", **entry_style)
+        self.w.grid(row=3, column=1, sticky="w", padx=(10, 30), pady=10)
+        self.w.insert(tk.END, "800")
+
+        self.is_resizable = ctk.CTkCheckBox(self.virtual_window, text='Redimensionable', **checkbox_style)
+        self.is_resizable.grid(row=4, column=0, columnspan=2, sticky="w", padx=30, pady=10)
+
+        self.is_scene_manager = ctk.CTkCheckBox(self.virtual_window, text='Agregar Scene Manager (Beta)', **checkbox_style)
+        self.is_scene_manager.grid(row=5, column=0, columnspan=2, sticky="w", padx=30, pady=10)
+
+        ctk.CTkButton(self.virtual_window, text='Crear Proyecto', 
+                      command=self.create_project,
+                      font=label_font,
+                      **button_style).grid(row=8, column=0, columnspan=2, sticky="se", padx=30, pady=30)
+        
+        ctk.CTkButton(self.virtual_window, text='Importar Proyecto', 
+                      command= lambda: self.create_project(True),
+                      font=label_font,
+                      **button_style).grid(row=8, column=4, columnspan=2, sticky="se", padx=30, pady=30)
+            
+    def create_project(self, import_proyect=False):
+        self.import_proyect = import_proyect
+        self.use_scene_manager = self.is_scene_manager.get()
+        height = self.h.get()
+        width = self.w.get()
+        options = {
+            "is_resizable": self.is_resizable.get(),
+            "is_scene_manager": self.is_scene_manager.get()
+        }
+        logging.info(f"Creando proyecto - Altura: {height}, Anchura: {width}, Opciones: {options}")
+        self.clear_virtual_window(height, width, options)
 
     def clear_virtual_window(self, h, w, bools):
-        """Elimina todos los widgets dentro de self.virtual_window."""
-        for widget in self.virtual_window.winfo_children():
-            widget.destroy()
-        self.virtual_window.destroy()
-        self.create_ui(int(h), int(w), bools)
+        """Elimina todos los widgets dentro de self.virtual_window en el contexto del Menu."""
+        if h.isdigit() and w.isdigit():
+            for widget in self.virtual_window.winfo_children():
+                widget.destroy()
+            self.virtual_window.destroy()
+            self.create_ui(int(h), int(w), bools)
+        else:
+            #Aca deberia haber algo que notifique el tipo de error o advertencia
+            pass
         
     def create_ui(self, vw_height, vw_width, bools):
+        self.resizable(True, True)
         self.left_sidebar = LeftSidebar(self)
         self.left_sidebar.grid(row=0, column=0, sticky="nsew")
+        
+        if self.use_scene_manager:
+            logging.info("Agregando Scene Manager")
+            self.left_sidebar.add_scene_manager()
 
         self.central_canvas = ctk.CTkCanvas(self, bg="black")
         self.central_canvas.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
@@ -346,8 +423,11 @@ class App(ctk.CTk):
         self.right_sidebar = RightSidebar(self, self.virtual_window)
         self.right_sidebar.grid(row=0, column=2, sticky="nsew")
 
-        self.toolbar = Toolbar(self, self.virtual_window, self.right_sidebar)
+        self.toolbar = Toolbar(self, self.virtual_window, self.right_sidebar, self.import_proyect)
         self.toolbar.grid(row=1, column=0, columnspan=3, sticky="nsew")
+        
+        if self.toolbar.inicialize_on_import:
+            self.toolbar.import_from_file()
 
     def cross_update_treeview(self):
         self.right_sidebar.update_treeview()

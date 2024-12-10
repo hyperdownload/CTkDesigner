@@ -102,7 +102,7 @@ class VirtualWindow(ctk.CTkFrame):
                 for value in widget_params:
                     if value not in (None, "", "default"):
                         param_value = widget.cget(value)
-                        # Verificar si el valor del parámetro 'font' coincide con el patrón
+                        #verifica si el valor del parametro 'font' coincide con el patron
                         if value.lower() == "font" and font_pattern.match(str(param_value)) or font_pattern_.match(str(param_value)):
                             logging.warning(f"El parámetro 'font' con valor {param_value} no se exportará.")
                             continue
