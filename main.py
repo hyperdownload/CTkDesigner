@@ -15,6 +15,9 @@ logging.basicConfig(
     ]
 )
 
+def validate_input(value):
+    return bool(value == "" or (value.isdigit() and 0 <= int(value) <= 1000))
+
 class LeftSidebar(ctk.CTkScrollableFrame):
     def __init__(self, parent):
         super().__init__(parent, width=200)
@@ -357,12 +360,18 @@ class App(ctk.CTk):
         ctk.CTkLabel(self.virtual_window, text='Configuración de ventana', font=subtitle_font, text_color=('gray20', 'gray80')).grid(row=1, column=0, columnspan=2, sticky="w", padx=30, pady=(10, 20))
 
         ctk.CTkLabel(self.virtual_window, text='Altura:', font=label_font, text_color=('gray10', 'gray90')).grid(row=2, column=0, sticky="e", padx=(20, 10), pady=10)
-        self.h = ctk.CTkEntry(self.virtual_window, placeholder_text="500", **entry_style)
+        
+        validate_command = self.register(validate_input)
+        
+        self.hvar = ctk.StringVar()
+        self.h = ctk.CTkEntry(self.virtual_window, textvariable=self.hvar,validate="key", validatecommand=(validate_command, "%P"),placeholder_text="500", **entry_style)
         self.h.grid(row=2, column=1, sticky="w", padx=(10, 30), pady=10)
         self.h.insert(tk.END, "500")
 
         ctk.CTkLabel(self.virtual_window, text='Anchura:', font=label_font, text_color=('gray10', 'gray90')).grid(row=3, column=0, sticky="e", padx=(20, 10), pady=10)
-        self.w = ctk.CTkEntry(self.virtual_window, placeholder_text="800", **entry_style)
+        
+        self.wvar = ctk.StringVar()
+        self.w = ctk.CTkEntry(self.virtual_window, textvariable=self.wvar,validate="key", validatecommand=(validate_command, "%P"),placeholder_text="800", **entry_style)
         self.w.grid(row=3, column=1, sticky="w", padx=(10, 30), pady=10)
         self.w.insert(tk.END, "800")
 
