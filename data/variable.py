@@ -25,7 +25,7 @@ global_properties = {
 }
 
 
-button_style = {
+BUTTON_STYLE = {
         "fg_color": "#2E2E2E",  # Color de fondo del boton
         "hover_color": "#3A3A3A",  # Color al pasar el raton por encima
         "text_color": "#FFFFFF",  # Color del texto
