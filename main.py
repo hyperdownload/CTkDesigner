@@ -2,6 +2,7 @@ import logging
 import customtkinter as ctk
 import tkinter as tk
 from objects.virtualWindow import VirtualWindow
+from objects.codeBox import CTkCodeBox
 from tkinter import filedialog
 from data.variable import *
 import tkinter.ttk as ttk
@@ -23,6 +24,7 @@ class LeftSidebar(ctk.CTkScrollableFrame):
     SCENE_MANAGER_LABEL_TEXT = "Funciona"
     POSITION_LABEL_TEXT = "Posición (x, y):"
     PADDING = 5
+    ROW_SCENE = 0
 
     def __init__(self, parent):
         super().__init__(parent, width=200)
@@ -36,8 +38,8 @@ class LeftSidebar(ctk.CTkScrollableFrame):
             self.scene_manager_frame = self.create_scene_manager_frame()
 
     def create_scrollable_frame(self):
-        frame = ctk.CTkScrollableFrame(self, width=200, height=350) if app.use_scene_manager else ctk.CTkFrame(self)
-        return self._extracted_from_create_scene_manager_frame_3(frame, 0)
+        frame = ctk.CTkScrollableFrame(self, width=200, height=350, fg_color='#292929') if app.use_scene_manager else ctk.CTkFrame(self, fg_color='#292929')
+        return self._extracted_from_create_scene_manager_frame_3(frame)
 
     def create_label(self, parent, text):
         label = ctk.CTkLabel(parent, text=text)
@@ -46,24 +48,26 @@ class LeftSidebar(ctk.CTkScrollableFrame):
 
     def create_config_space(self):
         config_space = ctk.CTkFrame(self.widget_config_scrollable, fg_color='#292929')
-        return self._extracted_from_create_scene_manager_frame_3(config_space, 1)
+        return self._extracted_from_create_scene_manager_frame_3(config_space)
 
     def create_scene_manager_frame(self):
-        frame = ctk.CTkScrollableFrame(self)
-        return self._extracted_from_create_scene_manager_frame_3(frame, 1)
+        frame = ctk.CTkScrollableFrame(self, fg_color='#292929')
+        return self._extracted_from_create_scene_manager_frame_3(frame)
+
+    def add_to_scene_manager_frame(self, arg0):
+        self._extracted_from_create_scene_manager_frame_3(arg0)
 
     # TODO Rename this here and in `create_scrollable_frame`, `create_config_space` and `create_scene_manager_frame`
-    def _extracted_from_create_scene_manager_frame_3(self, arg0, row):
+    def _extracted_from_create_scene_manager_frame_3(self, arg0):
         arg0.grid(
-            row=row, column=0, sticky="nsew", padx=self.PADDING, pady=self.PADDING
+            row=self.ROW_SCENE, column=0, sticky="nsew", padx=self.PADDING, pady=self.PADDING
         )
+        self.ROW_SCENE += 1
         arg0.grid_columnconfigure(0, weight=1)
         return arg0
 
     def add_scene_manager(self):
         logging.debug("Agregando scene manager")
-        for i in range(20):
-            self.create_label(self.scene_manager_frame, self.SCENE_MANAGER_LABEL_TEXT).grid(row=i, column=0, padx=self.PADDING, pady=2)
         logging.info("Scene Manager agregado")
 
     def add_widget_to_grid(self, widget, row, column, **grid_options):
@@ -170,6 +174,7 @@ class RightSidebar(ctk.CTkScrollableFrame):
         self.virtual_window = virtual_window
         self.widget_counters = {}
         self.widget_tree = {}
+        self.buttons = {}
 
         self.create_widgets_section()
         self.create_treeview_section()
@@ -194,6 +199,17 @@ class RightSidebar(ctk.CTkScrollableFrame):
             **BUTTON_STYLE
         )
         btn.grid(row=row, column=0, padx=self.PADDING, pady=2, sticky="ew")
+        self.buttons[widget] = btn
+
+    def disable_buttons(self):
+        """Desactiva todos los botones creados."""
+        for btn in self.buttons.values():
+            btn.configure(state="disabled")
+            
+    def enable_buttons(self):
+        """Activa todos los botones creados."""
+        for btn in self.buttons.values():
+            btn.configure(state="normal")
 
     def create_treeview_section(self):
         ctk.CTkLabel(self, text=self.LABEL_SCHEME_TEXT).grid(row=len(widgets) + 1, column=0, padx=self.PADDING, pady=self.PADDING, sticky="w")
@@ -260,7 +276,8 @@ class Toolbar(ctk.CTkFrame):
     def create_buttons(self):
         """Crea y empaqueta los botones de la barra de herramientas."""
         self.create_button("Exportar a .py", self.export_to_file, side="right")
-        self.create_button("Importar desde .py", self.import_from_file, side="right")
+        self.create_button("Code preview", app.view_code, side="right")
+        #self.create_button("Importar desde .py", self.import_from_file, side="right")
 
     def create_button(self, text, command, side):
         """Método auxiliar para crear un botón."""
@@ -412,21 +429,16 @@ class App(ctk.CTk):
         self.is_resizable = ctk.CTkCheckBox(self.virtual_window, text='Redimensionable', **self.CHECKBOX_STYLE)
         self.is_resizable.grid(row=4, column=0, columnspan=2, sticky="w", padx=30, pady=10)
 
-        self.is_scene_manager = ctk.CTkCheckBox(self.virtual_window, text='Agregar Scene Manager (Beta)', **self.CHECKBOX_STYLE)
-        self.is_scene_manager.grid(row=5, column=0, columnspan=2, sticky="w", padx=30, pady=10)
-
     def create_action_buttons(self):
         ctk.CTkButton(self.virtual_window, text='Crear Proyecto', command=self.create_project, font=self.LABEL_FONT, **BUTTON_STYLE).grid(row=8, column=0, columnspan=2, sticky="se", padx=30, pady=30)
         ctk.CTkButton(self.virtual_window, text='Importar Proyecto', command=lambda: self.create_project(True), font=self.LABEL_FONT, **BUTTON_STYLE).grid(row=8, column=4, columnspan=2, sticky="se", padx=30, pady=30)
 
     def create_project(self, import_proyect=False):
         self.import_proyect = import_proyect
-        self.use_scene_manager = self.is_scene_manager.get()
         height = self.hvar.get()
         width = self.wvar.get()
         options = {
             "is_resizable": self.is_resizable.get(),
-            "is_scene_manager": self.is_scene_manager.get()
         }
         logging.info(f"Creando proyecto - Altura: {height}, Anchura: {width}, Opciones: {options}")
         self.clear_virtual_window(height, width, options)
@@ -446,10 +458,6 @@ class App(ctk.CTk):
         self.left_sidebar = LeftSidebar(self)
         self.left_sidebar.grid(row=0, column=0, sticky="nsew")
 
-        if self.use_scene_manager:
-            logging.info("Agregando Scene Manager")
-            self.left_sidebar.add_scene_manager()
-
         self.central_canvas = ctk.CTkCanvas(self, bg="black")
         self.central_canvas.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
 
@@ -462,8 +470,18 @@ class App(ctk.CTk):
         self.toolbar = Toolbar(self, self.virtual_window, self.right_sidebar, self.import_proyect)
         self.toolbar.grid(row=1, column=0, columnspan=3, sticky="nsew")
 
-        if self.toolbar.inicialize_on_import:
+        if self.toolbar.initialize_on_import:
             self.toolbar.import_from_file()
+
+    def view_code(self):
+        if self.virtual_window.toggle_visibility():
+            self.code = CTkCodeBox(self.central_canvas, height=500, width=800, language='python')
+            self.code.place(x=50, y=50)
+            self.code.insert('1.0', "\n".join(self.virtual_window.previsualize_code()))
+            self.right_sidebar.disable_buttons()
+        else:
+            self.right_sidebar.enable_buttons()
+            self.code.destroy()
 
     def cross_update_treeview(self):
         self.right_sidebar.update_treeview()

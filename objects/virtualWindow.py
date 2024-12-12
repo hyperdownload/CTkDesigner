@@ -21,6 +21,7 @@ class VirtualWindow(ctk.CTkFrame):
         self.app = app
         self.widgets = []
         self.parameters_dict = parameters_dict
+        self._is_hidden = False
         
         self.guide_canvas = tk.Canvas(self, width=width, height=height, highlightthickness=0)
         self.guide_canvas.place(relx=0, rely=0, relwidth=1, relheight=1)
@@ -49,36 +50,86 @@ class VirtualWindow(ctk.CTkFrame):
         logging.error(f"'{widget_type}' no es un tipo de widget válido.")
         return None
     
+    def toggle_visibility(self):
+        """Alterna la visibilidad de todos los widgets dentro de la VirtualWindow."""
+        if hasattr(self, '_is_hidden') and self._is_hidden:
+            for widget in self.widgets:
+                widget.place(x=widget._original_x, y=widget._original_y)
+            self._is_hidden = False
+            logging.info("Widgets desocultados.")
+        else:
+            for widget in self.widgets:
+                widget._original_x = widget.winfo_x()
+                widget._original_y = widget.winfo_y()
+                widget.place_forget()
+            self._is_hidden = True
+            logging.info("Widgets ocultados.")
+        return self._is_hidden
+    
+    def previsualize_code(self):
+        logging.debug("Intentando generar lineas")
+
+        lines = self._extracted_from_export_to_file_4()
+        self.update_idletasks()
+
+        lines.extend(self.create_footer_lines())
+        self.app.cross_update_progressbar(1.0)
+        self.update_idletasks()
+        return lines
+    
     def export_to_file(self, file_path):
-        logging.debug(f"Intentando exportar archivo a {file_path}.")
-        
+        """Exports the current virtual window configuration to a specified file."""
+        logging.debug(f"Attempting to export file to {file_path}.")
+
+        lines = self._extracted_from_export_to_file_4()
+        lines.extend(self.create_footer_lines())
+
+        self.write_to_file(file_path, lines)
+        self.app.cross_update_progressbar(1.0)
+        self.update_idletasks()
+        self.app.cross_update_text_info(f"Export complete, Directory: {file_path}")
+        logging.info("Export completed.")
+
+    # TODO Rename this here and in `previsualize_code` and `export_to_file`
+    def _extracted_from_export_to_file_4(self):
         self.app.cross_update_progressbar(0.0)
         self.update_idletasks()
-        
+        window_params_string = self.get_window_params_string()
+        self.app.cross_update_progressbar(0.5)
+        self.update_idletasks()
+        result = self.create_initial_lines(window_params_string)
+        self.add_widget_lines(result)
+        self.app.cross_update_progressbar(0.7)
+        return result
+
+    def get_window_params_string(self):
+        """Retrieves the window parameters as a formatted string."""
         window_params = {
             "fg_color": self.cget("fg_color"),
             "bg_color": self.cget("bg_color"),
             "width": self.cget("width"),
             "height": self.cget("height"),
         }
-        logging.debug("Cargando parametros de la ventana...")
-        window_params_string = ", ".join(f"{k}={repr(v)}" for k, v in window_params.items())
+        logging.debug("Loading window parameters...")
+        return ", ".join(f"{k}={repr(v)}" for k, v in window_params.items())
 
-        self.app.cross_update_progressbar(0.2)
-        self.update_idletasks()
+    def create_initial_lines(self, window_params_string):
+        """Creates the initial lines of the exported code."""
+        logging.debug("Creating initial lines...")
+        heredate = "class App(ctk.CTk):" if self.parameters_dict.get('is_scene_manager') else "class App(ctk.CTk):"
+        logging.info("Applying inheritance from Base Scene" if self.parameters_dict.get('is_scene_manager') else "Not using Base Scene")
 
-        logging.debug("Procediendo a crear las líneas...")
-        lines = [
-            "# Codigo generado automaticamente desde una VirtualWindow",
+        return [
+            "# Auto-generated code from a VirtualWindow",
             "import customtkinter as ctk",
             "",
-            "class App(ctk.CTk):",
+            heredate,
             "    def __init__(self):",
             "        super().__init__()",
             f"        self.geometry('{self.winfo_width()}x{self.winfo_height()}')",
             "        self.title('Exported Virtual Window')",
             "",
-            f"        self.resizable({bool(self.parameters_dict.get("is_resizable"))},{bool(self.parameters_dict.get("is_resizable"))})",
+            f"        self.resizable({bool(self.parameters_dict.get('is_resizable'))},{bool(self.parameters_dict.get('is_resizable'))})",
             f"        self.virtual_window = ctk.CTkFrame(self, {window_params_string})",
             "        self.virtual_window.pack(expand=True, fill='both')",
             "        self.generic_widget_creator()",
@@ -86,6 +137,8 @@ class VirtualWindow(ctk.CTkFrame):
             "    def generic_widget_creator(self):",
         ]
 
+    def add_widget_lines(self, lines):
+        """Adds lines for each widget to the exported code."""
         font_pattern = re.compile(r"<customtkinter\.windows\.widgets\.font\.ctk_font\.CTkFont object 'font\d{1,3}'>")
         font_pattern_ = re.compile(r'font\d{1,3}')
 
@@ -97,43 +150,44 @@ class VirtualWindow(ctk.CTkFrame):
             x = widget.winfo_x()
             y = widget.winfo_y()
 
-            params = []
-            if widget_params is not None:
-                for value in widget_params:
-                    if value not in (None, "", "default"):
-                        param_value = widget.cget(value)
-                        #verifica si el valor del parametro 'font' coincide con el patron
-                        if value.lower() == "font" and font_pattern.match(str(param_value)) or font_pattern_.match(str(param_value)):
-                            logging.warning(f"El parámetro 'font' con valor {param_value} no se exportará.")
-                            continue
-                        params.append(f"{value}={repr(param_value)}")
-                        logging.info(f"Exportando: {value}={param_value}")
-            else:
-                logging.warning(f"Error: Los parámetros del widget son 'None' para {widget}")
-            params_string = ", ".join(params)
+            params_string = self.get_widget_params_string(widget, widget_params, font_pattern, font_pattern_)
             lines.append(f"        ctk.{widget_type}(self.virtual_window, {params_string}).place(x={x}, y={y})")
 
             self.app.cross_update_progressbar(0.2 + (0.6 * (i + 1) / total_widgets))
             self.update_idletasks()
 
-        lines.extend(
-            (
-                "",
-                "if __name__ == '__main__':",
-                "    app = App()",
-                "    app.mainloop()",
-            )
-        )
+    def get_widget_params_string(self, widget, widget_params, font_pattern, font_pattern_):
+        """Retrieves the widget parameters as a formatted string."""
+        params = []
+        if widget_params is not None:
+            for value in widget_params:
+                if value not in (None, "", "default"):
+                    param_value = widget.cget(value)
+                    if value.lower() == "font" and (font_pattern.match(str(param_value)) or font_pattern_.match(str(param_value))):
+                        logging.warning(f"The 'font' parameter with value {param_value} will not be exported.")
+                        continue
+                    params.append(f"{value}={repr(param_value)}")
+                    logging.info(f"Exporting: {value}={param_value}")
+        else:
+            logging.warning(f"Error: Widget parameters are 'None' for {widget}")
 
-        logging.info("Lineas creadas exitosamente.\n Escribiendo archivo...")
+        return ", ".join(params)
+
+    def create_footer_lines(self):
+        """Creates the footer lines for the exported code."""
+        return [
+            "",
+            "if __name__ == '__main__':",
+            "    app = App()",
+            "    app.mainloop()",
+        ]
+
+    def write_to_file(self, file_path, lines):
+        """Writes the generated lines to the specified file."""
+        logging.info("Successfully created lines. Writing to file...")
         with open(file_path, "w", encoding="utf-8") as file:
             logging.info("\n".join(lines))
             file.write("\n".join(lines))
-
-        self.app.cross_update_progressbar(1.0)
-        self.update_idletasks()
-        self.app.cross_update_text_info(f"Exportacion completa, Directorio: {file_path}")
-        logging.info("Exportación completada.")
 
     def make_widget_movable(self, widget):
         """Hace que un widget sea movible dentro del VirtualWindow con líneas guía."""
