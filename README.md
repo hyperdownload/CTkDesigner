@@ -2,6 +2,8 @@
 
 CTkDesigner is a graphical user interface (GUI) design tool built with Python and CustomTkinter. It allows users to create, customize, and export GUI layouts visually, making it easier to design interfaces for CustomTkinter applications.
 
+![image](https://github.com/user-attachments/assets/826642e4-ec81-43ab-9554-06b217e20ccb)
+
 ## Features
 
 - Visual GUI builder for CustomTkinter
