@@ -3,6 +3,8 @@ import customtkinter as ctk
 import tkinter as tk
 from objects.virtualWindow import VirtualWindow
 from objects.codeBox import CTkCodeBox
+from translations.translations import *
+from translations.translator import Translator
 from tkinter import filedialog
 from data.variable import *
 import tkinter.ttk as ttk
@@ -20,9 +22,6 @@ def validate_input(value):
     return bool(value == "" or (value.isdigit() and 0 <= int(value) <= 1000))
 
 class LeftSidebar(ctk.CTkScrollableFrame):
-    CONFIG_LABEL_TEXT = "Configuración de widget"
-    SCENE_MANAGER_LABEL_TEXT = "Funciona"
-    POSITION_LABEL_TEXT = "Posición (x, y):"
     PADDING = 5
     ROW_SCENE = 0
 
@@ -31,7 +30,9 @@ class LeftSidebar(ctk.CTkScrollableFrame):
         self.grid_columnconfigure(0, weight=1)
 
         self.widget_config_scrollable = self.create_scrollable_frame()
-        self.widget_config_label = self.create_label(self.widget_config_scrollable, self.CONFIG_LABEL_TEXT)
+        self.widget_config_label = self.create_label(self.widget_config_scrollable,
+            app.translator.translate("CONFIG_LABEL_TEXT")
+        )
 
         self.config_space = self.create_config_space()
         if app.use_scene_manager:
@@ -88,7 +89,7 @@ class LeftSidebar(ctk.CTkScrollableFrame):
             child.destroy()
 
     def create_property_entries(self, widget, properties):
-        ctk.CTkLabel(self.config_space, text=f"Tipo: {widget.__class__.__name__}").pack(pady=self.PADDING)
+        ctk.CTkLabel(self.config_space, text=f"{app.translator.translate("TYPE_TEXT_WIDGET_LABEL")} {widget.__class__.__name__}").pack(pady=self.PADDING)
         for prop in properties:
             self.create_property_entry(widget, prop)
 
@@ -119,7 +120,7 @@ class LeftSidebar(ctk.CTkScrollableFrame):
         logging.info(f"Propiedad 'font' actualizada a: ({font_name}, {font_size})")
 
     def create_position_entries(self, widget):
-        ctk.CTkLabel(self.config_space, text=self.POSITION_LABEL_TEXT).pack(pady=self.PADDING)
+        ctk.CTkLabel(self.config_space, text=app.translator.translate("POSITION_LABEL_TEXT")).pack(pady=self.PADDING)
         position_frame = ctk.CTkFrame(self.config_space)
         position_frame.pack(pady=self.PADDING)
 
@@ -144,11 +145,11 @@ class LeftSidebar(ctk.CTkScrollableFrame):
         except ValueError:
             logging.warning("Posición inválida. Por favor, ingresa valores numéricos.")
 
-    def create_action_buttons(self, widget):
-        actions = [
-            ("Subir capa", lambda: widget.lift()),
-            ("Bajar capa", lambda: widget.lower()),
-            ("Borrar widget", lambda: self.delete_widget(widget))
+    def create_action_buttons(self, widget): 
+        actions = [ 
+            (app.translator.translate("RIGHTBAR_BUTTON_UPLOAD_LAYER"), lambda: widget.lift()), 
+            (app.translator.translate("RIGHTBAR_BUTTON_LOWER_LAYER"), lambda: widget.lower()), 
+            (app.translator.translate("RIGHTBAR_BUTTON_DELETE_WIDGET"), lambda: self.delete_widget(widget)) 
         ]
         for text, command in actions:
             ctk.CTkButton(self.config_space, text=text, command=command, **BUTTON_STYLE).pack(pady=15)
@@ -162,8 +163,6 @@ class LeftSidebar(ctk.CTkScrollableFrame):
             logging.error("No se puede borrar la virtual window")
 
 class RightSidebar(ctk.CTkScrollableFrame):
-    LABEL_WIDGETS_TEXT = "Widgets disponibles"
-    LABEL_SCHEME_TEXT = "Esquema de widgets"
     TREEVIEW_WIDTH = 180
     PADDING = 5
 
@@ -187,7 +186,7 @@ class RightSidebar(ctk.CTkScrollableFrame):
         style.map("Treeview.Heading", background=[("selected", "#252525"), ("active", "#252525")])
 
     def create_widgets_section(self):
-        ctk.CTkLabel(self, text=self.LABEL_WIDGETS_TEXT).grid(row=0, column=0, padx=self.PADDING, pady=self.PADDING, sticky="w")
+        ctk.CTkLabel(self, text=app.translator.translate("LABEL_WIDGETS_TEXT")).grid(row=0, column=0, padx=self.PADDING, pady=self.PADDING, sticky="w")
         for i, widget in enumerate(widgets):
             self.create_widget_button(widget, i + 1)
 
@@ -212,7 +211,7 @@ class RightSidebar(ctk.CTkScrollableFrame):
             btn.configure(state="normal")
 
     def create_treeview_section(self):
-        ctk.CTkLabel(self, text=self.LABEL_SCHEME_TEXT).grid(row=len(widgets) + 1, column=0, padx=self.PADDING, pady=self.PADDING, sticky="w")
+        ctk.CTkLabel(self, text=app.translator.translate("LABEL_SCHEME_TEXT")).grid(row=len(widgets) + 1, column=0, padx=self.PADDING, pady=self.PADDING, sticky="w")
         self.tree = ttk.Treeview(self, selectmode="browse", show="tree")
         self.tree.grid(row=len(widgets) + 2, column=0, padx=self.PADDING, pady=self.PADDING, sticky="nsew")
         self.tree.column("#0", width=self.TREEVIEW_WIDTH, stretch=True)
@@ -275,10 +274,15 @@ class Toolbar(ctk.CTkFrame):
 
     def create_buttons(self):
         """Crea y empaqueta los botones de la barra de herramientas."""
-        self.create_button("Exportar a .py", self.export_to_file, side="right")
-        self.create_button("Code preview", app.view_code, side="right")
+        self.create_button(app.translator.translate("TOOLBAR_BUTTON_EXPORT"), self.export_to_file, side="right")
+        self.create_button("Code preview", self.change_view, side="right")
         #self.create_button("Importar desde .py", self.import_from_file, side="right")
-
+    
+    def change_view(self):
+        """Cambia el modo de visualización del código."""
+        
+        app.view_code()
+    
     def create_button(self, text, command, side):
         """Método auxiliar para crear un botón."""
         button = ctk.CTkButton(self, text=text, command=command, **BUTTON_STYLE)
@@ -350,7 +354,9 @@ class App(ctk.CTk):
 
     def __init__(self):
         super().__init__()
-        self.title("Creador de Proyectos - Modo Oscuro")
+        self.translator = Translator()
+        self.translator.load_translations(translations)
+        self.title("CustomDesigner")
         self.geometry("1000x600")
         self.resizable(False, False)
         ctk.set_appearance_mode("dark")
@@ -406,19 +412,19 @@ class App(ctk.CTk):
         self.create_action_buttons()
 
     def create_title_label(self):
-        ctk.CTkLabel(self.virtual_window, text='Nuevo Proyecto', font=self.TITLE_FONT, text_color=('gray10', 'gray90')).grid(row=0, column=0, columnspan=2, sticky="w", padx=30, pady=(30, 10))
+        ctk.CTkLabel(self.virtual_window, text=self.translator.translate("NEW_PROYECT"), font=self.TITLE_FONT, text_color=('gray10', 'gray90')).grid(row=0, column=0, columnspan=2, sticky="w", padx=30, pady=(30, 10))
 
     def create_window_configuration_labels(self):
-        ctk.CTkLabel(self.virtual_window, text='Configuración de ventana', font=self.SUBTITLE_FONT, text_color=('gray20', 'gray80')).grid(row=1, column=0, columnspan=2, sticky="w", padx=30, pady=(10, 20))
+        ctk.CTkLabel(self.virtual_window, text=self.translator.translate("WINDOW_CONFIG"), font=self.SUBTITLE_FONT, text_color=('gray20', 'gray80')).grid(row=1, column=0, columnspan=2, sticky="w", padx=30, pady=(10, 20))
 
     def create_entry_fields(self):
         validate_command = self.register(validate_input)
 
         self.hvar = ctk.StringVar(value=str(self.DEFAULT_HEIGHT))
-        self.create_label_and_entry('Altura:', self.hvar, 2, validate_command)
+        self.create_label_and_entry(self.translator.translate("HEIGHT"), self.hvar, 2, validate_command)
 
         self.wvar = ctk.StringVar(value=str(self.DEFAULT_WIDTH))
-        self.create_label_and_entry('Anchura:', self.wvar, 3, validate_command)
+        self.create_label_and_entry(self.translator.translate("WIDTH"), self.wvar, 3, validate_command)
 
     def create_label_and_entry(self, label_text, text_var, row, validate_command):
         ctk.CTkLabel(self.virtual_window, text=label_text, font=self.LABEL_FONT, text_color=('gray10', 'gray90')).grid(row=row, column=0, sticky="e", padx=(20, 10), pady=10)
@@ -426,12 +432,12 @@ class App(ctk.CTk):
         entry.grid(row=row, column=1, sticky="w", padx=(10, 30), pady=10)
 
     def create_checkboxes(self):
-        self.is_resizable = ctk.CTkCheckBox(self.virtual_window, text='Redimensionable', **self.CHECKBOX_STYLE)
+        self.is_resizable = ctk.CTkCheckBox(self.virtual_window, text=self.translator.translate("RESIZABLE"), **self.CHECKBOX_STYLE)
         self.is_resizable.grid(row=4, column=0, columnspan=2, sticky="w", padx=30, pady=10)
 
     def create_action_buttons(self):
-        ctk.CTkButton(self.virtual_window, text='Crear Proyecto', command=self.create_project, font=self.LABEL_FONT, **BUTTON_STYLE).grid(row=8, column=0, columnspan=2, sticky="se", padx=30, pady=30)
-        ctk.CTkButton(self.virtual_window, text='Importar Proyecto', command=lambda: self.create_project(True), font=self.LABEL_FONT, **BUTTON_STYLE).grid(row=8, column=4, columnspan=2, sticky="se", padx=30, pady=30)
+        ctk.CTkButton(self.virtual_window, text=self.translator.translate("CREATE_PROJECT"), command=self.create_project, font=self.LABEL_FONT, **BUTTON_STYLE).grid(row=8, column=0, columnspan=2, sticky="se", padx=30, pady=30)
+        ctk.CTkButton(self.virtual_window, text=self.translator.translate("IMPORT_PROJECT"), command=lambda: self.create_project(True), font=self.LABEL_FONT, **BUTTON_STYLE).grid(row=8, column=4, columnspan=2, sticky="se", padx=30, pady=30)
 
     def create_project(self, import_proyect=False):
         self.import_proyect = import_proyect
@@ -492,6 +498,18 @@ class App(ctk.CTk):
     def cross_update_text_info(self, val: str):
         self.toolbar.info_label.configure(text=val)
         self.after(3000, lambda: self.toolbar.info_label.configure(text='Ok.'))
+    
+    def switch_language(self, language):
+        try:
+            self.translator.set_language(language)
+            self.refresh_ui()
+        except ValueError as e:
+            logging.error(str(e))
+    
+    def refresh_ui(self):
+        for widget in self.winfo_children():
+            if isinstance(widget, ctk.CTkLabel):
+                widget.configure(text=self.translator.translate(widget._key))
     
 if __name__ == "__main__":
     app = App()
