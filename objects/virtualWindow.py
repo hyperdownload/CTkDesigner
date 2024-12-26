@@ -22,6 +22,7 @@ class VirtualWindow(ctk.CTkFrame):
         self.widgets = []
         self.parameters_dict = parameters_dict
         self._is_hidden = False
+        self._original_positions = {} 
         
         self.guide_canvas = tk.Canvas(self, width=width, height=height, highlightthickness=0)
         self.guide_canvas.place(relx=0, rely=0, relwidth=1, relheight=1)
@@ -52,15 +53,16 @@ class VirtualWindow(ctk.CTkFrame):
     
     def toggle_visibility(self):
         """Alterna la visibilidad de todos los widgets dentro de la VirtualWindow."""
-        if hasattr(self, '_is_hidden') and self._is_hidden:
+        if self._is_hidden:
             for widget in self.widgets:
-                widget.place(x=widget._original_x, y=widget._original_y)
+                if widget in self._original_positions:
+                    x, y = self._original_positions[widget]
+                    widget.place(x=x, y=y)
             self._is_hidden = False
             logging.info("Widgets desocultados.")
         else:
             for widget in self.widgets:
-                widget._original_x = widget.winfo_x()
-                widget._original_y = widget.winfo_y()
+                self._original_positions[widget] = (widget.winfo_x(), widget.winfo_y())
                 widget.place_forget()
             self._is_hidden = True
             logging.info("Widgets ocultados.")
@@ -296,6 +298,40 @@ class VirtualWindow(ctk.CTkFrame):
         widget.destroy()
         self.widgets.remove(widget)
         logging.debug(f"Deleted widget:{widget}")
+        
+    def import_from_codebox(self, code):
+        """Importa widgets desde el código proporcionado en CodeBox, incluidos sus parámetros."""
+        self.clean_virtual_window()
+        logging.info("Iniciando la importación de widgets desde CodeBox")
+        try:
+            if not code:
+                logging.error("El código proporcionado está vacío, abortando la importación.")
+                self.app.cross_update_text_info("El código proporcionado está vacío, abortando.")
+                return
+
+            tree = ast.parse(code)
+            self.app.cross_update_progressbar(0.2)
+            
+            app_class = self.find_app_class(tree)
+            self.app.cross_update_progressbar(0.4) 
+            
+            if not app_class:
+                logging.error("No se encontró la clase 'App', abortando la importación.")
+                return
+
+            if generic_widget_creator := self.find_generic_widget_creator(app_class):
+                logging.info("Se encontró la función 'generic_widget_creator', procesando llamadas de widgets.")
+                self.process_widget_calls(generic_widget_creator)
+                self.app.cross_update_progressbar(0.8) 
+            else:
+                logging.error("No se encontró la función 'generic_widget_creator', abortando la importación.")
+            
+            logging.info("Importación completada exitosamente.")
+            self.app.cross_update_text_info("Importación completada exitosamente.")
+            self.app.cross_update_progressbar(1.0) 
+        except Exception as e:
+            logging.error(f"Error durante la importación: {e}")
+            self.app.cross_update_progressbar(0.0)    
         
     def import_from_file(self, file_path):
         """Importa widgets desde un archivo Python exportado, incluidos sus parámetros."""

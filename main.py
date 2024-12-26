@@ -39,10 +39,32 @@ class LeftSidebar(ctk.CTkScrollableFrame):
             self.scene_manager_frame = self.create_scene_manager_frame()
 
     def create_scrollable_frame(self):
+        """
+        Crea un Scrollable Frame para mostrar widgets.
+
+        Parámetros:
+        Ninguno
+
+        Retorna:
+        frame (ctk.CTkScrollableFrame o ctk.CTkFrame): Un marco desplazable o un marco regular, dependiendo del valor de app.use_scene_manager.
+        """
         frame = ctk.CTkScrollableFrame(self, width=200, height=350, fg_color='#292929') if app.use_scene_manager else ctk.CTkFrame(self, fg_color='#292929')
         return self._extracted_from_create_scene_manager_frame_3(frame)
 
     def create_label(self, parent, text):
+        """
+        Crea y configura un widget CTkLabel.
+
+        Esta función crea un nuevo widget CTkLabel con el texto proporcionado,
+        lo agrega al widget padre especificado y configura su posición en la cuadrícula.
+
+        Parámetros:
+        parent (ctk.CTk): El widget padre al que se agregará el Label.
+        text (str): El texto que se mostrará en el Label.
+
+        Retorna:
+        ctk.CTkLabel: El Label creado y configurado.
+        """
         label = ctk.CTkLabel(parent, text=text)
         label.grid(row=0, column=0, padx=self.PADDING, pady=self.PADDING)
         return label
@@ -66,10 +88,6 @@ class LeftSidebar(ctk.CTkScrollableFrame):
         self.ROW_SCENE += 1
         arg0.grid_columnconfigure(0, weight=1)
         return arg0
-
-    def add_scene_manager(self):
-        logging.debug("Agregando scene manager")
-        logging.info("Scene Manager agregado")
 
     def add_widget_to_grid(self, widget, row, column, **grid_options):
         widget.grid(in_=self.grid_frame, row=row, column=column, **grid_options)
@@ -256,7 +274,7 @@ class RightSidebar(ctk.CTkScrollableFrame):
         self.widget_tree[widget_id] = tree_id
 
 class Toolbar(ctk.CTkFrame):
-    PROGRESS_BAR_HIDE_DELAY = 3000  # Delay in milliseconds
+    PROGRESS_BAR_HIDE_DELAY = 3000
 
     def __init__(self, parent, virtual_window, rightbar, initialize_on_import=False):
         super().__init__(parent, height=40, fg_color="#333333")
@@ -485,9 +503,20 @@ class App(ctk.CTk):
             self.code.place(x=50, y=50)
             self.code.insert('1.0', "\n".join(self.virtual_window.previsualize_code()))
             self.right_sidebar.disable_buttons()
+            self.code.bind("<KeyRelease>", self.update_virtual_window)
         else:
             self.right_sidebar.enable_buttons()
             self.code.destroy()
+
+    def update_virtual_window(self, event):
+        """
+        Actualiza el contenido de VirtualWindow con el código actual de CTkCodeBox.
+
+        :param event: El evento de tecla liberada.
+        """
+        new_code = self.code.get('1.0', 'end-1c')
+        self.virtual_window.import_from_codebox(new_code)
+        logging.debug(self.virtual_window.widgets)
 
     def cross_update_treeview(self):
         self.right_sidebar.update_treeview()
