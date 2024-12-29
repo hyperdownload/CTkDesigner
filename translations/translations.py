@@ -17,6 +17,7 @@ translations = {
         "RIGHTBAR_BUTTON_LOWER_LAYER": "Lower layer",
         "RIGHTBAR_BUTTON_DELETE_WIDGET": "Delete widget",
         "TOOLBAR_BUTTON_EXPORT": "Export to .py",
+        "TOOLBAR_BUTTON_CONFIG": "Settings"
     },
     "es": {  # Español
         "NEW_PROYECT": "Nuevo projecto",
@@ -36,7 +37,7 @@ translations = {
         "RIGHTBAR_BUTTON_LOWER_LAYER": "Bajar capa",
         "RIGHTBAR_BUTTON_DELETE_WIDGET": "Borrar widget",
         "TOOLBAR_BUTTON_EXPORT": "Exportar a .py",
-
+        "TOOLBAR_BUTTON_CONFIG": "Configuraciones"
     },
     "fr": {  # Francés (ejemplo)
         "CONFIG_LABEL_TEXT": "Configuration du widget",

@@ -19,3 +19,16 @@ class Translator:
 
     def translate(self, key):
         return self.languages[self.current_language].get(key, key)
+    
+    def find_key_by_value(self, target_value):
+        """
+        Encuentra la clave asociada a un valor específico en el idioma dado.
+        """
+        for language in ['en', 'es']:
+            if language not in self.languages:
+                raise ValueError(f"Idioma '{language}' no encontrado en las traducciones.")
+            
+            for key, value in self.languages[language].items():
+                if value == target_value:
+                    return key
+            return None

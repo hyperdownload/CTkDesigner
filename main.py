@@ -1,22 +1,13 @@
 import logging
 import customtkinter as ctk
-import tkinter as tk
 from objects.virtualWindow import VirtualWindow
 from objects.codeBox import CTkCodeBox
 from translations.translations import *
 from translations.translator import Translator
+from objects.tooltip import *
 from tkinter import filedialog
 from data.variable import *
 import tkinter.ttk as ttk
-
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[
-        logging.StreamHandler(), 
-        logging.FileHandler("app.log")
-    ]
-)
 
 def validate_input(value):
     return bool(value == "" or (value.isdigit() and 0 <= int(value) <= 1000))
@@ -116,17 +107,24 @@ class LeftSidebar(ctk.CTkScrollableFrame):
         entry = ctk.CTkEntry(self.config_space)
         entry.insert(0, str(widget.cget(prop)))
         entry.pack()
-        entry.bind("<KeyRelease>", lambda event: self.update_property(widget, prop, entry))
+        tooltip = CTkToolTip(entry, "")
+        tooltip.hide()
+        entry.bind("<KeyRelease>", lambda event: self.update_property(widget, prop, entry, tooltip))
 
-    def update_property(self, widget, prop, entry):
+    def update_property(self, widget, prop, entry, tooltip):
+        tooltip.hide()
         try:
             if prop == "font":
                 self.update_font_property(widget, entry)
             else:
                 widget.configure(**{prop: entry.get()})
                 logging.info(f"Propiedad '{prop}' actualizada a: {entry.get()}")
-        except ValueError as e:
+            entry.configure(border_color="#565B5E")
+        except Exception as e:
             logging.error(f"Error al actualizar '{prop}': {e}. Valor ingresado: {entry.get()}")
+            entry.configure(border_color="red")
+            tooltip.show()
+            tooltip.configure(message=e)
 
     def update_font_property(self, widget, entry):
         font_value = entry.get()
@@ -189,7 +187,6 @@ class RightSidebar(ctk.CTkScrollableFrame):
         self.configure_treeview_style()
         self.grid_columnconfigure(0, weight=1)
         self.virtual_window = virtual_window
-        self.widget_counters = {}
         self.widget_tree = {}
         self.buttons = {}
 
@@ -261,17 +258,20 @@ class RightSidebar(ctk.CTkScrollableFrame):
             self.insert_widget_into_tree(widget, parent_widget)
 
     def insert_widget_into_tree(self, widget, parent_widget):
-        widget_name = widget._name if hasattr(widget, "_name") else widget.__class__.__name__
-        widget_id = id(widget)
+        widget_type = widget.__class__.__name__
+
+        if widget_type != "Canvas":
+            widget_name = f"{widget_type} {self.virtual_window.count_widgets_by_type()[widget_type]["count"]}"
+        else:
+            widget_name = f"{widget_type}"
 
         if parent_widget:
-            parent_id = id(parent_widget)
-            parent_tree_id = self.widget_tree.get(parent_id)
-            tree_id = self.tree.insert(parent_tree_id, "end", text=widget_name)
+            parent_id = self.widget_tree.get(parent_widget)
         else:
-            tree_id = self.tree.insert("", "end", text=widget_name)
+            parent_id = ""
 
-        self.widget_tree[widget_id] = tree_id
+        widget_id = self.tree.insert(parent_id, "end", text=widget_name)
+        self.widget_tree[widget] = widget_id
 
 class Toolbar(ctk.CTkFrame):
     PROGRESS_BAR_HIDE_DELAY = 3000
@@ -280,6 +280,9 @@ class Toolbar(ctk.CTkFrame):
         super().__init__(parent, height=40, fg_color="#333333")
         self.virtual_window = virtual_window
         self.right_bar = rightbar
+        
+        self.config_window = None
+        
         self.pack_propagate(False)
         self.grid_columnconfigure(0, weight=1)
 
@@ -290,10 +293,38 @@ class Toolbar(ctk.CTkFrame):
         self.initialize_on_import = initialize_on_import
         self.setup_logging()
 
+    def apply_configs(self, language):
+        app.switch_language(language)
+
+    def create_config_widgets(self, config_window):
+        """Crea los widgets de configuración en la ventana de configuración."""
+        language = ctk.CTkComboBox(config_window, values=['es', 'en'], command=None, state='readonly', fg_color=['#F9F9FA', '#343638'], button_color=['#979DA2', '#565B5E'], button_hover_color=['#6E7174', '#7A848D'], dropdown_fg_color=['gray90', 'gray20'], dropdown_hover_color=['gray75', 'gray28'], width=140, height=28)
+        language.place(x=99, y=44)
+        language.set(app.translator.current_language)
+        ctk.CTkLabel(config_window, text='Idioma:', textvariable='', fg_color='transparent', corner_radius=0, text_color=['gray14', 'gray84'], width=0, height=28, font=('Arial', 19), anchor='center', compound='center', justify='center').place(x=20, y=44)
+        ctk.CTkButton(config_window, text='Aplicar cambios', command=lambda:self.apply_configs(language.get()), fg_color=['#3a7ebf', '#1f538d'], width=140, height=28, border_width=0, border_color=['#3E454A', '#949A9F'], hover_color=['#325882', '#14375e'], text_color=['#DCE4EE', '#DCE4EE'], border_spacing=2, corner_radius=6).place(x=251, y=262)
+        # entry = ctk.CTkEntry(config_window)
+        # entry.pack(pady=10)
+
+    def open_config_window(self):
+        """Abre la ventana de configuraciones si no está ya abierta."""
+        if self.config_window is None or not self.config_window.winfo_exists():
+            self.config_window = ctk.CTkToplevel(self)
+            self.config_window.title("Configuraciones")
+            self.config_window.geometry("400x300")
+            
+            self.create_config_widgets(self.config_window)
+            
+            label = ctk.CTkLabel(self.config_window, text="Configuraciones")
+            label.pack(pady=10)
+        else:
+            self.config_window.lift()
+    
     def create_buttons(self):
         """Crea y empaqueta los botones de la barra de herramientas."""
         self.create_button(app.translator.translate("TOOLBAR_BUTTON_EXPORT"), self.export_to_file, side="right")
         self.create_button("Code preview", self.change_view, side="right")
+        self.create_button(app.translator.translate("TOOLBAR_BUTTON_CONFIG"),self.open_config_window, side="right")
         #self.create_button("Importar desde .py", self.import_from_file, side="right")
     
     def change_view(self):
@@ -536,10 +567,15 @@ class App(ctk.CTk):
             logging.error(str(e))
     
     def refresh_ui(self):
-        for widget in self.winfo_children():
-            if isinstance(widget, ctk.CTkLabel):
-                widget.configure(text=self.translator.translate(widget._key))
-    
+        for w in [self.toolbar, self.left_sidebar, self.right_sidebar]:
+            for widget in w.winfo_children():
+                if isinstance(widget, ctk.CTkLabel) or isinstance(widget, ctk.CTkButton):
+                    try:
+                        widget.configure(text=self.translator.translate(self.translator.find_key_by_value(widget.cget('text'))))
+                        logging.debug(f"Actualizado widget: {widget}")
+                    except Exception:
+                        continue
+
 if __name__ == "__main__":
     app = App()
     app.mainloop()

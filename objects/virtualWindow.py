@@ -32,6 +32,31 @@ class VirtualWindow(ctk.CTkFrame):
         self.make_widget_selectable(self.guide_canvas)
         logging.info(f"VirtualWindow inicializada con dimensiones {self.cget("width")}x{self.cget("height")} y canvas configurado.")
         
+    def count_widgets_by_type(self):
+        """
+        Cuenta la cantidad de widgets en una lista, clasificándolos por tipo.
+        
+        Args:
+            widget_list (list): Lista de widgets de CustomTkinter.
+        
+        Returns:
+            dict: Diccionario con el nombre del tipo de widget como clave
+                y un subdiccionario con los nombres y la cantidad.
+        """
+        widget_count = {}
+        
+        for widget in self.widgets:
+            widget_type = type(widget).__name__ 
+            widget_name = widget._name if hasattr(widget, "_name") else "Unnamed"
+
+            if widget_type not in widget_count:
+                widget_count[widget_type] = {"count": 0, "names": []}
+
+            widget_count[widget_type]["count"] += 1
+            widget_count[widget_type]["names"].append(widget_name)
+        
+        return widget_count
+    
     def add_widget(self, widget_type):
         """Agrega un widget al VirtualWindow."""
         logging.debug(f"Intentando agregar widget de tipo '{widget_type}'.")

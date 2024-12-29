@@ -54,4 +54,5 @@ widget_classes = {
             "CTkSegmentedButton": ctk.CTkSegmentedButton,
             "CTkSwitch": ctk.CTkSwitch,
             "CTkFrame": ctk.CTkFrame,
+            "Canvas": ctk.CTkCanvas,
         }
