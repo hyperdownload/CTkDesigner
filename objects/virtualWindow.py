@@ -178,8 +178,13 @@ class VirtualWindow(ctk.CTkFrame):
             y = widget.winfo_y()
 
             params_string = self.get_widget_params_string(widget, widget_params, font_pattern, font_pattern_)
-            lines.append(f"        ctk.{widget_type}(self.virtual_window, {params_string}).place(x={x}, y={y})")
-
+            print(self.left_sidebar.widget_dict.values())
+            if widget._name in self.left_sidebar.widget_dict:
+                logging.info("Exporting: Utilizing name for widget ")
+                lines.append(f"        self.{self.left_sidebar.widget_dict[widget._name]} = ctk.{widget_type}(self.virtual_window, {params_string})")
+                lines.append(f"        self.{self.left_sidebar.widget_dict[widget._name]}.place(x={x}, y={y})")
+            else:
+                lines.append(f"        ctk.{widget_type}(self.virtual_window, {params_string}).place(x={x}, y={y})")
             self.app.cross_update_progressbar(0.2 + (0.6 * (i + 1) / total_widgets))
             self.update_idletasks()
 
@@ -241,8 +246,26 @@ class VirtualWindow(ctk.CTkFrame):
         widget.bind("<B1-Motion>", do_move)
         widget.bind("<ButtonRelease-1>", stop_move)
 
-    def draw_guides(self, widget, new_x, new_y):
-        """Dibuja líneas guía en el canvas para ayudar con la alineación."""
+    def add_custom_widget(self, widget):
+        """Agrega un widget personalizado a la VirtualWindow."""
+        self.add_widget(widget)
+
+    def draw_guides(self, widget, new_x, new_y, show_guides=True, color_exact="green", color_near="red", tolerance=5, snap_range=10):
+        """Dibuja líneas guía en el canvas para ayudar con la alineación y auto-coloca el widget si está cerca de una guía.
+
+        Args:
+            widget: El widget que se está moviendo.
+            new_x: La nueva posición x del widget.
+            new_y: La nueva posición y del widget.
+            show_guides: Booleano para mostrar u ocultar las guías.
+            color_exact: Color de las guías cuando están exactamente alineadas.
+            color_near: Color de las guías cuando están cerca de la alineación.
+            tolerance: Tolerancia para considerar que los widgets están alineados.
+            snap_range: Rango en el que el widget se auto-coloca cuando está cerca de una guía.
+        """
+        if not show_guides:
+            return
+
         widget_width = widget.winfo_width()
         widget_height = widget.winfo_height()
 
@@ -260,39 +283,53 @@ class VirtualWindow(ctk.CTkFrame):
             child_center_x = child_x + child_width // 2
             child_center_y = child_y + child_height // 2
 
-            #Centrado vertical
+            # Centrando verticalmente
             if widget_center_x == child_center_x:
-                self.create_guide_line(child_center_x, 0, child_center_x, self.winfo_height(), "green")
-            elif abs(widget_center_x - child_center_x) <= 5:
-                self.create_guide_line(child_center_x, 0, child_center_x, self.winfo_height(), "red")
+                self.create_guide_line(child_center_x, 0, child_center_x, self.winfo_height(), color_exact)
+            elif abs(widget_center_x - child_center_x) <= tolerance:
+                self.create_guide_line(child_center_x, 0, child_center_x, self.winfo_height(), color_near)
+            if abs(widget_center_x - child_center_x) <= snap_range:
+                new_x = child_center_x - widget_width // 2
 
-            #Centrado horizontal
+            # Centrando horizontalmente
             if widget_center_y == child_center_y:
-                self.create_guide_line(0, child_center_y, self.winfo_width(), child_center_y, "green")
-            elif abs(widget_center_y - child_center_y) <= 5:
-                self.create_guide_line(0, child_center_y, self.winfo_width(), child_center_y, "red")
+                self.create_guide_line(0, child_center_y, self.winfo_width(), child_center_y, color_exact)
+            elif abs(widget_center_y - child_center_y) <= tolerance:
+                self.create_guide_line(0, child_center_y, self.winfo_width(), child_center_y, color_near)
+            if abs(widget_center_y - child_center_y) <= snap_range:
+                new_y = child_center_y - widget_height // 2
 
-            #Bordes izquierdo y derecho
+            # Bordes izquierdo y derecho
             if new_x == child_x:
-                self.create_guide_line(child_x, 0, child_x, self.winfo_height(), "green")
-            elif abs(new_x - child_x) <= 5:
-                self.create_guide_line(child_x, 0, child_x, self.winfo_height(), "red")
+                self.create_guide_line(child_x, 0, child_x, self.winfo_height(), color_exact)
+            elif abs(new_x - child_x) <= tolerance:
+                self.create_guide_line(child_x, 0, child_x, self.winfo_height(), color_near)
+            if abs(new_x - child_x) <= snap_range:
+                new_x = child_x
 
             if new_x + widget_width == child_x + child_width:
-                self.create_guide_line(child_x + child_width, 0, child_x + child_width, self.winfo_height(), "green")
-            elif abs(new_x + widget_width - (child_x + child_width)) <= 5:
-                self.create_guide_line(child_x + child_width, 0, child_x + child_width, self.winfo_height(), "red")
+                self.create_guide_line(child_x + child_width, 0, child_x + child_width, self.winfo_height(), color_exact)
+            elif abs(new_x + widget_width - (child_x + child_width)) <= tolerance:
+                self.create_guide_line(child_x + child_width, 0, child_x + child_width, self.winfo_height(), color_near)
+            if abs(new_x + widget_width - (child_x + child_width)) <= snap_range:
+                new_x = child_x + child_width - widget_width
 
-            #Bordes superior e inferior
+            # Bordes superior e inferior
             if new_y == child_y:
-                self.create_guide_line(0, child_y, self.winfo_width(), child_y, "green")
-            elif abs(new_y - child_y) <= 5:
-                self.create_guide_line(0, child_y, self.winfo_width(), child_y, "red")
+                self.create_guide_line(0, child_y, self.winfo_width(), child_y, color_exact)
+            elif abs(new_y - child_y) <= tolerance:
+                self.create_guide_line(0, child_y, self.winfo_width(), child_y, color_near)
+            if abs(new_y - child_y) <= snap_range:
+                new_y = child_y
 
             if new_y + widget_height == child_y + child_height:
-                self.create_guide_line(0, child_y + child_height, self.winfo_width(), child_y + child_height, "green")
-            elif abs(new_y + widget_height - (child_y + child_height)) <= 5:
-                self.create_guide_line(0, child_y + child_height, self.winfo_width(), child_y + child_height, "red")
+                self.create_guide_line(0, child_y + child_height, self.winfo_width(), child_y + child_height, color_exact)
+            elif abs(new_y + widget_height - (child_y + child_height)) <= tolerance:
+                self.create_guide_line(0, child_y + child_height, self.winfo_width(), child_y + child_height, color_near)
+            if abs(new_y + widget_height - (child_y + child_height)) <= snap_range:
+                new_y = child_y + child_height - widget_height
+
+        widget.place(x=new_x, y=new_y)
 
     def create_guide_line(self, x1, y1, x2, y2, color):
         """Crea una línea guía en el canvas."""
@@ -336,24 +373,22 @@ class VirtualWindow(ctk.CTkFrame):
 
             tree = ast.parse(code)
             self.app.cross_update_progressbar(0.2)
-            
+
             app_class = self.find_app_class(tree)
             self.app.cross_update_progressbar(0.4) 
-            
+
             if not app_class:
                 logging.error("No se encontró la clase 'App', abortando la importación.")
                 return
 
             if generic_widget_creator := self.find_generic_widget_creator(app_class):
-                logging.info("Se encontró la función 'generic_widget_creator', procesando llamadas de widgets.")
-                self.process_widget_calls(generic_widget_creator)
-                self.app.cross_update_progressbar(0.8) 
+                self._extracted_from_import_from_file_22(generic_widget_creator)
             else:
                 logging.error("No se encontró la función 'generic_widget_creator', abortando la importación.")
-            
+
             logging.info("Importación completada exitosamente.")
             self.app.cross_update_text_info("Importación completada exitosamente.")
-            self.app.cross_update_progressbar(1.0) 
+            self.app.cross_update_progressbar(1.0)
         except Exception as e:
             logging.error(f"Error durante la importación: {e}")
             self.app.cross_update_progressbar(0.0)    
@@ -371,27 +406,33 @@ class VirtualWindow(ctk.CTkFrame):
 
             tree = ast.parse(code)
             self.app.cross_update_progressbar(0.2)
-            
+
             app_class = self.find_app_class(tree)
             self.app.cross_update_progressbar(0.4) 
-            
+
             if not app_class:
                 logging.error("No se encontró la clase 'App', abortando la importación.")
                 return
 
             if generic_widget_creator := self.find_generic_widget_creator(app_class):
-                logging.info("Se encontró la función 'generic_widget_creator', procesando llamadas de widgets.")
-                self.process_widget_calls(generic_widget_creator)
-                self.app.cross_update_progressbar(0.8) 
+                self._extracted_from_import_from_file_22(generic_widget_creator)
             else:
                 logging.error("No se encontró la función 'generic_widget_creator', abortando la importación.")
-            
+
             logging.info("Importación completada exitosamente.")
             self.app.cross_update_text_info("Importación completada exitosamente.")
-            self.app.cross_update_progressbar(1.0) 
+            self.app.cross_update_progressbar(1.0)
         except Exception as e:
             logging.error(f"Error durante la importación: {e}")
             self.app.cross_update_progressbar(0.0) 
+
+    # TODO Rename this here and in `import_from_codebox` and `import_from_file`
+    def _extracted_from_import_from_file_22(self, generic_widget_creator):
+        logging.info(
+            "Se encontró la función 'generic_widget_creator', procesando llamadas de widgets."
+        )
+        self.process_widget_calls(generic_widget_creator)
+        self.app.cross_update_progressbar(0.8) 
 
     def clean_virtual_window(self):
         """Limpia el contenido del VirtualWindow."""

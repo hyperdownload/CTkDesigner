@@ -5,11 +5,24 @@ from objects.codeBox import CTkCodeBox
 from translations.translations import *
 from translations.translator import Translator
 from objects.tooltip import *
+from functions.import_widget import *
 from tkinter import filedialog
 from data.variable import *
 import tkinter.ttk as ttk
 
 def validate_input(value):
+    """Update the treeview in the right sidebar.
+
+    This method triggers an update of the treeview widget within the right sidebar.
+    It calls the `update_treeview` method of the `right_sidebar` object.
+
+    Args:
+        self: The current instance of the class.
+
+    Returns:
+        None
+    """
+
     return bool(value == "" or (value.isdigit() and 0 <= int(value) <= 1000))
 
 class LeftSidebar(ctk.CTkScrollableFrame):
@@ -17,6 +30,8 @@ class LeftSidebar(ctk.CTkScrollableFrame):
     ROW_SCENE = 0
 
     def __init__(self, parent):
+        self.widget_dict = {}
+        
         super().__init__(parent, width=200)
         self.grid_columnconfigure(0, weight=1)
 
@@ -28,6 +43,12 @@ class LeftSidebar(ctk.CTkScrollableFrame):
         self.config_space = self.create_config_space()
         if app.use_scene_manager:
             self.scene_manager_frame = self.create_scene_manager_frame()
+
+    def update_positions(self, x, y):
+        self.x_entry.delete(0, "end")
+        self.y_entry.delete(0, "end")
+        self.x_entry.insert(0,str(x))
+        self.y_entry.insert(0,str(y))
 
     def create_scrollable_frame(self):
         """
@@ -61,18 +82,37 @@ class LeftSidebar(ctk.CTkScrollableFrame):
         return label
 
     def create_config_space(self):
+        """Create the configuration space frame.
+
+        Returns:
+            ctk.CTkFrame: The config space frame.
+        """
         config_space = ctk.CTkFrame(self.widget_config_scrollable, fg_color='#292929')
         return self._extracted_from_create_scene_manager_frame_3(config_space)
 
     def create_scene_manager_frame(self):
+        """Create the scene manager frame.
+
+        Returns:
+            ctk.CTkScrollableFrame: The scene manager frame.
+        """
+
         frame = ctk.CTkScrollableFrame(self, fg_color='#292929')
         return self._extracted_from_create_scene_manager_frame_3(frame)
 
     def add_to_scene_manager_frame(self, arg0):
         self._extracted_from_create_scene_manager_frame_3(arg0)
 
-    # TODO Rename this here and in `create_scrollable_frame`, `create_config_space` and `create_scene_manager_frame`
     def _extracted_from_create_scene_manager_frame_3(self, arg0):
+        """Grid a widget and update row count.
+
+        Args:
+            arg0: The widget to grid.
+
+        Returns:
+            The gridded widget.
+        """
+
         arg0.grid(
             row=self.ROW_SCENE, column=0, sticky="nsew", padx=self.PADDING, pady=self.PADDING
         )
@@ -84,41 +124,93 @@ class LeftSidebar(ctk.CTkScrollableFrame):
         widget.grid(in_=self.grid_frame, row=row, column=column, **grid_options)
 
     def show_widget_config(self, widget):
+        """Display configuration options for a widget.
+
+        Clears the existing configuration space and populates it with the settings for the given widget.  This includes property entries, position entries, and action buttons.
+
+        Args:
+            widget: The widget to configure.
+        """
         self.clear_config_space()
         widget.focus_set()
         widget_properties = global_properties
         widget_type = widget.__class__.__name__
         logging.info(f"Mostrando configuración para widget: {widget_type}")
-        self.create_property_entries(widget, widget_properties.get(widget_type, []))
+        logging.debug(get_class_parameters(widget.__class__)[1:])
+        if widget.__class__.__name__ not in widget_classes:
+            self.create_property_entries(widget, get_class_parameters(widget.__class__)[1:])
+        else:
+            self.create_property_entries(widget, widget_properties[widget_type])
         self.create_position_entries(widget)
         self.create_action_buttons(widget)
 
     def clear_config_space(self):
+        """Clear the configuration space.
+
+        Removes all child widgets from the configuration space frame.
+        """
+
         for child in self.config_space.winfo_children():
             child.destroy()
 
     def create_property_entries(self, widget, properties):
+        """Create property entries for the widget.
+
+        Creates and displays labeled entry widgets for each of the specified properties of the widget.  A label indicating the widget type is also displayed.
+
+        Args:
+            widget: The widget.
+            properties: The properties to create entries for.
+        """
         ctk.CTkLabel(self.config_space, text=f"{app.translator.translate("TYPE_TEXT_WIDGET_LABEL")} {widget.__class__.__name__}").pack(pady=self.PADDING)
         for prop in properties:
             self.create_property_entry(widget, prop)
 
     def create_property_entry(self, widget, prop):
-        ctk.CTkLabel(self.config_space, text=f"{prop.capitalize()}:").pack()
-        entry = ctk.CTkEntry(self.config_space)
-        entry.insert(0, str(widget.cget(prop)))
-        entry.pack()
-        tooltip = CTkToolTip(entry, "")
-        tooltip.hide()
-        entry.bind("<KeyRelease>", lambda event: self.update_property(widget, prop, entry, tooltip))
+        """Create a single property entry.
+
+        Creates a labeled entry widget for the given property of the widget, initialized with the current value of the property.
+
+        Args:
+            widget: The widget.
+            prop: The property name.
+        """
+        try:
+            widget.cget(prop)
+            ctk.CTkLabel(self.config_space, text=f"{prop.capitalize()}:").pack()
+            entry = ctk.CTkEntry(self.config_space)
+            entry.insert(0, str(widget.cget(prop)))
+            entry.pack()
+            tooltip = CTkToolTip(entry, "")
+            tooltip.hide()
+            entry.bind("<KeyRelease>", lambda event: self.update_property(widget, prop, entry, tooltip))
+        except ValueError:
+            logging.error(f"Error al obtener valor de '{prop}' del widget '{widget.__class__.__name__}'")
 
     def update_property(self, widget, prop, entry, tooltip):
+        """Update a widget property based on entry value.
+
+        Attempts to update the specified property of the widget with the value from the entry.  Handles special cases for font and VirtualWindow fg_color.  Displays an error tooltip if the update fails.
+
+        Args:
+            widget: The widget.
+            prop: The property name.
+            entry: The entry widget.
+            tooltip: The tooltip for error messages.
+        """
+
         tooltip.hide()
+        type_of_property = str if prop == "text_color" else type(widget.cget(prop))
+        logging.info(f"Type of property:{type_of_property}")
         try:
             if prop == "font":
                 self.update_font_property(widget, entry)
+            if widget.__class__.__name__ == "VirtualWindow" and prop == "fg_color":
+                widget.configure(**{prop: type_of_property(entry.get())})
+                widget.guide_canvas.config(bg=entry.get())
             else:
-                widget.configure(**{prop: entry.get()})
-                logging.info(f"Propiedad '{prop}' actualizada a: {entry.get()}")
+                widget.configure(**{prop: type_of_property(entry.get())})
+            logging.info(f"Propiedad '{prop}' del widget '{widget.__class__.__name__}' actualizada a: {entry.get()}")
             entry.configure(border_color="#565B5E")
         except Exception as e:
             logging.error(f"Error al actualizar '{prop}': {e}. Valor ingresado: {entry.get()}")
@@ -136,23 +228,119 @@ class LeftSidebar(ctk.CTkScrollableFrame):
         logging.info(f"Propiedad 'font' actualizada a: ({font_name}, {font_size})")
 
     def create_position_entries(self, widget):
-        ctk.CTkLabel(self.config_space, text=app.translator.translate("POSITION_LABEL_TEXT")).pack(pady=self.PADDING)
-        position_frame = ctk.CTkFrame(self.config_space)
-        position_frame.pack(pady=self.PADDING)
+        """Create position entries for the widget.
 
-        x_entry = self.create_position_entry(position_frame, widget.winfo_x())
-        y_entry = self.create_position_entry(position_frame, widget.winfo_y())
+        Creates entry widgets for the x and y coordinates of the widget, and an entry for a variable name.  Binds key release events to update functions.
 
-        x_entry.bind("<KeyRelease>", lambda event: self.update_position(widget, x_entry, y_entry))
-        y_entry.bind("<KeyRelease>", lambda event: self.update_position(widget, x_entry, y_entry))
+        Args:
+            widget: The widget.
+        """
 
-    def create_position_entry(self, parent, initial_value):
-        entry = ctk.CTkEntry(parent, width=50)
+        position_frame = self._extracted_from_create_position_entries_2(
+            "POSITION_LABEL_TEXT"
+        )
+        self.x_entry = self.create_position_entry(position_frame, widget.winfo_x())
+        self.y_entry = self.create_position_entry(position_frame, widget.winfo_y())
+
+        position_var_frame = self._extracted_from_create_position_entries_2(
+            "RIGHTBAR_BUTTON_VARIABLE_NAME"
+        )
+        widget_var = self.create_position_entry(position_var_frame, '', width=110)
+
+        self.x_entry.bind("<KeyRelease>", lambda event: self.update_position(widget, self.x_entry, self.y_entry))
+        self.y_entry.bind("<KeyRelease>", lambda event: self.update_position(widget, self.x_entry, self.y_entry))
+        widget_var.bind("<KeyRelease>", lambda event: self.variable_widget_change(widget._name, widget_var))
+
+    # TODO Rename this here and in `create_position_entries`
+    def _extracted_from_create_position_entries_2(self, arg0):
+        """Create a labeled frame for position entries.
+
+        Creates a CTkFrame and adds a CTkLabel above it with translated text.
+
+        Args:
+            arg0: Label text key.
+
+        Returns:
+            ctk.CTkFrame: The frame.
+        """
+
+        ctk.CTkLabel(self.config_space, text=app.translator.translate(arg0)).pack(
+            pady=self.PADDING
+        )
+        result = ctk.CTkFrame(self.config_space)
+        result.pack(pady=self.PADDING)
+
+        return result
+
+    def variable_widget_change(self, widget, widget_var):
+        """Handle changes in the widget variable name.
+
+        Attempts to update the widget's variable name; if the entered name is invalid, it logs a warning and corrects the name to contain only alphabetic characters.
+
+        Args:
+            widget: The widget name.
+            widget_var: The variable name entry.
+        """
+
+        var_name = widget_var.get()
+        if self.update_variable_name(widget, widget_var):
+            logging.info("Variable de widget actualizada.")
+        else:
+            corrected_var_name = ''.join(filter(str.isalpha, var_name))
+            widget_var.delete(0, 'end')
+            widget_var.insert(0, corrected_var_name)
+            logging.warning(f"El nombre de la variable '{var_name}' no es válido. Se ha corregido a '{corrected_var_name}'.")
+
+    def update_variable_name(self, widget, widget_var):
+        """Update the variable name associated with the widget.
+
+        Stores the variable name in the widget dictionary if it's valid (alphabetic or empty).
+
+        Args:
+            widget: The widget name.
+            widget_var: The variable name entry.
+
+        Returns:
+            bool: True if the variable name is valid, False otherwise.
+        """
+
+        var_name = widget_var.get()
+        if var_name.isalpha() or var_name == '':
+            self.widget_dict[widget] = var_name
+            return True
+        else:
+            return False
+
+    def create_position_entry(self, parent, initial_value, width=50):
+        """Create an entry for position values.
+
+        Creates a CTkEntry widget with a specified width and initial value, and packs it to the left.
+
+        Args:
+            parent: The parent widget.
+            initial_value: The initial value.
+            width: The entry width.
+
+        Returns:
+            ctk.CTkEntry: The created entry widget.
+        """
+
+        entry = ctk.CTkEntry(parent, width=width)
         entry.insert(0, initial_value)
         entry.pack(side="left", padx=2)
         return entry
 
     def update_position(self, widget, x_entry, y_entry):
+        """Update the position of a widget.
+
+        Tries to update the widget's position using values from x and y entry widgets. Logs a warning if the entry values are not valid integers.
+
+        Args:
+            widget: The widget to move.
+            x_entry: The entry widget containing the x-coordinate.
+            y_entry: The entry widget containing the y-coordinate.
+        """
+
         try:
             new_x = int(x_entry.get())
             new_y = int(y_entry.get())
@@ -162,15 +350,31 @@ class LeftSidebar(ctk.CTkScrollableFrame):
             logging.warning("Posición inválida. Por favor, ingresa valores numéricos.")
 
     def create_action_buttons(self, widget): 
+        """Create action buttons for the widget.
+
+        Creates buttons for raising, lowering, and deleting the given widget, adding them to the configuration space.  Button labels are translated using the app translator.
+
+        Args:
+            widget: The widget for which to create action buttons.
+        """
+
         actions = [ 
             (app.translator.translate("RIGHTBAR_BUTTON_UPLOAD_LAYER"), lambda: widget.lift()), 
             (app.translator.translate("RIGHTBAR_BUTTON_LOWER_LAYER"), lambda: widget.lower()), 
-            (app.translator.translate("RIGHTBAR_BUTTON_DELETE_WIDGET"), lambda: self.delete_widget(widget)) 
+            (app.translator.translate("RIGHTBAR_BUTTON_DELETE_WIDGET"), lambda: self.delete_widget(widget)),
         ]
         for text, command in actions:
             ctk.CTkButton(self.config_space, text=text, command=command, **BUTTON_STYLE).pack(pady=15)
 
     def delete_widget(self, widget):
+        """Delete a widget.
+
+        Deletes the given widget from the virtual window, clears the config space, and updates the treeview, unless the widget is the virtual window itself.  Logs an error if attempting to delete the virtual window.
+
+        Args:
+            widget: The widget to delete.
+        """
+
         if widget.__class__.__name__ != 'VirtualWindow':
             app.virtual_window.delete_widget(widget)
             self.clear_config_space()
@@ -204,12 +408,26 @@ class RightSidebar(ctk.CTkScrollableFrame):
         ctk.CTkLabel(self, text=app.translator.translate("LABEL_WIDGETS_TEXT")).grid(row=0, column=0, padx=self.PADDING, pady=self.PADDING, sticky="w")
         for i, widget in enumerate(widgets):
             self.create_widget_button(widget, i + 1)
+        self.create_widget_button("Importar", i + 1)
+
+    def import_custom_widget(self):
+        widget=load_classes_from_file(filedialog.askopenfilename(
+            title="Selecciona un archivo",
+            filetypes=[("Archivos Python", "*.py"), ("Todos los archivos", "*.*")]
+        ))
+        logging.info(f"Detalles de widget a importar: {widget}")
+        app.virtual_window._extracted_from_create_and_place_widget_5(widget[0](self.virtual_window), 100, 100)
+
+    def check_widget(self, widget):
+        if widget == "Importar": return self.import_custom_widget
+        else: return lambda w=widget: self.add_widget(w)
 
     def create_widget_button(self, widget, row):
+        """Crea un botón para cada widget y lo agrega a la sección de widgets."""
         btn = ctk.CTkButton(
             self,
             text=widget,
-            command=lambda w=widget: self.add_widget(w),
+            command=self.check_widget(widget),
             **BUTTON_STYLE
         )
         btn.grid(row=row, column=0, padx=self.PADDING, pady=2, sticky="ew")
@@ -258,20 +476,17 @@ class RightSidebar(ctk.CTkScrollableFrame):
             self.insert_widget_into_tree(widget, parent_widget)
 
     def insert_widget_into_tree(self, widget, parent_widget):
-        widget_type = widget.__class__.__name__
-
-        if widget_type != "Canvas":
-            widget_name = f"{widget_type} {self.virtual_window.count_widgets_by_type()[widget_type]["count"]}"
-        else:
-            widget_name = f"{widget_type}"
+        widget_name = widget._name if hasattr(widget, "_name") else widget.__class__.__name__
+        widget_id = id(widget)
 
         if parent_widget:
-            parent_id = self.widget_tree.get(parent_widget)
+            parent_id = id(parent_widget)
+            parent_tree_id = self.widget_tree.get(parent_id)
+            tree_id = self.tree.insert(parent_tree_id, "end", text=widget_name)
         else:
-            parent_id = ""
+            tree_id = self.tree.insert("", "end", text=widget_name)
 
-        widget_id = self.tree.insert(parent_id, "end", text=widget_name)
-        self.widget_tree[widget] = widget_id
+        self.widget_tree[widget_id] = tree_id
 
 class Toolbar(ctk.CTkFrame):
     PROGRESS_BAR_HIDE_DELAY = 3000
@@ -517,7 +732,9 @@ class App(ctk.CTk):
         self.central_canvas.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
 
         self.virtual_window = VirtualWindow(self.central_canvas, self.left_sidebar, self, bools, width=vw_width, height=vw_height)
-        self.central_canvas.create_window((50, 50), anchor="nw", window=self.virtual_window)
+        self.virtual_window_id = self.central_canvas.create_window((50, 50), anchor="nw", window=self.virtual_window)
+
+        self.central_canvas.configure(scrollregion=self.central_canvas.bbox("all"))
 
         self.right_sidebar = RightSidebar(self, self.virtual_window)
         self.right_sidebar.grid(row=0, column=2, sticky="nsew")
@@ -527,6 +744,39 @@ class App(ctk.CTk):
 
         if self.toolbar.initialize_on_import:
             self.toolbar.import_from_file()
+
+        #self.central_canvas.bind("<MouseWheel>", self.zoom_canvas)
+        self.central_canvas.bind("<ButtonPress-1>", self.start_pan)
+        self.central_canvas.bind("<B1-Motion>", self.pan_canvas)
+
+        self.scale_factor = 1.1
+        self.current_scale = 1.0
+        self.last_x = 0
+        self.last_y = 0
+
+    def zoom_canvas(self, event):
+        x = self.central_canvas.canvasx(event.x)
+        y = self.central_canvas.canvasy(event.y)
+
+        scale = self.scale_factor if event.delta > 0 else 1 / self.scale_factor
+        self.central_canvas.scale("all", x, y, scale, scale)
+
+        self.central_canvas.configure(scrollregion=self.central_canvas.bbox("all"))
+
+        self.current_scale *= scale
+
+    def start_pan(self, event):
+        self.last_x = event.x
+        self.last_y = event.y
+
+    def pan_canvas(self, event):
+        dx = event.x - self.last_x
+        dy = event.y - self.last_y
+
+        self.central_canvas.move("all", dx, dy)
+
+        self.last_x = event.x
+        self.last_y = event.y
 
     def view_code(self):
         if self.virtual_window.toggle_visibility():
@@ -569,7 +819,7 @@ class App(ctk.CTk):
     def refresh_ui(self):
         for w in [self.toolbar, self.left_sidebar, self.right_sidebar]:
             for widget in w.winfo_children():
-                if isinstance(widget, ctk.CTkLabel) or isinstance(widget, ctk.CTkButton):
+                if isinstance(widget, (ctk.CTkLabel, ctk.CTkButton)):
                     try:
                         widget.configure(text=self.translator.translate(self.translator.find_key_by_value(widget.cget('text'))))
                         logging.debug(f"Actualizado widget: {widget}")

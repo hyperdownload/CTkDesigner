@@ -134,8 +134,7 @@ class CTkCodeBox(customtkinter.CTkTextbox):
             raise ValueError(f"Invalid theme name: {self.theme_name}, \nAvailable themes: {self.all_themes}")
         style = get_style_by_name(self.theme_name)
         for token, values in style:
-            foreground = values['color']
-            if foreground:
+            if foreground := values['color']:
                 self.tag_config(str(token), foreground=f'#{foreground}')
 
     def update_code(self, event=None, edited=True):
@@ -194,6 +193,4 @@ class CTkCodeBox(customtkinter.CTkTextbox):
             return self.language
         if param=="select_color":
             return self.select_color
-        if param=="cursor_color":
-            return self.cursor_color
-        return super().cget(param)
+        return self.cursor_color if param=="cursor_color" else super().cget(param)
