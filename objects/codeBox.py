@@ -1,5 +1,5 @@
 import customtkinter
-from .text_menu import TextMenu
+from objects.text_menu import TextMenu
 from tklinenums import TkLineNumbers
 from pygments import lex
 from pygments.lexers import python, javascript, c_cpp, dotnet, html, css, data, go, jvm, php, ruby, rust, scripting, perl, objective, jsx

@@ -1,0 +1,639 @@
+2025-01-17 04:58:16,041 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 04:58:16,147 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 04:58:39,506 - DEBUG - Actualizado widget: .!toolbar.!ctkbutton
+2025-01-17 04:58:39,506 - DEBUG - Actualizado widget: .!toolbar.!ctkbutton2
+2025-01-17 04:58:39,507 - DEBUG - Actualizado widget: .!toolbar.!ctkbutton3
+2025-01-17 04:58:39,507 - DEBUG - Actualizado widget: .!toolbar.!ctklabel
+2025-01-17 04:58:39,507 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctklabel
+2025-01-17 04:58:39,508 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton
+2025-01-17 04:58:39,508 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton2
+2025-01-17 04:58:39,508 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton3
+2025-01-17 04:58:39,509 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton4
+2025-01-17 04:58:39,509 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton5
+2025-01-17 04:58:39,509 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton6
+2025-01-17 04:58:39,510 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton7
+2025-01-17 04:58:39,510 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton8
+2025-01-17 04:58:39,510 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton9
+2025-01-17 04:58:39,510 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton10
+2025-01-17 04:58:39,511 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton11
+2025-01-17 04:58:39,511 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton12
+2025-01-17 04:58:39,511 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctklabel2
+2025-01-17 04:58:43,136 - DEBUG - Actualizado widget: .!toolbar.!ctkbutton
+2025-01-17 04:58:43,137 - DEBUG - Actualizado widget: .!toolbar.!ctkbutton2
+2025-01-17 04:58:43,137 - DEBUG - Actualizado widget: .!toolbar.!ctkbutton3
+2025-01-17 04:58:43,138 - DEBUG - Actualizado widget: .!toolbar.!ctklabel
+2025-01-17 04:58:43,138 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctklabel
+2025-01-17 04:58:43,138 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton
+2025-01-17 04:58:43,139 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton2
+2025-01-17 04:58:43,139 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton3
+2025-01-17 04:58:43,139 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton4
+2025-01-17 04:58:43,140 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton5
+2025-01-17 04:58:43,140 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton6
+2025-01-17 04:58:43,140 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton7
+2025-01-17 04:58:43,140 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton8
+2025-01-17 04:58:43,141 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton9
+2025-01-17 04:58:43,141 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton10
+2025-01-17 04:58:43,141 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton11
+2025-01-17 04:58:43,141 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton12
+2025-01-17 04:58:43,142 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctklabel2
+2025-01-17 04:58:47,284 - DEBUG - Actualizado widget: .!toolbar.!ctkbutton
+2025-01-17 04:58:47,284 - DEBUG - Actualizado widget: .!toolbar.!ctkbutton2
+2025-01-17 04:58:47,284 - DEBUG - Actualizado widget: .!toolbar.!ctkbutton3
+2025-01-17 04:58:47,285 - DEBUG - Actualizado widget: .!toolbar.!ctklabel
+2025-01-17 04:58:47,285 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctklabel
+2025-01-17 04:58:47,286 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton
+2025-01-17 04:58:47,286 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton2
+2025-01-17 04:58:47,286 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton3
+2025-01-17 04:58:47,287 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton4
+2025-01-17 04:58:47,287 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton5
+2025-01-17 04:58:47,287 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton6
+2025-01-17 04:58:47,288 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton7
+2025-01-17 04:58:47,288 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton8
+2025-01-17 04:58:47,288 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton9
+2025-01-17 04:58:47,289 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton10
+2025-01-17 04:58:47,289 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton11
+2025-01-17 04:58:47,289 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton12
+2025-01-17 04:58:47,290 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctklabel2
+2025-01-17 04:58:48,453 - DEBUG - Actualizado widget: .!toolbar.!ctkbutton
+2025-01-17 04:58:48,453 - DEBUG - Actualizado widget: .!toolbar.!ctkbutton2
+2025-01-17 04:58:48,454 - DEBUG - Actualizado widget: .!toolbar.!ctkbutton3
+2025-01-17 04:58:48,454 - DEBUG - Actualizado widget: .!toolbar.!ctklabel
+2025-01-17 04:58:48,455 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctklabel
+2025-01-17 04:58:48,455 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton
+2025-01-17 04:58:48,455 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton2
+2025-01-17 04:58:48,455 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton3
+2025-01-17 04:58:48,456 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton4
+2025-01-17 04:58:48,456 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton5
+2025-01-17 04:58:48,456 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton6
+2025-01-17 04:58:48,456 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton7
+2025-01-17 04:58:48,457 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton8
+2025-01-17 04:58:48,457 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton9
+2025-01-17 04:58:48,457 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton10
+2025-01-17 04:58:48,457 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton11
+2025-01-17 04:58:48,458 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton12
+2025-01-17 04:58:48,458 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctklabel2
+2025-01-17 04:58:50,495 - DEBUG - Actualizado widget: .!toolbar.!ctkbutton
+2025-01-17 04:58:50,496 - DEBUG - Actualizado widget: .!toolbar.!ctkbutton2
+2025-01-17 04:58:50,496 - DEBUG - Actualizado widget: .!toolbar.!ctkbutton3
+2025-01-17 04:58:50,496 - DEBUG - Actualizado widget: .!toolbar.!ctklabel
+2025-01-17 04:58:50,497 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctklabel
+2025-01-17 04:58:50,497 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton
+2025-01-17 04:58:50,497 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton2
+2025-01-17 04:58:50,498 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton3
+2025-01-17 04:58:50,498 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton4
+2025-01-17 04:58:50,498 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton5
+2025-01-17 04:58:50,498 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton6
+2025-01-17 04:58:50,499 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton7
+2025-01-17 04:58:50,499 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton8
+2025-01-17 04:58:50,499 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton9
+2025-01-17 04:58:50,500 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton10
+2025-01-17 04:58:50,500 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton11
+2025-01-17 04:58:50,500 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton12
+2025-01-17 04:58:50,500 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctklabel2
+2025-01-17 04:58:53,673 - DEBUG - Actualizado widget: .!toolbar.!ctkbutton
+2025-01-17 04:58:53,673 - DEBUG - Actualizado widget: .!toolbar.!ctkbutton2
+2025-01-17 04:58:53,674 - DEBUG - Actualizado widget: .!toolbar.!ctkbutton3
+2025-01-17 04:58:53,674 - DEBUG - Actualizado widget: .!toolbar.!ctklabel
+2025-01-17 04:58:53,674 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctklabel
+2025-01-17 04:58:53,675 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton
+2025-01-17 04:58:53,675 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton2
+2025-01-17 04:58:53,675 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton3
+2025-01-17 04:58:53,676 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton4
+2025-01-17 04:58:53,676 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton5
+2025-01-17 04:58:53,676 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton6
+2025-01-17 04:58:53,676 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton7
+2025-01-17 04:58:53,677 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton8
+2025-01-17 04:58:53,677 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton9
+2025-01-17 04:58:53,677 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton10
+2025-01-17 04:58:53,677 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton11
+2025-01-17 04:58:53,678 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctkbutton12
+2025-01-17 04:58:53,678 - DEBUG - Actualizado widget: .!ctkframe3.!canvas.!rightsidebar.!ctklabel2
+2025-01-17 04:59:46,977 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 04:59:47,073 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 04:59:54,889 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:54,889 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:54,889 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:54,890 - DEBUG - Actualizando widget: CTkLabel
+2025-01-17 04:59:54,890 - DEBUG - Actualizando widget: CTkLabel
+2025-01-17 04:59:54,890 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:54,891 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:54,891 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:54,891 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:54,891 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:54,892 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:54,892 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:54,892 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:54,892 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:54,892 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:54,893 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:54,893 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:54,893 - DEBUG - Actualizando widget: CTkLabel
+2025-01-17 04:59:57,965 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:57,965 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:57,966 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:57,966 - DEBUG - Actualizando widget: CTkLabel
+2025-01-17 04:59:57,966 - DEBUG - Actualizando widget: CTkLabel
+2025-01-17 04:59:57,967 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:57,967 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:57,968 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:57,968 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:57,968 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:57,968 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:57,969 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:57,969 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:57,969 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:57,969 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:57,970 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:57,970 - DEBUG - Actualizando widget: CTkButton
+2025-01-17 04:59:57,970 - DEBUG - Actualizando widget: CTkLabel
+2025-01-17 05:00:22,100 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:00:22,205 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:00:29,709 - DEBUG - Actualizando widget: CTkButton - Texto: Export to .py
+2025-01-17 05:00:29,710 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:29,710 - DEBUG - Actualizando widget: CTkButton - Texto: Settings
+2025-01-17 05:00:29,711 - DEBUG - Actualizando widget: CTkLabel - Texto: None
+2025-01-17 05:00:29,711 - DEBUG - Actualizando widget: CTkLabel - Texto: Available Widgets
+2025-01-17 05:00:29,711 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:29,712 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:29,712 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:29,712 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:29,712 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:29,713 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:29,713 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:29,713 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:29,714 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:29,714 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:29,714 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:29,715 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:29,715 - DEBUG - Actualizando widget: CTkLabel - Texto: Widget Scheme
+2025-01-17 05:00:32,753 - DEBUG - Actualizando widget: CTkButton - Texto: Exportar a .py
+2025-01-17 05:00:32,754 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:32,754 - DEBUG - Actualizando widget: CTkButton - Texto: Configuraciones
+2025-01-17 05:00:32,755 - DEBUG - Actualizando widget: CTkLabel - Texto: None
+2025-01-17 05:00:32,755 - DEBUG - Actualizando widget: CTkLabel - Texto: Widgets disponibles
+2025-01-17 05:00:32,755 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:32,756 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:32,756 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:32,756 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:32,757 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:32,757 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:32,757 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:32,757 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:32,758 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:32,758 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:32,758 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:32,759 - DEBUG - Actualizando widget: CTkButton - Texto: None
+2025-01-17 05:00:32,759 - DEBUG - Actualizando widget: CTkLabel - Texto: Esquema de widgets
+2025-01-17 05:02:21,869 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:02:21,965 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:02:23,892 - INFO - Mostrando configuración para widget: VirtualWindow
+2025-01-17 05:02:23,893 - DEBUG - ['left_sidebar', 'app', 'parameters_dict', 'width', 'height']
+2025-01-17 05:02:23,894 - ERROR - Error al obtener valor de 'left_sidebar' del widget 'VirtualWindow'
+2025-01-17 05:02:23,894 - ERROR - Error al obtener valor de 'app' del widget 'VirtualWindow'
+2025-01-17 05:02:23,895 - ERROR - Error al obtener valor de 'parameters_dict' del widget 'VirtualWindow'
+2025-01-17 05:02:29,205 - INFO - Type of property:<class 'int'>
+2025-01-17 05:02:29,212 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 4
+2025-01-17 05:02:29,422 - INFO - Type of property:<class 'int'>
+2025-01-17 05:02:29,426 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 40
+2025-01-17 05:02:29,566 - INFO - Type of property:<class 'int'>
+2025-01-17 05:02:29,569 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 400
+2025-01-17 05:02:38,846 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2025-01-17 05:02:38,846 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2025-01-17 05:02:38,849 - INFO - Widget 'CTkButton' creado con éxito.
+2025-01-17 05:02:38,850 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial (100, 100).
+2025-01-17 05:02:41,810 - INFO - Mostrando configuración para widget: CTkButton
+2025-01-17 05:02:41,811 - DEBUG - ['width', 'height', 'corner_radius', 'border_width', 'border_spacing', 'bg_color', 'fg_color', 'hover_color', 'border_color', 'text_color', 'text_color_disabled', 'background_corner_colors', 'round_width_to_even_numbers', 'round_height_to_even_numbers', 'text', 'font', 'textvariable', 'image', 'state', 'hover', 'command', 'compound', 'anchor', 'kwargs']
+2025-01-17 05:02:44,221 - INFO - Type of property:<class 'str'>
+2025-01-17 05:02:44,221 - INFO - Propiedad 'text' del widget 'CTkButton' actualizada a: S
+2025-01-17 05:02:44,319 - INFO - Type of property:<class 'str'>
+2025-01-17 05:02:44,319 - INFO - Propiedad 'text' del widget 'CTkButton' actualizada a: S
+2025-01-17 05:02:44,460 - INFO - Type of property:<class 'str'>
+2025-01-17 05:02:44,460 - INFO - Propiedad 'text' del widget 'CTkButton' actualizada a: Sa
+2025-01-17 05:02:44,805 - INFO - Type of property:<class 'str'>
+2025-01-17 05:02:44,805 - INFO - Propiedad 'text' del widget 'CTkButton' actualizada a: Sav
+2025-01-17 05:02:45,028 - INFO - Type of property:<class 'str'>
+2025-01-17 05:02:45,028 - INFO - Propiedad 'text' del widget 'CTkButton' actualizada a: Save
+2025-01-17 05:02:46,079 - INFO - Type of property:<class 'str'>
+2025-01-17 05:02:46,079 - INFO - Propiedad 'text' del widget 'CTkButton' actualizada a: Sav
+2025-01-17 05:02:46,179 - INFO - Type of property:<class 'str'>
+2025-01-17 05:02:46,179 - INFO - Propiedad 'text' del widget 'CTkButton' actualizada a: Sa
+2025-01-17 05:02:46,283 - INFO - Type of property:<class 'str'>
+2025-01-17 05:02:46,283 - INFO - Propiedad 'text' del widget 'CTkButton' actualizada a: S
+2025-01-17 05:02:46,387 - INFO - Type of property:<class 'str'>
+2025-01-17 05:02:46,387 - INFO - Propiedad 'text' del widget 'CTkButton' actualizada a: 
+2025-01-17 05:02:46,499 - INFO - Type of property:<class 'str'>
+2025-01-17 05:02:46,499 - INFO - Propiedad 'text' del widget 'CTkButton' actualizada a: 
+2025-01-17 05:02:47,068 - INFO - Type of property:<class 'str'>
+2025-01-17 05:02:47,069 - INFO - Propiedad 'text' del widget 'CTkButton' actualizada a: O
+2025-01-17 05:02:47,151 - INFO - Type of property:<class 'str'>
+2025-01-17 05:02:47,152 - INFO - Propiedad 'text' del widget 'CTkButton' actualizada a: O
+2025-01-17 05:02:47,203 - INFO - Type of property:<class 'str'>
+2025-01-17 05:02:47,204 - INFO - Propiedad 'text' del widget 'CTkButton' actualizada a: Ok
+2025-01-17 05:02:51,088 - INFO - Type of property:<class 'int'>
+2025-01-17 05:02:51,090 - INFO - Propiedad 'width' del widget 'CTkButton' actualizada a: 10
+2025-01-17 05:02:51,265 - INFO - Type of property:<class 'int'>
+2025-01-17 05:02:51,267 - INFO - Propiedad 'width' del widget 'CTkButton' actualizada a: 100
+2025-01-17 05:03:02,010 - DEBUG - Intentando agregar widget de tipo 'CTkLabel'.
+2025-01-17 05:03:02,010 - DEBUG - Creando widget de tipo 'CTkLabel' con argumentos: {}.
+2025-01-17 05:03:02,011 - INFO - Widget 'CTkLabel' creado con éxito.
+2025-01-17 05:03:02,011 - INFO - Widget de tipo 'CTkLabel' agregado en posición inicial (100, 100).
+2025-01-17 05:03:08,381 - INFO - Mostrando configuración para widget: CTkLabel
+2025-01-17 05:03:08,381 - DEBUG - ['width', 'height', 'corner_radius', 'bg_color', 'fg_color', 'text_color', 'text_color_disabled', 'text', 'font', 'image', 'compound', 'anchor', 'wraplength', 'kwargs']
+2025-01-17 05:03:13,869 - INFO - Mostrando configuración para widget: VirtualWindow
+2025-01-17 05:03:13,869 - DEBUG - ['left_sidebar', 'app', 'parameters_dict', 'width', 'height']
+2025-01-17 05:03:13,870 - ERROR - Error al obtener valor de 'left_sidebar' del widget 'VirtualWindow'
+2025-01-17 05:03:13,871 - ERROR - Error al obtener valor de 'app' del widget 'VirtualWindow'
+2025-01-17 05:03:13,871 - ERROR - Error al obtener valor de 'parameters_dict' del widget 'VirtualWindow'
+2025-01-17 05:03:20,399 - INFO - Mostrando configuración para widget: CTkLabel
+2025-01-17 05:03:20,399 - DEBUG - ['width', 'height', 'corner_radius', 'bg_color', 'fg_color', 'text_color', 'text_color_disabled', 'text', 'font', 'image', 'compound', 'anchor', 'wraplength', 'kwargs']
+2025-01-17 05:03:23,855 - INFO - Posición actualizada a: (2, 6)
+2025-01-17 05:03:24,104 - INFO - Posición actualizada a: (20, 6)
+2025-01-17 05:03:24,271 - INFO - Posición actualizada a: (200, 6)
+2025-01-17 05:03:29,613 - INFO - Type of property:<class 'str'>
+2025-01-17 05:03:29,614 - INFO - Propiedad 'text' del widget 'CTkLabel' actualizada a: C
+2025-01-17 05:03:29,719 - INFO - Type of property:<class 'str'>
+2025-01-17 05:03:29,720 - INFO - Propiedad 'text' del widget 'CTkLabel' actualizada a: C
+2025-01-17 05:03:30,004 - INFO - Type of property:<class 'str'>
+2025-01-17 05:03:30,004 - INFO - Propiedad 'text' del widget 'CTkLabel' actualizada a: Co
+2025-01-17 05:03:30,455 - INFO - Type of property:<class 'str'>
+2025-01-17 05:03:30,455 - INFO - Propiedad 'text' del widget 'CTkLabel' actualizada a: Con
+2025-01-17 05:03:30,653 - INFO - Type of property:<class 'str'>
+2025-01-17 05:03:30,653 - INFO - Propiedad 'text' del widget 'CTkLabel' actualizada a: Conf
+2025-01-17 05:03:30,750 - INFO - Type of property:<class 'str'>
+2025-01-17 05:03:30,751 - INFO - Propiedad 'text' del widget 'CTkLabel' actualizada a: Confi
+2025-01-17 05:03:30,987 - INFO - Type of property:<class 'str'>
+2025-01-17 05:03:30,988 - INFO - Propiedad 'text' del widget 'CTkLabel' actualizada a: Config
+2025-01-17 05:03:31,148 - INFO - Type of property:<class 'str'>
+2025-01-17 05:03:31,149 - INFO - Propiedad 'text' del widget 'CTkLabel' actualizada a: Configu
+2025-01-17 05:03:31,316 - INFO - Type of property:<class 'str'>
+2025-01-17 05:03:31,316 - INFO - Propiedad 'text' del widget 'CTkLabel' actualizada a: Configur
+2025-01-17 05:03:31,457 - INFO - Type of property:<class 'str'>
+2025-01-17 05:03:31,457 - INFO - Propiedad 'text' del widget 'CTkLabel' actualizada a: Configura
+2025-01-17 05:03:31,713 - INFO - Type of property:<class 'str'>
+2025-01-17 05:03:31,714 - INFO - Propiedad 'text' del widget 'CTkLabel' actualizada a: Configurac
+2025-01-17 05:03:31,996 - INFO - Type of property:<class 'str'>
+2025-01-17 05:03:31,997 - INFO - Propiedad 'text' del widget 'CTkLabel' actualizada a: Configuraci
+2025-01-17 05:03:32,207 - INFO - Type of property:<class 'str'>
+2025-01-17 05:03:32,208 - INFO - Propiedad 'text' del widget 'CTkLabel' actualizada a: Configuracio
+2025-01-17 05:03:32,376 - INFO - Type of property:<class 'str'>
+2025-01-17 05:03:32,376 - INFO - Propiedad 'text' del widget 'CTkLabel' actualizada a: Configuracion
+2025-01-17 05:03:32,464 - INFO - Type of property:<class 'str'>
+2025-01-17 05:03:32,464 - INFO - Propiedad 'text' del widget 'CTkLabel' actualizada a: Configuracione
+2025-01-17 05:03:32,676 - INFO - Type of property:<class 'str'>
+2025-01-17 05:03:32,676 - INFO - Propiedad 'text' del widget 'CTkLabel' actualizada a: Configuraciones
+2025-01-17 05:03:43,749 - INFO - Type of property:<class 'str'>
+2025-01-17 05:03:43,749 - ERROR - Error al actualizar 'text_color': unknown color name "b". Valor ingresado: b
+2025-01-17 05:03:44,029 - INFO - Type of property:<class 'str'>
+2025-01-17 05:03:44,030 - ERROR - Error al actualizar 'text_color': unknown color name "bl". Valor ingresado: bl
+2025-01-17 05:03:44,152 - INFO - Type of property:<class 'str'>
+2025-01-17 05:03:44,153 - ERROR - Error al actualizar 'text_color': unknown color name "bla". Valor ingresado: bla
+2025-01-17 05:03:44,252 - INFO - Type of property:<class 'str'>
+2025-01-17 05:03:44,252 - ERROR - Error al actualizar 'text_color': unknown color name "blac". Valor ingresado: blac
+2025-01-17 05:03:44,365 - INFO - Type of property:<class 'str'>
+2025-01-17 05:03:44,366 - INFO - Propiedad 'text_color' del widget 'CTkLabel' actualizada a: black
+2025-01-17 05:03:48,753 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:03:48,753 - ERROR - Error al actualizar 'font': El valor 'A' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: A
+2025-01-17 05:03:48,795 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:03:48,796 - ERROR - Error al actualizar 'font': El valor 'A' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: A
+2025-01-17 05:03:48,988 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:03:48,988 - ERROR - Error al actualizar 'font': El valor 'Ar' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: Ar
+2025-01-17 05:03:49,209 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:03:49,209 - ERROR - Error al actualizar 'font': El valor 'Ari' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: Ari
+2025-01-17 05:03:49,348 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:03:49,348 - ERROR - Error al actualizar 'font': El valor 'Aria' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: Aria
+2025-01-17 05:03:49,477 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:03:49,477 - ERROR - Error al actualizar 'font': El valor 'Arial' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: Arial
+2025-01-17 05:03:49,748 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:03:49,748 - ERROR - Error al actualizar 'font': El valor 'Arial ' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: Arial 
+2025-01-17 05:03:50,317 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:03:50,320 - INFO - Propiedad 'font' actualizada a: (Arial, 2)
+2025-01-17 05:03:50,321 - INFO - Propiedad 'font' del widget 'CTkLabel' actualizada a: Arial 2
+2025-01-17 05:03:50,528 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:03:50,532 - INFO - Propiedad 'font' actualizada a: (Arial, 23)
+2025-01-17 05:03:50,533 - INFO - Propiedad 'font' del widget 'CTkLabel' actualizada a: Arial 23
+2025-01-17 05:03:51,451 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:03:51,452 - INFO - Propiedad 'font' actualizada a: (Arial, 2)
+2025-01-17 05:03:51,453 - INFO - Propiedad 'font' del widget 'CTkLabel' actualizada a: Arial 2
+2025-01-17 05:03:51,628 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:03:51,633 - INFO - Propiedad 'font' actualizada a: (Arial, 25)
+2025-01-17 05:03:51,633 - INFO - Propiedad 'font' del widget 'CTkLabel' actualizada a: Arial 25
+2025-01-17 05:03:53,195 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:03:53,196 - INFO - Propiedad 'font' actualizada a: (Arial, 2)
+2025-01-17 05:03:53,197 - INFO - Propiedad 'font' del widget 'CTkLabel' actualizada a: Arial 2
+2025-01-17 05:03:53,804 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:03:53,808 - INFO - Propiedad 'font' actualizada a: (Arial, 28)
+2025-01-17 05:03:53,809 - INFO - Propiedad 'font' del widget 'CTkLabel' actualizada a: Arial 28
+2025-01-17 05:03:54,219 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:03:54,220 - INFO - Propiedad 'font' actualizada a: (Arial, 2)
+2025-01-17 05:03:54,221 - INFO - Propiedad 'font' del widget 'CTkLabel' actualizada a: Arial 2
+2025-01-17 05:03:54,565 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:03:54,566 - INFO - Propiedad 'font' actualizada a: (Arial, 28)
+2025-01-17 05:03:54,567 - INFO - Propiedad 'font' del widget 'CTkLabel' actualizada a: Arial 28
+2025-01-17 05:04:04,279 - INFO - Mostrando configuración para widget: CTkLabel
+2025-01-17 05:04:04,279 - DEBUG - ['width', 'height', 'corner_radius', 'bg_color', 'fg_color', 'text_color', 'text_color_disabled', 'text', 'font', 'image', 'compound', 'anchor', 'wraplength', 'kwargs']
+2025-01-17 05:04:42,412 - INFO - Mostrando configuración para widget: CTkLabel
+2025-01-17 05:04:42,412 - DEBUG - ['width', 'height', 'corner_radius', 'bg_color', 'fg_color', 'text_color', 'text_color_disabled', 'text', 'font', 'image', 'compound', 'anchor', 'wraplength', 'kwargs']
+2025-01-17 05:04:45,918 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:45,918 - ERROR - Error al actualizar 'font': El valor 'a' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: a
+2025-01-17 05:04:46,090 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:46,091 - ERROR - Error al actualizar 'font': El valor 'ar' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: ar
+2025-01-17 05:04:46,252 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:46,253 - ERROR - Error al actualizar 'font': El valor 'ari' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: ari
+2025-01-17 05:04:46,394 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:46,394 - ERROR - Error al actualizar 'font': El valor 'aria' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: aria
+2025-01-17 05:04:46,530 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:46,531 - ERROR - Error al actualizar 'font': El valor 'arial' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: arial
+2025-01-17 05:04:46,733 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:46,733 - ERROR - Error al actualizar 'font': El valor 'arial ' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: arial 
+2025-01-17 05:04:47,406 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:47,407 - ERROR - Error al actualizar 'font': El valor 'arial' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: arial
+2025-01-17 05:04:47,693 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:47,694 - ERROR - Error al actualizar 'font': El valor 'arial,' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: arial,
+2025-01-17 05:04:48,176 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:48,177 - ERROR - Error al actualizar 'font': El valor 'arial, ' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: arial, 
+2025-01-17 05:04:48,577 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:48,578 - INFO - Propiedad 'font' actualizada a: (arial,, 2)
+2025-01-17 05:04:48,579 - INFO - Propiedad 'font' del widget 'CTkLabel' actualizada a: arial, 2
+2025-01-17 05:04:48,783 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:48,785 - INFO - Propiedad 'font' actualizada a: (arial,, 25)
+2025-01-17 05:04:48,785 - INFO - Propiedad 'font' del widget 'CTkLabel' actualizada a: arial, 25
+2025-01-17 05:04:49,725 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:49,726 - INFO - Propiedad 'font' actualizada a: (arial,, 2)
+2025-01-17 05:04:49,727 - INFO - Propiedad 'font' del widget 'CTkLabel' actualizada a: arial, 2
+2025-01-17 05:04:50,001 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:50,002 - ERROR - Error al actualizar 'font': El valor 'arial, ' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: arial, 
+2025-01-17 05:04:50,358 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:50,359 - ERROR - Error al actualizar 'font': El valor 'arial,' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: arial,
+2025-01-17 05:04:50,989 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:50,989 - ERROR - Error al actualizar 'font': El valor 'arial' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: arial
+2025-01-17 05:04:51,068 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:51,069 - ERROR - Error al actualizar 'font': El valor 'arial ' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: arial 
+2025-01-17 05:04:51,672 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:51,673 - INFO - Propiedad 'font' actualizada a: (arial, 2)
+2025-01-17 05:04:51,674 - INFO - Propiedad 'font' del widget 'CTkLabel' actualizada a: arial 2
+2025-01-17 05:04:51,800 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:51,805 - INFO - Propiedad 'font' actualizada a: (arial, 20)
+2025-01-17 05:04:51,805 - INFO - Propiedad 'font' del widget 'CTkLabel' actualizada a: arial 20
+2025-01-17 05:04:52,552 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:52,553 - INFO - Propiedad 'font' actualizada a: (arial, 2)
+2025-01-17 05:04:52,554 - INFO - Propiedad 'font' del widget 'CTkLabel' actualizada a: arial 2
+2025-01-17 05:04:52,754 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:52,754 - ERROR - Error al actualizar 'font': El valor 'arial ' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: arial 
+2025-01-17 05:04:53,040 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:53,044 - INFO - Propiedad 'font' actualizada a: (arial, 9)
+2025-01-17 05:04:53,044 - INFO - Propiedad 'font' del widget 'CTkLabel' actualizada a: arial 9
+2025-01-17 05:04:53,284 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:53,287 - INFO - Propiedad 'font' actualizada a: (arial, 90)
+2025-01-17 05:04:53,288 - INFO - Propiedad 'font' del widget 'CTkLabel' actualizada a: arial 90
+2025-01-17 05:04:54,209 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:54,210 - INFO - Propiedad 'font' actualizada a: (arial, 9)
+2025-01-17 05:04:54,211 - INFO - Propiedad 'font' del widget 'CTkLabel' actualizada a: arial 9
+2025-01-17 05:04:54,404 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:54,404 - ERROR - Error al actualizar 'font': El valor 'arial ' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: arial 
+2025-01-17 05:04:55,003 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:55,006 - INFO - Propiedad 'font' actualizada a: (arial, 0)
+2025-01-17 05:04:55,007 - INFO - Propiedad 'font' del widget 'CTkLabel' actualizada a: arial 0
+2025-01-17 05:04:56,662 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:56,662 - ERROR - Error al actualizar 'font': El valor 'arial ' no es válido para 'font'. Formato esperado: 'Arial 20'. Valor ingresado: arial 
+2025-01-17 05:04:56,984 - INFO - Type of property:<class 'customtkinter.windows.widgets.font.ctk_font.CTkFont'>
+2025-01-17 05:04:56,987 - INFO - Propiedad 'font' actualizada a: (arial, 6)
+2025-01-17 05:04:56,988 - INFO - Propiedad 'font' del widget 'CTkLabel' actualizada a: arial 6
+2025-01-17 05:06:52,050 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:06:52,156 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:06:53,455 - DEBUG - Intentando agregar widget de tipo 'CTkLabel'.
+2025-01-17 05:06:53,456 - DEBUG - Creando widget de tipo 'CTkLabel' con argumentos: {}.
+2025-01-17 05:06:53,457 - INFO - Widget 'CTkLabel' creado con éxito.
+2025-01-17 05:06:53,457 - INFO - Widget de tipo 'CTkLabel' agregado en posición inicial (100, 100).
+2025-01-17 05:06:55,210 - INFO - Mostrando configuración para widget: CTkLabel
+2025-01-17 05:06:55,210 - DEBUG - ['width', 'height', 'corner_radius', 'bg_color', 'fg_color', 'text_color', 'text_color_disabled', 'text', 'font', 'image', 'compound', 'anchor', 'wraplength', 'kwargs']
+2025-01-17 05:09:24,316 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:09:24,419 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:09:30,339 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2025-01-17 05:09:30,339 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2025-01-17 05:09:30,342 - INFO - Widget 'CTkButton' creado con éxito.
+2025-01-17 05:09:30,343 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial (100, 100).
+2025-01-17 05:09:34,485 - INFO - Mostrando configuración para widget: VirtualWindow
+2025-01-17 05:09:34,485 - DEBUG - ['left_sidebar', 'app', 'parameters_dict', 'width', 'height']
+2025-01-17 05:09:34,486 - ERROR - Error al obtener valor de 'left_sidebar' del widget 'VirtualWindow'
+2025-01-17 05:09:34,486 - ERROR - Error al obtener valor de 'app' del widget 'VirtualWindow'
+2025-01-17 05:09:34,487 - ERROR - Error al obtener valor de 'parameters_dict' del widget 'VirtualWindow'
+2025-01-17 05:09:37,243 - INFO - Type of property:<class 'int'>
+2025-01-17 05:09:37,245 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 1
+2025-01-17 05:09:37,843 - INFO - Type of property:<class 'int'>
+2025-01-17 05:09:37,847 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 10
+2025-01-17 05:09:38,019 - INFO - Type of property:<class 'int'>
+2025-01-17 05:09:38,024 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 100
+2025-01-17 05:09:38,243 - INFO - Type of property:<class 'int'>
+2025-01-17 05:09:38,247 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 1000
+2025-01-17 05:09:39,146 - INFO - Type of property:<class 'int'>
+2025-01-17 05:09:39,151 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 100
+2025-01-17 05:09:41,164 - INFO - Type of property:<class 'int'>
+2025-01-17 05:09:41,167 - INFO - Propiedad 'height' del widget 'VirtualWindow' actualizada a: 100
+2025-01-17 05:09:42,765 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2025-01-17 05:09:42,766 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2025-01-17 05:09:42,769 - INFO - Widget 'CTkButton' creado con éxito.
+2025-01-17 05:09:42,769 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial (100, 100).
+2025-01-17 05:09:45,099 - INFO - Type of property:<class 'int'>
+2025-01-17 05:09:45,102 - INFO - Propiedad 'height' del widget 'VirtualWindow' actualizada a: 1000
+2025-01-17 05:09:46,578 - INFO - Type of property:<class 'int'>
+2025-01-17 05:09:46,582 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 1000
+2025-01-17 05:09:50,878 - INFO - Type of property:<class 'int'>
+2025-01-17 05:09:50,882 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 10000
+2025-01-17 05:09:51,678 - INFO - Type of property:<class 'int'>
+2025-01-17 05:09:51,682 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 1000
+2025-01-17 05:09:51,970 - INFO - Type of property:<class 'int'>
+2025-01-17 05:09:51,973 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 100
+2025-01-17 05:09:54,662 - INFO - Type of property:<class 'int'>
+2025-01-17 05:09:54,663 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 100
+2025-01-17 05:09:54,846 - INFO - Type of property:<class 'int'>
+2025-01-17 05:09:54,847 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 100
+2025-01-17 05:09:55,998 - INFO - Type of property:<class 'int'>
+2025-01-17 05:09:55,999 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 00
+2025-01-17 05:09:56,639 - INFO - Type of property:<class 'int'>
+2025-01-17 05:09:56,644 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 500
+2025-01-17 05:10:02,006 - INFO - Type of property:<class 'int'>
+2025-01-17 05:10:02,008 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 00
+2025-01-17 05:10:02,436 - INFO - Type of property:<class 'int'>
+2025-01-17 05:10:02,441 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 900
+2025-01-17 05:11:11,276 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:11:11,383 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:11:13,817 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2025-01-17 05:11:13,818 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2025-01-17 05:11:13,821 - INFO - Widget 'CTkButton' creado con éxito.
+2025-01-17 05:13:00,844 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:13:00,959 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:13:01,981 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2025-01-17 05:13:01,982 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2025-01-17 05:13:01,986 - INFO - Widget 'CTkButton' creado con éxito.
+2025-01-17 05:13:01,986 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial (100, 100).
+2025-01-17 05:13:03,985 - INFO - Mostrando configuración para widget: VirtualWindow
+2025-01-17 05:13:03,986 - DEBUG - ['left_sidebar', 'app', 'parameters_dict', 'width', 'height']
+2025-01-17 05:13:03,987 - ERROR - Error al obtener valor de 'left_sidebar' del widget 'VirtualWindow'
+2025-01-17 05:13:03,987 - ERROR - Error al obtener valor de 'app' del widget 'VirtualWindow'
+2025-01-17 05:13:03,988 - ERROR - Error al obtener valor de 'parameters_dict' del widget 'VirtualWindow'
+2025-01-17 05:13:06,537 - INFO - Type of property:<class 'int'>
+2025-01-17 05:13:06,540 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 2
+2025-01-17 05:13:06,924 - INFO - Type of property:<class 'int'>
+2025-01-17 05:13:06,929 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 20
+2025-01-17 05:13:07,100 - INFO - Type of property:<class 'int'>
+2025-01-17 05:13:07,103 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 200
+2025-01-17 05:13:08,108 - INFO - Type of property:<class 'int'>
+2025-01-17 05:13:08,112 - INFO - Propiedad 'height' del widget 'VirtualWindow' actualizada a: 2
+2025-01-17 05:13:08,541 - INFO - Type of property:<class 'int'>
+2025-01-17 05:13:08,547 - INFO - Propiedad 'height' del widget 'VirtualWindow' actualizada a: 20
+2025-01-17 05:13:08,726 - INFO - Type of property:<class 'int'>
+2025-01-17 05:13:08,730 - INFO - Propiedad 'height' del widget 'VirtualWindow' actualizada a: 200
+2025-01-17 05:13:09,891 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2025-01-17 05:13:09,891 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2025-01-17 05:13:09,894 - INFO - Widget 'CTkButton' creado con éxito.
+2025-01-17 05:13:09,894 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial (100, 100).
+2025-01-17 05:13:31,884 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:13:31,990 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:13:33,072 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2025-01-17 05:13:33,073 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2025-01-17 05:13:33,076 - INFO - Widget 'CTkButton' creado con éxito.
+2025-01-17 05:13:33,077 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial (100, 100).
+2025-01-17 05:14:19,469 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:14:19,574 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:14:21,090 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2025-01-17 05:14:21,090 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2025-01-17 05:14:21,093 - INFO - Widget 'CTkButton' creado con éxito.
+2025-01-17 05:14:21,094 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial 400.0250.0
+2025-01-17 05:14:54,212 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:14:54,316 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:14:59,794 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2025-01-17 05:14:59,794 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2025-01-17 05:14:59,797 - INFO - Widget 'CTkButton' creado con éxito.
+2025-01-17 05:14:59,797 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial 400 250
+2025-01-17 05:15:50,362 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:15:50,477 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:15:51,708 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2025-01-17 05:15:51,709 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2025-01-17 05:15:51,712 - INFO - Widget 'CTkButton' creado con éxito.
+2025-01-17 05:15:51,713 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial 400 250
+2025-01-17 05:16:23,873 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:16:23,967 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:16:24,960 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2025-01-17 05:16:24,960 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2025-01-17 05:16:24,963 - INFO - Widget 'CTkButton' creado con éxito.
+2025-01-17 05:16:24,964 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial 400 250
+2025-01-17 05:16:29,156 - DEBUG - Intentando agregar widget de tipo 'CTkLabel'.
+2025-01-17 05:16:29,156 - DEBUG - Creando widget de tipo 'CTkLabel' con argumentos: {}.
+2025-01-17 05:16:29,157 - INFO - Widget 'CTkLabel' creado con éxito.
+2025-01-17 05:16:29,157 - INFO - Widget de tipo 'CTkLabel' agregado en posición inicial 400 250
+2025-01-17 05:16:33,320 - INFO - Mostrando configuración para widget: VirtualWindow
+2025-01-17 05:16:33,320 - DEBUG - ['left_sidebar', 'app', 'parameters_dict', 'width', 'height']
+2025-01-17 05:16:33,321 - ERROR - Error al obtener valor de 'left_sidebar' del widget 'VirtualWindow'
+2025-01-17 05:16:33,322 - ERROR - Error al obtener valor de 'app' del widget 'VirtualWindow'
+2025-01-17 05:16:33,322 - ERROR - Error al obtener valor de 'parameters_dict' del widget 'VirtualWindow'
+2025-01-17 05:16:35,286 - INFO - Type of property:<class 'int'>
+2025-01-17 05:16:35,288 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 1
+2025-01-17 05:16:35,695 - INFO - Type of property:<class 'int'>
+2025-01-17 05:16:35,699 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 10
+2025-01-17 05:16:35,835 - INFO - Type of property:<class 'int'>
+2025-01-17 05:16:35,839 - INFO - Propiedad 'width' del widget 'VirtualWindow' actualizada a: 100
+2025-01-17 05:16:36,941 - INFO - Type of property:<class 'int'>
+2025-01-17 05:16:36,942 - INFO - Propiedad 'height' del widget 'VirtualWindow' actualizada a: 1
+2025-01-17 05:16:37,328 - INFO - Type of property:<class 'int'>
+2025-01-17 05:16:37,331 - INFO - Propiedad 'height' del widget 'VirtualWindow' actualizada a: 10
+2025-01-17 05:16:37,480 - INFO - Type of property:<class 'int'>
+2025-01-17 05:16:37,485 - INFO - Propiedad 'height' del widget 'VirtualWindow' actualizada a: 100
+2025-01-17 05:16:39,726 - DEBUG - Intentando agregar widget de tipo 'CTkLabel'.
+2025-01-17 05:16:39,726 - DEBUG - Creando widget de tipo 'CTkLabel' con argumentos: {}.
+2025-01-17 05:16:39,727 - INFO - Widget 'CTkLabel' creado con éxito.
+2025-01-17 05:16:39,728 - INFO - Widget de tipo 'CTkLabel' agregado en posición inicial 50 50
+2025-01-17 05:16:58,664 - INFO - Mostrando configuración para widget: CTkLabel
+2025-01-17 05:16:58,664 - DEBUG - ['width', 'height', 'corner_radius', 'bg_color', 'fg_color', 'text_color', 'text_color_disabled', 'text', 'font', 'image', 'compound', 'anchor', 'wraplength', 'kwargs']
+2025-01-17 05:17:11,472 - DEBUG - Deleted widget:.!ctkcanvas.!virtualwindow.!ctklabel2
+2025-01-17 05:17:12,591 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2025-01-17 05:17:12,591 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2025-01-17 05:17:12,594 - INFO - Widget 'CTkButton' creado con éxito.
+2025-01-17 05:17:12,595 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial 50 50
+2025-01-17 05:17:18,411 - DEBUG - Intentando agregar widget de tipo 'CTkSwitch'.
+2025-01-17 05:17:18,412 - DEBUG - Creando widget de tipo 'CTkSwitch' con argumentos: {}.
+2025-01-17 05:17:18,423 - INFO - Widget 'CTkSwitch' creado con éxito.
+2025-01-17 05:17:18,424 - INFO - Widget de tipo 'CTkSwitch' agregado en posición inicial 50 50
+2025-01-17 05:17:20,017 - INFO - Mostrando configuración para widget: CTkSwitch
+2025-01-17 05:17:20,017 - DEBUG - ['width', 'height', 'switch_width', 'switch_height', 'corner_radius', 'border_width', 'button_length', 'bg_color', 'fg_color', 'border_color', 'progress_color', 'button_color', 'button_hover_color', 'text_color', 'text_color_disabled', 'text', 'font', 'textvariable', 'onvalue', 'offvalue', 'variable', 'hover', 'command', 'state', 'kwargs']
+2025-01-17 05:18:11,416 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:18:11,519 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:18:18,221 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2025-01-17 05:18:18,221 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2025-01-17 05:18:18,226 - INFO - Widget 'CTkButton' creado con éxito.
+2025-01-17 05:18:18,226 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial 330 250
+2025-01-17 05:18:23,790 - INFO - Mostrando configuración para widget: CTkButton
+2025-01-17 05:18:23,790 - DEBUG - ['width', 'height', 'corner_radius', 'border_width', 'border_spacing', 'bg_color', 'fg_color', 'hover_color', 'border_color', 'text_color', 'text_color_disabled', 'background_corner_colors', 'round_width_to_even_numbers', 'round_height_to_even_numbers', 'text', 'font', 'textvariable', 'image', 'state', 'hover', 'command', 'compound', 'anchor', 'kwargs']
+2025-01-17 05:20:31,623 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:20:31,723 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:20:33,435 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2025-01-17 05:20:33,435 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2025-01-17 05:20:33,438 - INFO - Widget 'CTkButton' creado con éxito.
+2025-01-17 05:20:33,439 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial 140 28
+2025-01-17 05:21:00,523 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:21:00,634 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:21:58,744 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:21:58,860 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:25:28,730 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:25:28,850 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:26:42,742 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:26:42,858 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:27:51,734 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:27:51,844 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:27:55,317 - INFO - Detalles de widget a importar: [<class 'codeBox.AddLineNums'>, <class 'codeBox.CTkCodeBox'>]
+2025-01-17 05:28:14,043 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:28:14,152 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:28:17,722 - INFO - Widgets ocultados.
+2025-01-17 05:28:17,780 - DEBUG - Intentando generar lineas
+2025-01-17 05:28:17,798 - DEBUG - Loading window parameters...
+2025-01-17 05:28:17,800 - DEBUG - Creating initial lines...
+2025-01-17 05:28:17,800 - INFO - Not using Base Scene
+2025-01-17 05:28:19,796 - INFO - Widgets desocultados.
+2025-01-17 05:30:14,768 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:30:14,876 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:30:18,535 - INFO - Detalles de widget a importar: [<class 'codeBox.AddLineNums'>, <class 'codeBox.CTkCodeBox'>]
+2025-01-17 05:30:25,941 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:30:26,052 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:30:28,548 - INFO - Widgets ocultados.
+2025-01-17 05:30:28,563 - DEBUG - Intentando generar lineas
+2025-01-17 05:30:28,580 - DEBUG - Loading window parameters...
+2025-01-17 05:30:28,583 - DEBUG - Creating initial lines...
+2025-01-17 05:30:28,583 - INFO - Not using Base Scene
+2025-01-17 05:30:37,679 - INFO - Widgets desocultados.
+2025-01-17 05:30:38,314 - INFO - Mostrando configuración para widget: VirtualWindow
+2025-01-17 05:30:38,315 - DEBUG - ['left_sidebar', 'app', 'parameters_dict', 'width', 'height']
+2025-01-17 05:30:38,316 - ERROR - Error al obtener valor de 'left_sidebar' del widget 'VirtualWindow'
+2025-01-17 05:30:38,316 - ERROR - Error al obtener valor de 'app' del widget 'VirtualWindow'
+2025-01-17 05:30:38,317 - ERROR - Error al obtener valor de 'parameters_dict' del widget 'VirtualWindow'
+2025-01-17 05:32:21,125 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:32:21,235 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:32:23,266 - INFO - Widgets ocultados.
+2025-01-17 05:33:33,820 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:33:33,925 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:33:34,903 - INFO - Widgets ocultados.
+2025-01-17 05:35:00,669 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:35:00,780 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:35:04,314 - INFO - Widgets ocultados.
+2025-01-17 05:35:04,331 - DEBUG - Intentando generar lineas
+2025-01-17 05:35:04,350 - DEBUG - Loading window parameters...
+2025-01-17 05:35:04,353 - DEBUG - Creating initial lines...
+2025-01-17 05:35:04,354 - INFO - Not using Base Scene
+2025-01-17 05:35:16,825 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 05:35:16,942 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 05:35:20,621 - INFO - Widgets ocultados.
+2025-01-17 05:35:20,639 - DEBUG - Intentando generar lineas
+2025-01-17 05:35:20,659 - DEBUG - Loading window parameters...
+2025-01-17 05:35:20,661 - DEBUG - Creating initial lines...
+2025-01-17 05:35:20,662 - INFO - Not using Base Scene
+2025-01-17 05:35:22,494 - INFO - Widgets desocultados.
+2025-01-17 05:35:23,131 - INFO - Widgets ocultados.
+2025-01-17 05:35:23,142 - DEBUG - Intentando generar lineas
+2025-01-17 05:35:23,155 - DEBUG - Loading window parameters...
+2025-01-17 05:35:23,157 - DEBUG - Creating initial lines...
+2025-01-17 05:35:23,158 - INFO - Not using Base Scene
+2025-01-17 05:35:27,546 - INFO - Widgets desocultados.
+2025-01-17 05:35:28,633 - INFO - Widgets ocultados.
+2025-01-17 05:35:28,644 - DEBUG - Intentando generar lineas
+2025-01-17 05:35:28,658 - DEBUG - Loading window parameters...
+2025-01-17 05:35:28,660 - DEBUG - Creating initial lines...
+2025-01-17 05:35:28,660 - INFO - Not using Base Scene
+2025-01-17 05:38:19,164 - INFO - Widgets desocultados.

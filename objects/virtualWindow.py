@@ -22,7 +22,7 @@ class VirtualWindow(ctk.CTkFrame):
         self.widgets = []
         self.parameters_dict = parameters_dict
         self._is_hidden = False
-        self._original_positions = {} 
+        self._original_positions = {}
         
         self.guide_canvas = tk.Canvas(self, width=width, height=height, highlightthickness=0)
         self.guide_canvas.place(relx=0, rely=0, relwidth=1, relheight=1)
@@ -57,12 +57,16 @@ class VirtualWindow(ctk.CTkFrame):
         
         return widget_count
     
+    def replace(self):
+        self.place(x=50, y=50)
+    
     def add_widget(self, widget_type):
         """Agrega un widget al VirtualWindow."""
         logging.debug(f"Intentando agregar widget de tipo '{widget_type}'.")
         if widget := self.create_widget(widget_type):
-            self._extracted_from_create_and_place_widget_5(widget, 100, 100)
-            logging.info(f"Widget de tipo '{widget_type}' agregado en posición inicial (100, 100).")
+            self._extracted_from_create_and_place_widget_5(widget, self.cget("width") / 2 - widget.cget("width") / 2 
+                                                           , self.cget("height") / 2 - widget.cget("height")/2)
+            logging.info(f"Widget de tipo '{widget_type}' agregado en posición inicial {widget.cget("width")} {widget.cget("height")}")
         else:
             logging.warning(f"Fallo al agregar widget de tipo '{widget_type}'.")
 

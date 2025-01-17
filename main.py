@@ -1,14 +1,15 @@
 import logging
+import tkinter.ttk as ttk
 import customtkinter as ctk
-from objects.virtualWindow import VirtualWindow
+from data.variable import *
+from objects.tooltip import *
+from tkinter import filedialog
+from functions.import_widget import *
 from objects.codeBox import CTkCodeBox
 from translations.translations import *
 from translations.translator import Translator
-from objects.tooltip import *
-from functions.import_widget import *
-from tkinter import filedialog
-from data.variable import *
-import tkinter.ttk as ttk
+from functions.create_widget_animation import *
+from objects.virtualWindow import VirtualWindow
 
 def validate_input(value):
     """Update the treeview in the right sidebar.
@@ -780,6 +781,7 @@ class App(ctk.CTk):
 
     def view_code(self):
         if self.virtual_window.toggle_visibility():
+            self.virtual_window.replace()
             self.code = CTkCodeBox(self.central_canvas, height=500, width=800, language='python')
             self.code.place(x=50, y=50)
             self.code.insert('1.0', "\n".join(self.virtual_window.previsualize_code()))
@@ -822,7 +824,7 @@ class App(ctk.CTk):
                 if isinstance(widget, (ctk.CTkLabel, ctk.CTkButton)):
                     try:
                         widget.configure(text=self.translator.translate(self.translator.find_key_by_value(widget.cget('text'))))
-                        logging.debug(f"Actualizado widget: {widget}")
+                        logging.debug(f"Actualizando widget: {widget.__class__.__name__} - Texto: {widget.cget('text')}")
                     except Exception:
                         continue
 
