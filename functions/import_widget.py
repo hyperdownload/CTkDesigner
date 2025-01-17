@@ -18,7 +18,7 @@ def load_classes_from_file(file_path):
     try:
         spec.loader.exec_module(module)
     except Exception as e:
-        raise ImportError(f"Error al importar el archivo: {e}")
+        raise ImportError(f"Error al importar el archivo: {e}") from e
 
     return [
         obj
@@ -43,8 +43,7 @@ def get_class_parameters(cls):
     ]
 
 if __name__ == "__main__":
-    file_path = "b.py"
-
+    file_path = "test.py"
     try:
         if classes := load_classes_from_file(file_path):
             print("Clases encontradas:")
@@ -56,7 +55,7 @@ if __name__ == "__main__":
 
             parameters = get_class_parameters(selected_class)
             print(f"Clase seleccionada: {selected_class.__name__}")
-            print(f"Parámetros del constructor: {parameters}")
+            print(f"Parametros del constructor: {parameters}")
 
             instance = selected_class(*[None] * len(parameters))
             print(f"Instancia creada: {instance}")
