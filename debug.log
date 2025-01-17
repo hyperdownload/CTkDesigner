@@ -9175,3 +9175,28 @@ if __name__ == '__main__':
 2025-01-16 19:40:28,557 - ERROR - Error al obtener valor de 'font' del widget 'CTkTable'
 2025-01-16 19:40:28,587 - ERROR - Error al obtener valor de 'command' del widget 'CTkTable'
 2025-01-16 19:40:28,635 - ERROR - Error al obtener valor de 'kwargs' del widget 'CTkTable'
+2025-01-16 23:46:59,641 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-16 23:46:59,743 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-16 23:47:17,487 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2025-01-16 23:47:17,488 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2025-01-16 23:47:17,491 - INFO - Widget 'CTkButton' creado con éxito.
+2025-01-16 23:47:17,491 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial (100, 100).
+2025-01-16 23:47:18,324 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2025-01-16 23:47:18,324 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2025-01-16 23:47:18,327 - INFO - Widget 'CTkButton' creado con éxito.
+2025-01-16 23:47:18,327 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial (100, 100).
+2025-01-16 23:47:31,441 - INFO - Detalles de widget a importar: [<class 'b.CTkTable'>]
+2025-01-16 23:47:32,924 - INFO - Mostrando configuración para widget: CTkTable
+2025-01-16 23:47:32,924 - DEBUG - ['row', 'column', 'padx', 'pady', 'width', 'height', 'values', 'colors', 'orientation', 'color_phase', 'border_width', 'text_color', 'border_color', 'font', 'header_color', 'corner_radius', 'write', 'command', 'anchor', 'hover_color', 'hover', 'justify', 'wraplength', 'kwargs']
+2025-01-16 23:47:33,057 - ERROR - Error al obtener valor de 'font' del widget 'CTkTable'
+2025-01-16 23:47:33,088 - ERROR - Error al obtener valor de 'command' del widget 'CTkTable'
+2025-01-16 23:47:33,140 - ERROR - Error al obtener valor de 'kwargs' del widget 'CTkTable'
+2025-01-17 01:53:41,244 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-17 01:53:41,354 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-17 01:53:49,613 - INFO - Detalles de widget a importar: [<class 'b.CTkTable'>]
+2025-01-17 01:53:51,396 - INFO - Mostrando configuración para widget: CTkTable
+2025-01-17 01:53:51,396 - DEBUG - ['row', 'column', 'padx', 'pady', 'width', 'height', 'values', 'colors', 'orientation', 'color_phase', 'border_width', 'text_color', 'border_color', 'font', 'header_color', 'corner_radius', 'write', 'command', 'anchor', 'hover_color', 'hover', 'justify', 'wraplength', 'kwargs']
+2025-01-17 01:53:51,534 - ERROR - Error al obtener valor de 'font' del widget 'CTkTable'
+2025-01-17 01:53:51,566 - ERROR - Error al obtener valor de 'command' del widget 'CTkTable'
+2025-01-17 01:53:51,618 - ERROR - Error al obtener valor de 'kwargs' del widget 'CTkTable'
+2025-01-17 01:53:58,297 - DEBUG - Deleted widget:.!ctkcanvas.!virtualwindow.!ctktable
