@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from data.variable import *
+from functions.widget_resize import *
 import tkinter as tk
 import logging
 import ast
@@ -16,9 +17,10 @@ logging.basicConfig(
 
 class VirtualWindow(ctk.CTkFrame):
     def __init__(self, parent, left_sidebar, app, parameters_dict:dict,width=800, height=500):
-        super().__init__(parent, width=width, height=height, bg_color="lightgrey", fg_color="white")
+        super().__init__(parent, width=int(width), height=int(height), bg_color="lightgrey", fg_color="white")
         self.left_sidebar = left_sidebar
         self.app = app
+        self.clipboard = ''
         self.widgets = []
         self.parameters_dict = parameters_dict
         self._is_hidden = False
@@ -60,10 +62,10 @@ class VirtualWindow(ctk.CTkFrame):
     def replace(self):
         self.place(x=50, y=50)
     
-    def add_widget(self, widget_type):
+    def add_widget(self, widget_type, **kwargs):
         """Agrega un widget al VirtualWindow."""
         logging.debug(f"Intentando agregar widget de tipo '{widget_type}'.")
-        if widget := self.create_widget(widget_type):
+        if widget := self.create_widget(widget_type, **kwargs):
             self._extracted_from_create_and_place_widget_5(widget, self.cget("width") / 2 - widget.cget("width") / 2 
                                                            , self.cget("height") / 2 - widget.cget("height")/2)
             logging.info(f"Widget de tipo '{widget_type}' agregado en posición inicial {widget.cget("width")} {widget.cget("height")}")
@@ -79,6 +81,12 @@ class VirtualWindow(ctk.CTkFrame):
             return widget
         logging.error(f"'{widget_type}' no es un tipo de widget válido.")
         return None
+    
+    def paste_widget(self, widget, **kwargs):
+        """Agrega un widget al VirtualWindow con los argumentos proporcionados."""
+        logging.debug(f"Agregando widget de tipo '{widget.__class__.__name__}' con argumentos: {kwargs}.")
+        self.add_widget(widget.__class__.__name__, **kwargs)
+        logging.info(f"Widget de tipo '{widget.__class__.__name__}' agregado en posición inicial {widget.cget('width')} {widget.cget('height')}")
     
     def toggle_visibility(self):
         """Alterna la visibilidad de todos los widgets dentro de la VirtualWindow."""
@@ -351,11 +359,25 @@ class VirtualWindow(ctk.CTkFrame):
                     widget.bind("<Button-3>", lambda event: select_widget(event))
                     self.left_sidebar.show_widget_config(self)
                 else:
+                    enable_resizable_highlight(self.guide_canvas,widget, self.left_sidebar)
                     self.left_sidebar.show_widget_config(widget)
+            def copy(widget):
+                self.clipboard = widget
+                logging.info(f"{widget.__class__.__name__} copied.")
+                
+            def paste():
+                if self.clipboard:
+                    self.app.inter_add_widget(self.clipboard)
+                    logging.info(f"{self.clipboard.__class__.__name__} pasted.")
+                else:
+                    logging.info("No hay widget seleccionado para pegar.")
 
             # Asignar manejadores de eventos
             widget.bind("<Button-3>", select_widget)  # Clic derecho
-            widget.bind("<Delete>", lambda event: self.left_sidebar.delete_widget(widget))  # Ctrl + Delete
+            widget.bind("<Delete>", lambda event: self.left_sidebar.delete_widget(widget))  # Delete
+            widget.bind("<Control-c>", lambda event: copy(widget))  # Ctrl + C
+            widget.bind("<Control-v>", lambda event: paste())  # Ctrl + V
+            enable_resizable_highlight(self.guide_canvas,widget, self.left_sidebar)
         except Exception as e:
             logging.error(f"Error en la selección de widget: {e}")
 
@@ -365,6 +387,21 @@ class VirtualWindow(ctk.CTkFrame):
         self.widgets.remove(widget)
         logging.debug(f"Deleted widget:{widget}")
         
+    def clean_virtual_window(self):
+        """Limpia el contenido del VirtualWindow."""
+        logging.info("Limpiando el contenido del VirtualWindow.")
+        try:
+            self.clear_guides()
+            for widget in self.widgets:
+                self.left_sidebar.delete_widget(widget)
+            logging.info("El contenido del VirtualWindow fue borrado correctamente.")
+        except Exception as e:
+            logging.error(f"Error al limpiar el contenido del VirtualWindow: {e}")
+        
+    # ----------------------------------------------------------------
+    # Métodos de importación de widgets desde código
+    # ----------------------------------------------------------------    
+    
     def import_from_codebox(self, code):
         """Importa widgets desde el código proporcionado en CodeBox, incluidos sus parámetros."""
         self.clean_virtual_window()
@@ -409,6 +446,12 @@ class VirtualWindow(ctk.CTkFrame):
                 return
 
             tree = ast.parse(code)
+
+            if geometry := self.detect_window_geometry(tree):
+                width, height, x, y = geometry
+                self.configure(width=width, height=height)
+                logging.info(f"Geometría detectada: {width}x{height}+{x}+{y}")
+
             self.app.cross_update_progressbar(0.2)
 
             app_class = self.find_app_class(tree)
@@ -429,6 +472,26 @@ class VirtualWindow(ctk.CTkFrame):
         except Exception as e:
             logging.error(f"Error durante la importación: {e}")
             self.app.cross_update_progressbar(0.0) 
+            
+    def detect_window_geometry(self, tree):
+        """Detecta la geometría de la ventana en el código importado."""
+        logging.info("Buscando geometría de la ventana en el código importado")
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Expr) and isinstance(node.value, ast.Call):
+                func = node.value.func
+                if isinstance(func, ast.Attribute) and func.attr == "geometry":
+                    try:
+                        geometry_str = ast.literal_eval(node.value.args[0])
+                        if match := re.match(
+                            r"(\d+)x(\d+)\+?(\d+)?\+?(\d+)?", geometry_str
+                        ):
+                            width, height, x, y = match.groups()
+                            return int(width), int(height), int(x or 0), int(y or 0)
+                    except Exception as e:
+                        logging.warning(f"No se pudo interpretar la geometría: {e}")
+                        return None
+        logging.warning("No se encontró ninguna asignación de geometría en el código.")
+        return None
 
     # TODO Rename this here and in `import_from_codebox` and `import_from_file`
     def _extracted_from_import_from_file_22(self, generic_widget_creator):
@@ -437,17 +500,6 @@ class VirtualWindow(ctk.CTkFrame):
         )
         self.process_widget_calls(generic_widget_creator)
         self.app.cross_update_progressbar(0.8) 
-
-    def clean_virtual_window(self):
-        """Limpia el contenido del VirtualWindow."""
-        logging.info("Limpiando el contenido del VirtualWindow.")
-        try:
-            self.clear_guides()
-            for widget in self.widgets:
-                self.left_sidebar.delete_widget(widget)
-            logging.info("El contenido del VirtualWindow fue borrado correctamente.")
-        except Exception as e:
-            logging.error(f"Error al limpiar el contenido del VirtualWindow: {e}")
 
     def read_file(self, file_path):
         """Lee el contenido del archivo especificado."""

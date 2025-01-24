@@ -11,7 +11,7 @@ class Translator:
         for lang, texts in translations.items():
             self.languages[lang] = texts
 
-    def set_language(self, language):
+    def set_language(self, language:str):
         if language in self.languages:
             self.current_language = language
         else:
