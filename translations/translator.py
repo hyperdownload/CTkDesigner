@@ -27,8 +27,12 @@ class Translator:
         for language in ['en', 'es']:
             if language not in self.languages:
                 raise ValueError(f"Idioma '{language}' no encontrado en las traducciones.")
-            
-            for key, value in self.languages[language].items():
-                if value == target_value:
-                    return key
-            return None
+
+            return next(
+                (
+                    key
+                    for key, value in self.languages[language].items()
+                    if value == target_value
+                ),
+                None,
+            )

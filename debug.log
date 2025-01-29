@@ -3423,3 +3423,68 @@ if __name__ == '__main__':
 2025-01-24 18:44:22,288 - INFO - Entry 'text_color' del widget 'CTkButton' creada.
 2025-01-24 18:44:22,299 - INFO - Entry 'border_spacing' del widget 'CTkButton' creada.
 2025-01-24 18:44:22,310 - INFO - Entry 'corner_radius' del widget 'CTkButton' creada.
+2025-01-25 16:34:24,352 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-25 16:34:24,447 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-25 16:34:30,139 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2025-01-25 16:34:30,139 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2025-01-25 16:34:30,143 - INFO - Widget 'CTkButton' creado con éxito.
+2025-01-25 16:34:30,143 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial 140 28
+2025-01-25 16:34:30,978 - INFO - Mostrando configuración para widget: CTkButton
+2025-01-25 16:34:30,979 - DEBUG - ['width', 'height', 'corner_radius', 'border_width', 'border_spacing', 'bg_color', 'fg_color', 'hover_color', 'border_color', 'text_color', 'text_color_disabled', 'background_corner_colors', 'round_width_to_even_numbers', 'round_height_to_even_numbers', 'text', 'font', 'textvariable', 'image', 'state', 'hover', 'command', 'compound', 'anchor', 'kwargs']
+2025-01-25 16:34:30,991 - INFO - Entry 'text' del widget 'CTkButton' creada.
+2025-01-25 16:34:31,004 - INFO - Entry 'command' del widget 'CTkButton' creada.
+2025-01-25 16:34:31,015 - INFO - Entry 'fg_color' del widget 'CTkButton' creada.
+2025-01-25 16:34:31,028 - INFO - Entry 'width' del widget 'CTkButton' creada.
+2025-01-25 16:34:31,039 - INFO - Entry 'height' del widget 'CTkButton' creada.
+2025-01-25 16:34:31,050 - INFO - Entry 'border_width' del widget 'CTkButton' creada.
+2025-01-25 16:34:31,063 - INFO - Entry 'border_color' del widget 'CTkButton' creada.
+2025-01-25 16:34:31,075 - INFO - Entry 'hover_color' del widget 'CTkButton' creada.
+2025-01-25 16:34:31,087 - INFO - Entry 'text_color' del widget 'CTkButton' creada.
+2025-01-25 16:34:31,098 - INFO - Entry 'border_spacing' del widget 'CTkButton' creada.
+2025-01-25 16:34:31,111 - INFO - Entry 'corner_radius' del widget 'CTkButton' creada.
+2025-01-25 16:34:33,669 - INFO - CTkButton copied.
+2025-01-25 16:34:35,411 - DEBUG - Agregando widget de tipo 'CTkButton' con argumentos: {'text': 'CTkButton', 'command': None, 'fg_color': ['#3a7ebf', '#1f538d'], 'width': 140, 'height': 28, 'border_width': 0, 'border_color': ['#3E454A', '#949A9F'], 'hover_color': ['#325882', '#14375e'], 'text_color': ['#DCE4EE', '#DCE4EE'], 'border_spacing': 2, 'corner_radius': 6}.
+2025-01-25 16:34:35,412 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2025-01-25 16:34:35,412 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {'text': 'CTkButton', 'command': None, 'fg_color': ['#3a7ebf', '#1f538d'], 'width': 140, 'height': 28, 'border_width': 0, 'border_color': ['#3E454A', '#949A9F'], 'hover_color': ['#325882', '#14375e'], 'text_color': ['#DCE4EE', '#DCE4EE'], 'border_spacing': 2, 'corner_radius': 6}.
+2025-01-25 16:34:35,414 - INFO - Widget 'CTkButton' creado con éxito.
+2025-01-25 16:34:35,415 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial 140 28
+2025-01-25 16:34:35,415 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial 140 28
+2025-01-25 16:34:35,416 - INFO - CTkButton pasted.
+2025-01-25 16:34:36,827 - DEBUG - Intentando agregar widget de tipo 'CTkLabel'.
+2025-01-25 16:34:36,827 - DEBUG - Creando widget de tipo 'CTkLabel' con argumentos: {}.
+2025-01-25 16:34:36,829 - INFO - Widget 'CTkLabel' creado con éxito.
+2025-01-25 16:34:36,830 - INFO - Widget de tipo 'CTkLabel' agregado en posición inicial 0 28
+2025-01-25 16:34:43,181 - DEBUG - Deleted widget:.!ctkcanvas.!virtualwindow.!ctkbutton
+2025-01-25 16:34:46,111 - INFO - Mostrando configuración para widget: CTkButton
+2025-01-25 16:34:46,111 - DEBUG - ['width', 'height', 'corner_radius', 'border_width', 'border_spacing', 'bg_color', 'fg_color', 'hover_color', 'border_color', 'text_color', 'text_color_disabled', 'background_corner_colors', 'round_width_to_even_numbers', 'round_height_to_even_numbers', 'text', 'font', 'textvariable', 'image', 'state', 'hover', 'command', 'compound', 'anchor', 'kwargs']
+2025-01-25 16:34:46,136 - INFO - Entry 'text' del widget 'CTkButton' creada.
+2025-01-25 16:34:46,148 - INFO - Entry 'command' del widget 'CTkButton' creada.
+2025-01-25 16:34:46,159 - INFO - Entry 'fg_color' del widget 'CTkButton' creada.
+2025-01-25 16:34:46,162 - INFO - Entry 'width' del widget 'CTkButton' creada.
+2025-01-25 16:34:46,184 - INFO - Entry 'height' del widget 'CTkButton' creada.
+2025-01-25 16:34:46,196 - INFO - Entry 'border_width' del widget 'CTkButton' creada.
+2025-01-25 16:34:46,208 - INFO - Entry 'border_color' del widget 'CTkButton' creada.
+2025-01-25 16:34:46,220 - INFO - Entry 'hover_color' del widget 'CTkButton' creada.
+2025-01-25 16:34:46,232 - INFO - Entry 'text_color' del widget 'CTkButton' creada.
+2025-01-25 16:34:46,244 - INFO - Entry 'border_spacing' del widget 'CTkButton' creada.
+2025-01-25 16:34:46,257 - INFO - Entry 'corner_radius' del widget 'CTkButton' creada.
+2025-01-25 16:34:47,190 - DEBUG - Deleted widget:.!ctkcanvas.!virtualwindow.!ctkbutton2
+2025-01-29 02:22:11,996 - INFO - Creando proyecto - Altura: 500, Anchura: 800, Opciones: {'is_resizable': 0}
+2025-01-29 02:22:12,111 - INFO - VirtualWindow inicializada con dimensiones 800x500 y canvas configurado.
+2025-01-29 02:22:22,083 - DEBUG - Intentando agregar widget de tipo 'CTkButton'.
+2025-01-29 02:22:22,083 - DEBUG - Creando widget de tipo 'CTkButton' con argumentos: {}.
+2025-01-29 02:22:22,086 - INFO - Widget 'CTkButton' creado con éxito.
+2025-01-29 02:22:22,088 - INFO - Widget de tipo 'CTkButton' agregado en posición inicial 140 28
+2025-01-29 02:22:31,045 - INFO - Mostrando configuración para widget: CTkButton
+2025-01-29 02:22:31,046 - DEBUG - ['width', 'height', 'corner_radius', 'border_width', 'border_spacing', 'bg_color', 'fg_color', 'hover_color', 'border_color', 'text_color', 'text_color_disabled', 'background_corner_colors', 'round_width_to_even_numbers', 'round_height_to_even_numbers', 'text', 'font', 'textvariable', 'image', 'state', 'hover', 'command', 'compound', 'anchor', 'kwargs']
+2025-01-29 02:22:31,065 - INFO - Entry 'text' del widget 'CTkButton' creada.
+2025-01-29 02:22:31,076 - INFO - Entry 'command' del widget 'CTkButton' creada.
+2025-01-29 02:22:31,088 - INFO - Entry 'fg_color' del widget 'CTkButton' creada.
+2025-01-29 02:22:31,099 - INFO - Entry 'width' del widget 'CTkButton' creada.
+2025-01-29 02:22:31,109 - INFO - Entry 'height' del widget 'CTkButton' creada.
+2025-01-29 02:22:31,121 - INFO - Entry 'border_width' del widget 'CTkButton' creada.
+2025-01-29 02:22:31,132 - INFO - Entry 'border_color' del widget 'CTkButton' creada.
+2025-01-29 02:22:31,143 - INFO - Entry 'hover_color' del widget 'CTkButton' creada.
+2025-01-29 02:22:31,155 - INFO - Entry 'text_color' del widget 'CTkButton' creada.
+2025-01-29 02:22:31,165 - INFO - Entry 'border_spacing' del widget 'CTkButton' creada.
+2025-01-29 02:22:31,176 - INFO - Entry 'corner_radius' del widget 'CTkButton' creada.

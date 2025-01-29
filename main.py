@@ -170,7 +170,7 @@ class LeftSidebar(ctk.CTkScrollableFrame):
             widget: The widget.
             properties: The properties to create entries for.
         """
-        ctk.CTkLabel(self.config_space, text=f"{app.translator.translate("TYPE_TEXT_WIDGET_LABEL")} {widget.__class__.__name__}").pack(pady=self.PADDING)
+        ctk.CTkLabel(self.config_space, text=f"{app.translator.translate('TYPE_TEXT_WIDGET_LABEL')} {widget.__class__.__name__}").pack(pady=self.PADDING)
         for prop in properties:
             self.create_property_entry(widget, prop)
 

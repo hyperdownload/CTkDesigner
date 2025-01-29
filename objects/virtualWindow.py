@@ -32,7 +32,7 @@ class VirtualWindow(ctk.CTkFrame):
         self.pack_propagate(False)
         self.make_widget_selectable(self)
         self.make_widget_selectable(self.guide_canvas)
-        logging.info(f"VirtualWindow inicializada con dimensiones {self.cget("width")}x{self.cget("height")} y canvas configurado.")
+        logging.info(f"VirtualWindow inicializada con dimensiones {self.cget('width')}x{self.cget('height')} y canvas configurado.")
         
     def count_widgets_by_type(self):
         """
@@ -68,7 +68,7 @@ class VirtualWindow(ctk.CTkFrame):
         if widget := self.create_widget(widget_type, **kwargs):
             self._extracted_from_create_and_place_widget_5(widget, self.cget("width") / 2 - widget.cget("width") / 2 
                                                            , self.cget("height") / 2 - widget.cget("height")/2)
-            logging.info(f"Widget de tipo '{widget_type}' agregado en posición inicial {widget.cget("width")} {widget.cget("height")}")
+            logging.info(f"Widget de tipo '{widget_type}' agregado en posición inicial {widget.cget('width')} {widget.cget('height')}")
         else:
             logging.warning(f"Fallo al agregar widget de tipo '{widget_type}'.")
 
